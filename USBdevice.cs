@@ -37,12 +37,17 @@ namespace USkummelB
 
             myView = view;
 
-            Add2View();
+            Add2View(GetListViewItem());
         }
 
-        private void Add2View()
+        private ListViewItem GetListViewItem()
         {
-            mItem = new ListViewItem(new[] { drive + ":", diskName, deviceName, Utils.SizeSuffix(size), lok, hub });
+            return new ListViewItem(new[] { drive.Length > 0 ? drive + ":" : "", diskName, deviceName, Utils.SizeSuffix(size), lok, hub });
+        }
+
+        private void Add2View(ListViewItem listViewItem)
+        {
+            mItem = listViewItem;
             mItem.Tag = this;
             var funnetGruppe = myView.Groups["listViewGroupFunnet"];
             mItem.Group = funnetGruppe;

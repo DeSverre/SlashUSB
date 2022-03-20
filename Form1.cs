@@ -54,7 +54,7 @@ namespace USkummelB
 
         private void C_USBInserted(object sender, EventArgs e)
         {
-            var usbInfo = e as USB_EventInfo;
+            USB_EventInfo? usbInfo = e as USB_EventInfo;
             if (usbInfo != null)
                 this.Invoke((MethodInvoker)delegate
                  {
