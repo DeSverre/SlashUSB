@@ -6,29 +6,21 @@ namespace USkummelB
     {
         private UInt32 queryCancelAutoPlay = 0;
 
-        class Win32Call
-        {
-            [DllImport("user32.dll")]
-            public static extern uint RegisterWindowMessage(String strMessage);
-
-            [DllImport("user32.dll")]
-            public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
-        }
-
         USBDetect usbdetector;
 
         public Form1()
         {
             InitializeComponent();
             usbdetector = new USBDetect();
-            usbdetector.USBInserted += C_USBInserted;
+            usbdetector.USBinserted += C_USBInserted;
+            usbdetector.USBremoved += C_USBRemoved;
         }
 
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
             if (queryCancelAutoPlay == 0)
-                queryCancelAutoPlay = Win32Call.RegisterWindowMessage("QueryCancelAutoPlay");
+                queryCancelAutoPlay = Pinvoke.RegisterWindowMessage("QueryCancelAutoPlay");
 
             //if the window message id equals the QueryCancelAutoPlay message id
             if ((UInt32)m.Msg == queryCancelAutoPlay)
@@ -37,7 +29,7 @@ namespace USkummelB
                 * respond to a "QueryCancelAutoPlay" message, it cannot simply return TRUE or FALSE.
                 SetWindowLong(this.Handle, 0, 1);
                 */
-                Win32Call.SetWindowLong(this.Handle, 0, 1);
+                Pinvoke.SetWindowLong(this.Handle, 0, 1);
                 m.Result = (IntPtr)1;
             }
         }
@@ -60,6 +52,29 @@ namespace USkummelB
                  {
                      new USBdevice(usbListView, usbInfo);
                  });
+        }
+
+        private void C_USBRemoved(object? sender, USB_RemovedEvent e)
+        {
+            USB_RemovedEvent? usbInfo = e as USB_RemovedEvent;
+            if (usbInfo != null)
+                this.Invoke((MethodInvoker)delegate
+                {
+                    RemoveDevice(usbInfo.DeviceName);
+                });
+        }
+
+        private void RemoveDevice(string deviceName)
+        {
+            var result = usbListView.Items.Find(deviceName, false);
+            if(result.Length > 0)
+            {
+                foreach (var item in result)
+                {
+                    var device = item.Tag as USBdevice;
+                    device.Remove();
+                }
+            }
         }
 
         private void testButton_Click(object sender, EventArgs e)

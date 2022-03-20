@@ -33,6 +33,11 @@ namespace USkummelB
         public string DiskName { get; set; }
     }
 
+    public class USB_RemovedEvent : EventArgs
+    {
+        public string DeviceName { get; set;}
+    }
+
     class USBDetect
     {
         public USBDetect()
@@ -48,10 +53,21 @@ namespace USkummelB
             insertWatcher.EventArrived += new EventArrivedEventHandler(NewDiskEvent);
             insertWatcher.Start();
 
-            //WqlEventQuery removeQuery = new WqlEventQuery("SELECT * FROM __InstanceDeletionEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
-            //ManagementEventWatcher removeWatcher = new ManagementEventWatcher(removeQuery);
-            //removeWatcher.EventArrived += new EventArrivedEventHandler(DeviceRemovedEvent);
-            //removeWatcher.Start();
+            WqlEventQuery removeQuery = new WqlEventQuery("SELECT * FROM __InstanceDeletionEvent WITHIN 2 WHERE TargetInstance ISA 'MSFT_Disk' AND TargetInstance.BusType = 7");
+            ManagementEventWatcher removeWatcher = new ManagementEventWatcher(new ManagementScope(@"\root\Microsoft\Windows\Storage"), removeQuery);
+            removeWatcher.EventArrived += new EventArrivedEventHandler(DeviceRemovedEvent);
+            removeWatcher.Start();
+        }
+
+        private void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
+        {
+            ManagementBaseObject? instance = e.NewEvent["TargetInstance"] as ManagementBaseObject;
+            uint diskIndex = (uint)instance["Number"];
+            var args = new USB_RemovedEvent
+            {
+                DeviceName = string.Format("\\\\.\\PHYSICALDRIVE{0}", diskIndex)
+            };
+            OnUSBRemoved(args);
         }
 
         private void NewDiskEvent(object sender, EventArrivedEventArgs e)
@@ -59,7 +75,6 @@ namespace USkummelB
             string pnp_deviceID = "";
             string? location = "";
             string hubID = "";
-            string diskName;
             string deviceName = "";
             UInt64 size = 0;
             string serial = "";
@@ -170,9 +185,15 @@ namespace USkummelB
 
         protected virtual void OnUSBFound(USB_EventInfo e)
         {
-            USBInserted?.Invoke(this, e);
+            USBinserted?.Invoke(this, e);
         }
 
-        public event EventHandler<USB_EventInfo>? USBInserted;
+        private void OnUSBRemoved(USB_RemovedEvent e)
+        {
+            USBremoved?.Invoke(this,e);
+        }
+
+        public event EventHandler<USB_EventInfo>? USBinserted;
+        public event EventHandler<USB_RemovedEvent>? USBremoved;
     }
 }

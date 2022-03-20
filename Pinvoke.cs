@@ -122,5 +122,10 @@ namespace USkummelB
             [MarshalAs(UnmanagedType.U4)] FileMode dwCreationDisposition,
             uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 
+        [DllImport("user32.dll")]
+        public static extern uint RegisterWindowMessage(String strMessage);
+
+        [DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
     }
 }
