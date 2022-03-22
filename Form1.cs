@@ -64,15 +64,19 @@ namespace USkummelB
                 });
         }
 
-        private void RemoveDevice(string deviceName)
+        private void RemoveDevice(string? deviceName)
         {
+            if(deviceName == null)
+                return;
+
             var result = usbListView.Items.Find(deviceName, false);
             if(result.Length > 0)
             {
                 foreach (var item in result)
                 {
-                    var device = item.Tag as USBdevice;
-                    device.Remove();
+                    USBdevice? device = item.Tag as USBdevice;
+                    if(device != null)
+                        device.Remove();
                 }
             }
         }
@@ -81,8 +85,10 @@ namespace USkummelB
         {
             foreach(ListViewItem s in usbListView.SelectedItems)
             {
+                string fs = "FAT32";
+                if (ntfsSelect.Checked) fs = "NTFS";
                 USBdevice usb = (USBdevice)s.Tag;
-                usb.CleanDisk();
+                usb.KjørJobb(cleanChecked.Checked,formatChecked.Checked,merkelappCheckBox.Checked,fs);
             }
         }
     }

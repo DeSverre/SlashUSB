@@ -14,7 +14,7 @@ namespace USkummelB
     {
         public USB_EventInfo()
         {
-            Drive = "";
+            DriveLetter = null;
             Lokasjon = "";
             Hub = "";
             VolumeName = "";
@@ -23,9 +23,9 @@ namespace USkummelB
             DiskName = "";
         }
 
-        public string Drive { get; set; }
+        public char? DriveLetter { get; set; }
         public UInt64 Size { get; set; }
-        public string Lokasjon { get; set; }
+        public string? Lokasjon { get; set; }
         public string Hub { get; set; }
         public string VolumeName { get; set; }
         public string DeviceName { get; set; }
@@ -35,7 +35,7 @@ namespace USkummelB
 
     public class USB_RemovedEvent : EventArgs
     {
-        public string DeviceName { get; set;}
+        public string? DeviceName { get; set;}
     }
 
     class USBDetect
@@ -62,12 +62,15 @@ namespace USkummelB
         private void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
         {
             ManagementBaseObject? instance = e.NewEvent["TargetInstance"] as ManagementBaseObject;
-            uint diskIndex = (uint)instance["Number"];
-            var args = new USB_RemovedEvent
+            if (instance != null)
             {
-                DeviceName = string.Format("\\\\.\\PHYSICALDRIVE{0}", diskIndex)
-            };
-            OnUSBRemoved(args);
+                uint diskIndex = (uint)instance["Number"];
+                var args = new USB_RemovedEvent
+                {
+                    DeviceName = string.Format("\\\\.\\PHYSICALDRIVE{0}", diskIndex)
+                };
+                OnUSBRemoved(args);
+            }
         }
 
         private void NewDiskEvent(object sender, EventArrivedEventArgs e)
@@ -79,16 +82,19 @@ namespace USkummelB
             UInt64 size = 0;
             string serial = "";
 
-            ManagementBaseObject instance = e.NewEvent["TargetInstance"] as ManagementBaseObject;
-            uint diskIndex = (uint)instance["Number"];
-
-            ManagementObjectCollection ddc = WQL.QueryMi(@"SELECT * FROM Win32_DiskDrive WHERE Index=" + diskIndex);
-            foreach (ManagementObject dd in ddc)
+            ManagementBaseObject? instance = e.NewEvent["TargetInstance"] as ManagementBaseObject;
+            if (instance != null)
             {
-                pnp_deviceID = (string)dd["PnPDeviceID"];
-                size = (UInt64)dd.GetPropertyValue("Size");
-                deviceName = (string)dd["DeviceID"];
-                serial = (string)dd["SerialNumber"];
+                uint diskIndex = (uint)instance["Number"];
+
+                ManagementObjectCollection ddc = WQL.QueryMi(@"SELECT * FROM Win32_DiskDrive WHERE Index=" + diskIndex);
+                foreach (ManagementObject dd in ddc)
+                {
+                    pnp_deviceID = (string)dd["PnPDeviceID"];
+                    size = (UInt64)dd.GetPropertyValue("Size");
+                    deviceName = (string)dd["DeviceID"];
+                    serial = (string)dd["SerialNumber"];
+                }
             }
             CommonSendEvent("", pnp_deviceID, ref location, ref hubID, "", deviceName, size, serial);
         }
@@ -146,7 +152,7 @@ namespace USkummelB
             string volumeName = Pinvoke.GetVolumeName(drive + "\\");
 
             var args = new USB_EventInfo();
-            args.Drive = drive.Length > 0 ? drive[..1] : "";
+            args.DriveLetter = drive.Length > 0 ? drive[0] : null;
             args.Size = size;
             args.Hub = hubID;
             args.Lokasjon = location;

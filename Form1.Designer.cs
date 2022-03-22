@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.ntfsSelect = new System.Windows.Forms.RadioButton();
+            this.fat32Select = new System.Windows.Forms.RadioButton();
             this.merkelappCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.formatChecked = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cleanChecked = new System.Windows.Forms.CheckBox();
             this.usbListView = new System.Windows.Forms.ListView();
+            this.Status = new System.Windows.Forms.ColumnHeader();
             this.Disk = new System.Windows.Forms.ColumnHeader();
             this.Navn = new System.Windows.Forms.ColumnHeader();
             this.DeviceNavn = new System.Windows.Forms.ColumnHeader();
@@ -51,12 +52,12 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.ntfsSelect);
+            this.groupBox1.Controls.Add(this.fat32Select);
             this.groupBox1.Controls.Add(this.merkelappCheckBox);
-            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.formatChecked);
             this.groupBox1.Controls.Add(this.checkBox3);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.cleanChecked);
             this.groupBox1.Location = new System.Drawing.Point(1181, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(232, 367);
@@ -64,27 +65,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Standard handling";
             // 
-            // radioButton2
+            // ntfsSelect
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(45, 135);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(52, 19);
-            this.radioButton2.TabIndex = 2;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "NTFS";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.ntfsSelect.AutoSize = true;
+            this.ntfsSelect.Location = new System.Drawing.Point(45, 135);
+            this.ntfsSelect.Name = "ntfsSelect";
+            this.ntfsSelect.Size = new System.Drawing.Size(52, 19);
+            this.ntfsSelect.TabIndex = 2;
+            this.ntfsSelect.Text = "NTFS";
+            this.ntfsSelect.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // fat32Select
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(45, 110);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(57, 19);
-            this.radioButton1.TabIndex = 2;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "FATXX";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.fat32Select.AutoSize = true;
+            this.fat32Select.Checked = true;
+            this.fat32Select.Location = new System.Drawing.Point(45, 110);
+            this.fat32Select.Name = "fat32Select";
+            this.fat32Select.Size = new System.Drawing.Size(55, 19);
+            this.fat32Select.TabIndex = 2;
+            this.fat32Select.TabStop = true;
+            this.fat32Select.Text = "FAT32";
+            this.fat32Select.UseVisualStyleBackColor = true;
             // 
             // merkelappCheckBox
             // 
@@ -93,20 +94,20 @@
             this.merkelappCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.merkelappCheckBox.Location = new System.Drawing.Point(23, 172);
             this.merkelappCheckBox.Name = "merkelappCheckBox";
-            this.merkelappCheckBox.Size = new System.Drawing.Size(104, 19);
+            this.merkelappCheckBox.Size = new System.Drawing.Size(202, 19);
             this.merkelappCheckBox.TabIndex = 1;
-            this.merkelappCheckBox.Text = "Lag merkelapp";
+            this.merkelappCheckBox.Text = "Lag merkelapp basert på størrelse";
             this.merkelappCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // formatChecked
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(23, 81);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(74, 19);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Formater";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.formatChecked.AutoSize = true;
+            this.formatChecked.Location = new System.Drawing.Point(23, 81);
+            this.formatChecked.Name = "formatChecked";
+            this.formatChecked.Size = new System.Drawing.Size(74, 19);
+            this.formatChecked.TabIndex = 1;
+            this.formatChecked.Text = "Formater";
+            this.formatChecked.UseVisualStyleBackColor = true;
             // 
             // checkBox3
             // 
@@ -120,19 +121,20 @@
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.AktivertCheckBox_CheckedChanged);
             // 
-            // checkBox1
+            // cleanChecked
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(23, 56);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(119, 19);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Fjern partisjon(er)";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cleanChecked.AutoSize = true;
+            this.cleanChecked.Location = new System.Drawing.Point(23, 56);
+            this.cleanChecked.Name = "cleanChecked";
+            this.cleanChecked.Size = new System.Drawing.Size(119, 19);
+            this.cleanChecked.TabIndex = 1;
+            this.cleanChecked.Text = "Fjern partisjon(er)";
+            this.cleanChecked.UseVisualStyleBackColor = true;
             // 
             // usbListView
             // 
             this.usbListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Status,
             this.Disk,
             this.Navn,
             this.DeviceNavn,
@@ -140,21 +142,26 @@
             this.Lokasjon,
             this.Hub});
             this.usbListView.FullRowSelect = true;
-            listViewGroup1.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup1.Header = "Funnet";
-            listViewGroup1.Name = "listViewGroupFunnet";
-            listViewGroup2.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup2.Header = "Aktivert";
-            listViewGroup2.Name = "listViewGroupAktivert";
+            listViewGroup3.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup3.Header = "Funnet";
+            listViewGroup3.Name = "listViewGroupFunnet";
+            listViewGroup4.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup4.Header = "Aktivert";
+            listViewGroup4.Name = "listViewGroupAktivert";
             this.usbListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2});
+            listViewGroup3,
+            listViewGroup4});
             this.usbListView.Location = new System.Drawing.Point(12, 12);
             this.usbListView.Name = "usbListView";
             this.usbListView.Size = new System.Drawing.Size(916, 602);
             this.usbListView.TabIndex = 1;
             this.usbListView.UseCompatibleStateImageBehavior = false;
             this.usbListView.View = System.Windows.Forms.View.Details;
+            // 
+            // Status
+            // 
+            this.Status.Text = "Status";
+            this.Status.Width = 70;
             // 
             // Disk
             // 
@@ -225,10 +232,10 @@
         #endregion
 
         private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private RadioButton ntfsSelect;
+        private RadioButton fat32Select;
+        private CheckBox formatChecked;
+        private CheckBox cleanChecked;
         private CheckBox checkBox3;
         private ListView usbListView;
         private ColumnHeader Disk;
@@ -240,5 +247,6 @@
         private Button button1;
         private ColumnHeader DeviceNavn;
         private Button testButton;
+        private ColumnHeader Status;
     }
 }

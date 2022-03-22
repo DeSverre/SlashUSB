@@ -9,22 +9,31 @@ namespace USkummelB
 {
     internal class USBdevice
     {
-        private string drive;
-        string Drive { get { return drive; } 
+        private enum Status
+        {
+            Klar,
+            Jobber,
+            Ferdig,
+            Feil
+        };
+
+        private readonly string[] statusTekster = { "Klar", "Jobber", "Ferdig", "Feil!" };
+
+        private char? driveLetter;
+        char? DriveLetter { get { return driveLetter; } 
             set 
             {
-                if (value.Length > 0)
-                    drive = value;
+                driveLetter = value;
                 UpdateDisk();
             }
         }
-        private string diskName;
-        string DiskName
+        private string? diskName;
+        string? DiskName
         {
             get { return diskName; }
             set
             {
-                if(value.Length > 0)
+                if(value != null && value.Length > 0)
                     diskName = value;
                 UpdateDisk();
             }
@@ -32,17 +41,48 @@ namespace USkummelB
 
         private void UpdateDisk()
         {
+            string _drive = "";
+            if(driveLetter != null) _drive = driveLetter.ToString()+":";
+ 
             if(mItem != null)
             {
-                mItem.SubItems[0].Text = Drive;
-                mItem.SubItems[1].Text = DiskName;
+                mItem.SubItems[1].Text = _drive;
+                mItem.SubItems[2].Text = DiskName;
             }
         }
 
+        private void UpdateStatus(Status nyStatus)
+        {
+            if (mItem != null)
+            {
+                var subIt = mItem.SubItems[0];
+                subIt.Text = statusTekster[(int)nyStatus];
+
+                switch (nyStatus)
+                {
+                    case Status.Klar:
+                        subIt.BackColor = Color.Blue;
+                        subIt.ForeColor = Color.White;
+                        break;
+                    case Status.Jobber:
+                        subIt.BackColor = Color.Yellow;
+                        subIt.ForeColor = Color.Black;
+                        break;
+                    case Status.Ferdig:
+                        subIt.BackColor = Color.Green;
+                        subIt.ForeColor = Color.White;
+                        break;
+                    case Status.Feil:
+                        subIt.BackColor = Color.Red;
+                        subIt.ForeColor = Color.Black;
+                        break;
+                }
+            }
+        }
 
         UInt64 size;
         readonly string hub;
-        readonly string lok;
+        readonly string? lok;
         readonly string deviceName;
         string serial;
         string volumeName;
@@ -55,13 +95,13 @@ namespace USkummelB
 
         public USBdevice(ListView view, USB_EventInfo info)
         {
-            Drive = info.Drive;
+            DriveLetter = info.DriveLetter;
+            DiskName = info.DiskName;
             size = info.Size;
             hub = info.Hub;
             lok = info.Lokasjon;
             deviceName = info.DeviceName;
             serial = info.Serial;
-            DiskName = info.DiskName;
             volumeName = info.VolumeName;
 
             myView = view;
@@ -69,7 +109,7 @@ namespace USkummelB
             var existing = ExistingDevice(deviceName);
             if (existing != null)
             {
-                existing.Drive = info.Drive;
+                existing.DriveLetter = info.DriveLetter;
                 existing.DiskName = info.DiskName;
             }
             else
@@ -78,7 +118,7 @@ namespace USkummelB
 
         private ListViewItem GetListViewItem()
         {
-            var result = new ListViewItem(new[] { Drive!=null&& Drive.Length > 0 ? Drive + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, hub })
+            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter !=null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, hub })
             {
                 Name = deviceName
             };
@@ -92,6 +132,7 @@ namespace USkummelB
             var funnetGruppe = myView.Groups["listViewGroupFunnet"];
             mItem.Group = funnetGruppe;
             myView.Items.Add(mItem);
+            UpdateStatus(Status.Klar);
         }
 
         public void Remove()
@@ -100,8 +141,9 @@ namespace USkummelB
                 mItem.Remove();
         }
 
-        public void CleanDisk()
+        public bool CleanDisk()
         {
+            bool result = false;
             var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" +serial+"'");
             if(diskC != null)
                 foreach(ManagementObject disk in diskC)
@@ -112,35 +154,93 @@ namespace USkummelB
                     inParams["ZeroOutEntireDisk"] = false;
 
                     ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
-                    Console.WriteLine("Out parameters:");
-                    string line;
-                    line = "CreatedStorageJob: " + outParams["CreatedStorageJob"];
-                    Console.WriteLine(line);
-                    line = "ReturnValue: " + outParams["ReturnValue"];
-                    Console.WriteLine("The ExtendedStatus out-parameter contains an object.");
-                    Console.WriteLine(line);
+                    UInt32 returnValue = (UInt32)outParams["ReturnValue"];
+                    if (returnValue == 0)
+                    {
+                        inParams = disk.GetMethodParameters("CreatePartition");
+                        inParams["AssignDriveLetter"] = true;
+                        inParams["UseMaximumSize"] = true;
+                        outParams = disk.InvokeMethod("CreatePartition", inParams, null);
+                        returnValue = (UInt32)outParams["ReturnValue"];
+                        ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
+                        char nydrive = (char)part["DriveLetter"];
+                        driveLetter = nydrive;
+                        diskName = "";
+                        UpdateDisk();
+                        result = true;
+                    }
                     break;
                 }
+
+            return result;
         }
-        public void Format()
+        public bool Format(bool sizeLabel, string fs = "ExFAT")
         {
-            var volumeC = WQL.QueryMi(@"SELECT * FROM Win32_Volume WHERE DriveLetter = '" + Drive + "'");
+#if false
+            bool result = false;
+            var volumeC = WQL.QueryMi(@"SELECT * FROM Win32_Volume WHERE DeviceID = '" + volumeName.Replace(@"\", @"\\") + "'");
             if (volumeC != null)
                 foreach (ManagementObject volume in volumeC)
                 {
                     ManagementBaseObject inParams = volume.GetMethodParameters("Format");
+                    string label = sizeLabel ? Utils.SizeSuffix(size,0) : (DiskName != null ? DiskName : "Ny disk");
                     inParams["FileSystem"] = "FAT32";
-                    inParams["Label"] = DiskName;
+                    inParams["Label"] = label;
                     inParams["QuickFormat"] = true;
 
                     ManagementBaseObject outParams = volume.InvokeMethod("Format", inParams, null);
-                    Console.WriteLine("Out parameters:");
-                    string line = "ReturnValue: " + outParams["ReturnValue"];
-                    Console.WriteLine("The ExtendedStatus out-parameter contains an object.");
-                    Console.WriteLine(line);
+                    UInt32 returnValue = (UInt32)outParams["ReturnValue"];
+
+                    if(returnValue == 0)
+                    {
+                        DiskName = label;
+                        UpdateDisk();
+                        result = true;
+                    }
                     break;
                 }
+            return result;
+#else
+            bool result = false;
+            var volumeC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Volume WHERE Path = '" + volumeName.Replace(@"\", @"\\") + "'");
+            if (volumeC != null)
+                foreach (ManagementObject volume in volumeC)
+                {
+                    ManagementBaseObject inParams = volume.GetMethodParameters("Format");
+                    string label = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "Ny disk");
+                    inParams["FileSystem"] = fs;
+                    inParams["FileSystemLabel"] = label;
+                    inParams["Full"] = false;
+                    inParams["Force"] = true;
+
+                    ManagementBaseObject outParams = volume.InvokeMethod("Format", inParams, null);
+                    UInt32 returnValue = (UInt32)outParams["ReturnValue"];
+
+                    if (returnValue == 0)
+                    {
+                        DiskName = label;
+                        UpdateDisk();
+                        result = true;
+                    }
+                    break;
+                }
+            return result;
+#endif
         }
+
+        public void KjørJobb(bool clean,bool format,bool sizeLabel,string fs)
+        {
+            UpdateStatus(Status.Jobber);
+            bool ok = true;
+            if (clean) ok &= CleanDisk();
+            if (format) ok &= Format(sizeLabel, fs);
+
+            if (ok)
+                UpdateStatus(Status.Ferdig);
+            else
+                UpdateStatus(Status.Feil);
+        }
+
         internal USBdevice? ExistingDevice(string deviceName)
         {
             ListViewItem[] found = myView.Items.Find(deviceName, false);
