@@ -51,13 +51,13 @@ namespace USkummelB
             }
         }
 
-        private void UpdateStatus(Status nyStatus)
+        private void UpdateStatus(Status nyStatus, string? text=null)
         {
             if (mItem != null)
             {
                 mItem.UseItemStyleForSubItems = false;
                 var subIt = mItem.SubItems[0];
-                subIt.Text = statusTekster[(int)nyStatus];
+                subIt.Text = text ?? statusTekster[(int)nyStatus];
 
                 switch (nyStatus)
                 {
