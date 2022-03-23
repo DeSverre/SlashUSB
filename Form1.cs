@@ -88,6 +88,7 @@ namespace USkummelB
                 string fs = "FAT32";
                 if (ntfsSelect.Checked) fs = "NTFS";
                 USBdevice usb = (USBdevice)s.Tag;
+                s.Selected = false;
                 usb.KjørJobb(cleanChecked.Checked,formatChecked.Checked,merkelappCheckBox.Checked,fs);
             }
         }

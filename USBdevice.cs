@@ -55,6 +55,7 @@ namespace USkummelB
         {
             if (mItem != null)
             {
+                mItem.UseItemStyleForSubItems = false;
                 var subIt = mItem.SubItems[0];
                 subIt.Text = statusTekster[(int)nyStatus];
 
@@ -118,9 +119,10 @@ namespace USkummelB
 
         private ListViewItem GetListViewItem()
         {
-            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter !=null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, hub })
+            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, hub })
             {
-                Name = deviceName
+                Name = deviceName,
+                UseItemStyleForSubItems = false
             };
             return result;
         }
