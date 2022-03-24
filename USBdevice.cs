@@ -9,6 +9,19 @@ namespace USkummelB
 {
     internal class USBdevice
     {
+        private string? newLabel = null;
+        UInt64 size;
+        public readonly string Hub;
+        readonly string? lok;
+        readonly string deviceName;
+        string serial;
+        string volumeName;
+
+        readonly ListView myView;
+
+        ListViewItem? mItem = null;
+
+
         private enum Status
         {
             Klar,
@@ -23,8 +36,11 @@ namespace USkummelB
         char? DriveLetter { get { return driveLetter; } 
             set 
             {
-                driveLetter = value;
-                UpdateDisk();
+                if (value != null)
+                {
+                    driveLetter = value;
+                    UpdateDisk();
+                }
             }
         }
         private string? diskName;
@@ -81,25 +97,14 @@ namespace USkummelB
             }
         }
 
-        UInt64 size;
-        readonly string hub;
-        readonly string? lok;
-        readonly string deviceName;
-        string serial;
-        string volumeName;
-
-        readonly ListView myView;
-
-        ListViewItem? mItem = null;
-
         bool Valid() { return true; }
 
-        public USBdevice(ListView view, USB_EventInfo info)
+        public USBdevice(ListView view, USB_EventInfo info, string gruppeNavn)
         {
             DriveLetter = info.DriveLetter;
             DiskName = info.DiskName;
             size = info.Size;
-            hub = info.Hub;
+            Hub = info.Hub;
             lok = info.Lokasjon;
             deviceName = info.DeviceName;
             serial = info.Serial;
@@ -114,12 +119,12 @@ namespace USkummelB
                 existing.DiskName = info.DiskName;
             }
             else
-                Add2View(GetListViewItem());
+                Add2View(GetListViewItem(),gruppeNavn);
         }
 
         private ListViewItem GetListViewItem()
         {
-            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, hub })
+            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, Hub })
             {
                 Name = deviceName,
                 UseItemStyleForSubItems = false
@@ -127,25 +132,29 @@ namespace USkummelB
             return result;
         }
 
-        private void Add2View(ListViewItem listViewItem)
+        private void Add2View(ListViewItem listViewItem, string gruppeNavn)
         {
             mItem = listViewItem;
             mItem.Tag = this;
-            var funnetGruppe = myView.Groups["listViewGroupFunnet"];
-            mItem.Group = funnetGruppe;
+            ListViewGroup gruppe = myView.Groups[gruppeNavn];
+            mItem.Group = gruppe;
             myView.Items.Add(mItem);
             UpdateStatus(Status.Klar);
         }
 
         public void Remove()
         {
-            if(mItem != null)
+            if (mItem != null)
+            {
                 mItem.Remove();
+                mItem = null;
+            }
         }
 
-        public bool CleanDisk()
+        public void CleanDisk()
         {
-            bool result = false;
+            UpdateStatus(Status.Jobber, "Renser");
+            UInt32 returnValue = 1;
             var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" +serial+"'");
             if(diskC != null)
                 foreach(ManagementObject disk in diskC)
@@ -156,7 +165,7 @@ namespace USkummelB
                     inParams["ZeroOutEntireDisk"] = false;
 
                     ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
-                    UInt32 returnValue = (UInt32)outParams["ReturnValue"];
+                    returnValue = (UInt32)outParams["ReturnValue"];
                     if (returnValue == 0)
                     {
                         inParams = disk.GetMethodParameters("CreatePartition");
@@ -165,18 +174,23 @@ namespace USkummelB
                         outParams = disk.InvokeMethod("CreatePartition", inParams, null);
                         returnValue = (UInt32)outParams["ReturnValue"];
                         ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
-                        char nydrive = (char)part["DriveLetter"];
+                        char? nydrive = (char)part["DriveLetter"];
                         driveLetter = nydrive;
                         diskName = "";
                         UpdateDisk();
-                        result = true;
                     }
                     break;
                 }
-
-            return result;
+            UpdateStatus(returnValue == 0?Status.Ferdig:Status.Feil);
         }
-        public bool Format(bool sizeLabel, string fs = "ExFAT")
+
+        internal void ByttGruppe(string gruppe)
+        {
+            if(mItem!=null)
+                mItem.Group = myView.Groups[gruppe];
+        }
+
+        public void Format(bool sizeLabel, string fs = "FAT32")
         {
 #if false
             bool result = false;
@@ -203,44 +217,70 @@ namespace USkummelB
                 }
             return result;
 #else
-            bool result = false;
+            UpdateStatus(Status.Jobber, "Formaterer");
             var volumeC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Volume WHERE Path = '" + volumeName.Replace(@"\", @"\\") + "'");
             if (volumeC != null)
                 foreach (ManagementObject volume in volumeC)
                 {
                     ManagementBaseObject inParams = volume.GetMethodParameters("Format");
-                    string label = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "Ny disk");
+                    newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "Ny disk");
                     inParams["FileSystem"] = fs;
-                    inParams["FileSystemLabel"] = label;
+                    inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;
-                    inParams["Force"] = true;
+//                    inParams["Force"] = true;
+                    inParams["RunAsJob"] = false;
 
-                    ManagementBaseObject outParams = volume.InvokeMethod("Format", inParams, null);
-                    UInt32 returnValue = (UInt32)outParams["ReturnValue"];
+                    ManagementOperationObserver results = new();
+                    results.Progress += new ProgressEventHandler(this.ProgressHandler);
+                    results.ObjectReady += new ObjectReadyEventHandler(this.FormatObjRdy);
+                    results.Completed += new CompletedEventHandler(this.FormatCompleted);
+                    results.ObjectPut += new ObjectPutEventHandler(this.ObjPut);
 
-                    if (returnValue == 0)
-                    {
-                        DiskName = label;
-                        UpdateDisk();
-                        result = true;
-                    }
+                    /*ManagementBaseObject outParams = */
+                    volume.InvokeMethod(results, "Format", inParams, null);
                     break;
                 }
-            return result;
 #endif
+        }
+
+        private void ObjPut(object sender, ObjectPutEventArgs e)
+        {
+            var context = e.Context;
+            var path = e.Path;
+        }
+
+        private void FormatObjRdy(object sender, ObjectReadyEventArgs e)
+        {
+            var context = e.Context;
+            var newObj = e.NewObject;
+        }
+
+        private void FormatCompleted(object sender, CompletedEventArgs e)
+        {
+            if (e.Status == ManagementStatus.NoError)
+            {
+                myView.Invoke((MethodInvoker)delegate
+                 {
+                     DiskName = newLabel;
+                     UpdateStatus(Status.Ferdig);
+                 });
+            }
+            else
+                myView.Invoke((MethodInvoker)delegate
+                {
+                    UpdateStatus(Status.Feil);
+                });
+        }
+
+        private void ProgressHandler(object sender, ProgressEventArgs e)
+        {
+            
         }
 
         public void KjørJobb(bool clean,bool format,bool sizeLabel,string fs)
         {
-            UpdateStatus(Status.Jobber);
-            bool ok = true;
-            if (clean) ok &= CleanDisk();
-            if (format) ok &= Format(sizeLabel, fs);
-
-            if (ok)
-                UpdateStatus(Status.Ferdig);
-            else
-                UpdateStatus(Status.Feil);
+            if (clean) CleanDisk();
+            if (format) Format(sizeLabel, fs);
         }
 
         internal USBdevice? ExistingDevice(string deviceName)

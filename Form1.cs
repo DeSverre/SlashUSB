@@ -7,6 +7,8 @@ namespace USkummelB
         private UInt32 queryCancelAutoPlay = 0;
 
         USBDetect usbdetector;
+        List<string> hubList = new();
+        List<string> aktivertHubList = new();
 
         public Form1()
         {
@@ -49,9 +51,9 @@ namespace USkummelB
             USB_EventInfo? usbInfo = e as USB_EventInfo;
             if (usbInfo != null)
                 this.Invoke((MethodInvoker)delegate
-                 {
-                     new USBdevice(usbListView, usbInfo);
-                 });
+                {
+                    InsertDevice(usbInfo);
+                });
         }
 
         private void C_USBRemoved(object? sender, USB_RemovedEvent e)
@@ -64,18 +66,39 @@ namespace USkummelB
                 });
         }
 
+        private void InsertDevice(USB_EventInfo usbInfo)
+        {
+            DetermineHubIndex(usbInfo);
+            bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.Hub) != -1);
+
+            var usb = new USBdevice(usbListView, usbInfo, aktivert?"listViewGroupAktivert":"listViewGroupFunnet");
+            if(aktivert)
+                KjørJobb(usb);
+        }
+
+        private void DetermineHubIndex(USB_EventInfo usbInfo)
+        {
+            var index = hubList.FindIndex(x => x == usbInfo.Hub);
+            if (index == -1)
+            {
+                hubList.Add(usbInfo.Hub);
+                index = hubList.Count - 1;
+            }
+            usbInfo.Hub = index.ToString();
+        }
+
         private void RemoveDevice(string? deviceName)
         {
-            if(deviceName == null)
+            if (deviceName == null)
                 return;
 
             var result = usbListView.Items.Find(deviceName, false);
-            if(result.Length > 0)
+            if (result.Length > 0)
             {
                 foreach (var item in result)
                 {
                     USBdevice? device = item.Tag as USBdevice;
-                    if(device != null)
+                    if (device != null)
                         device.Remove();
                 }
             }
@@ -83,18 +106,51 @@ namespace USkummelB
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            foreach(ListViewItem s in usbListView.SelectedItems)
+            foreach (ListViewItem s in usbListView.SelectedItems)
             {
-                string fs = "FAT32";
-                if (ntfsSelect.Checked) fs = "NTFS";
                 USBdevice usb = (USBdevice)s.Tag;
                 s.Selected = false;
-                usb.KjørJobb(cleanChecked.Checked,formatChecked.Checked,merkelappCheckBox.Checked,fs);
+                KjørJobb(usb);
             }
+        }
+
+        private void KjørJobb(USBdevice usb)
+        {
+            string fs = "FAT32";
+            if (ntfsSelect.Checked) fs = "NTFS";
+            if (ExFATselect.Checked) fs = "ExFAT";
+            usb.KjørJobb(cleanChecked.Checked, formatChecked.Checked, merkelappCheckBox.Checked, fs);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem s in usbListView.SelectedItems)
+            {
+                USBdevice usb = (USBdevice)s.Tag;
+                var hub = usb.Hub;
+                AddHub2Aktivert(hub);
+            }
+            OppdaterOgKjørAktiverte();
+        }
+
+        private void OppdaterOgKjørAktiverte()
+        {
+            foreach (ListViewItem s in usbListView.Items)
+            {
+                USBdevice usb = (USBdevice)s.Tag;
+                if (aktivertHubList.FindIndex(x => usb.Hub == x) != -1)
+                    usb.ByttGruppe("listViewGroupAktivert");
+            }
+        }
+
+        private void AddHub2Aktivert(string hub)
+        {
+            if(aktivertHubList.FindIndex(x => x == hub) == -1)
+                aktivertHubList.Add(hub);
         }
     }
 
-    class Utils
+    internal class Utils
     {
         static readonly string[] SizeSuffixes =
                           { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };

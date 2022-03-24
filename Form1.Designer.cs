@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ExFATselect = new System.Windows.Forms.RadioButton();
             this.ntfsSelect = new System.Windows.Forms.RadioButton();
             this.fat32Select = new System.Windows.Forms.RadioButton();
             this.merkelappCheckBox = new System.Windows.Forms.CheckBox();
@@ -52,6 +53,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.ExFATselect);
             this.groupBox1.Controls.Add(this.ntfsSelect);
             this.groupBox1.Controls.Add(this.fat32Select);
             this.groupBox1.Controls.Add(this.merkelappCheckBox);
@@ -65,10 +67,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Standard handling";
             // 
+            // ExFATselect
+            // 
+            this.ExFATselect.AutoSize = true;
+            this.ExFATselect.Checked = true;
+            this.ExFATselect.Location = new System.Drawing.Point(45, 135);
+            this.ExFATselect.Name = "ExFATselect";
+            this.ExFATselect.Size = new System.Drawing.Size(55, 19);
+            this.ExFATselect.TabIndex = 2;
+            this.ExFATselect.TabStop = true;
+            this.ExFATselect.Text = "ExFAT";
+            this.ExFATselect.UseVisualStyleBackColor = true;
+            // 
             // ntfsSelect
             // 
             this.ntfsSelect.AutoSize = true;
-            this.ntfsSelect.Location = new System.Drawing.Point(45, 135);
+            this.ntfsSelect.Location = new System.Drawing.Point(45, 160);
             this.ntfsSelect.Name = "ntfsSelect";
             this.ntfsSelect.Size = new System.Drawing.Size(52, 19);
             this.ntfsSelect.TabIndex = 2;
@@ -78,12 +92,10 @@
             // fat32Select
             // 
             this.fat32Select.AutoSize = true;
-            this.fat32Select.Checked = true;
             this.fat32Select.Location = new System.Drawing.Point(45, 110);
             this.fat32Select.Name = "fat32Select";
             this.fat32Select.Size = new System.Drawing.Size(55, 19);
             this.fat32Select.TabIndex = 2;
-            this.fat32Select.TabStop = true;
             this.fat32Select.Text = "FAT32";
             this.fat32Select.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +104,7 @@
             this.merkelappCheckBox.AutoSize = true;
             this.merkelappCheckBox.Checked = true;
             this.merkelappCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.merkelappCheckBox.Location = new System.Drawing.Point(23, 172);
+            this.merkelappCheckBox.Location = new System.Drawing.Point(23, 198);
             this.merkelappCheckBox.Name = "merkelappCheckBox";
             this.merkelappCheckBox.Size = new System.Drawing.Size(202, 19);
             this.merkelappCheckBox.TabIndex = 1;
@@ -142,15 +154,15 @@
             this.Lokasjon,
             this.Hub});
             this.usbListView.FullRowSelect = true;
-            listViewGroup3.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup3.Header = "Funnet";
-            listViewGroup3.Name = "listViewGroupFunnet";
-            listViewGroup4.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup4.Header = "Aktivert";
-            listViewGroup4.Name = "listViewGroupAktivert";
+            listViewGroup1.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup1.Header = "Funnet";
+            listViewGroup1.Name = "listViewGroupFunnet";
+            listViewGroup2.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup2.Header = "Aktivert";
+            listViewGroup2.Name = "listViewGroupAktivert";
             this.usbListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3,
-            listViewGroup4});
+            listViewGroup1,
+            listViewGroup2});
             this.usbListView.Location = new System.Drawing.Point(12, 12);
             this.usbListView.Name = "usbListView";
             this.usbListView.Size = new System.Drawing.Size(916, 602);
@@ -201,6 +213,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Aktiver hub";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // testButton
             // 
@@ -248,5 +261,6 @@
         private ColumnHeader DeviceNavn;
         private Button testButton;
         private ColumnHeader Status;
+        private RadioButton ExFATselect;
     }
 }

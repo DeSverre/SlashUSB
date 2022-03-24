@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_E589A373C98C4B6EA9B4A59A22AA225D"
+        "MsmKey" = "8:_610D0C8AAE884E2A847590DF8E32A8F0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -178,7 +178,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:USBskummel"
         "ProductCode" = "8:{DB330375-206B-4287-864D-EBEA1B2027E0}"
-        "PackageCode" = "8:{EBA35FE8-BDE7-4ACA-9948-8D0A6BA67755}"
+        "PackageCode" = "8:{1568A594-8C7A-4CAC-A452-70F61C22664F}"
         "UpgradeCode" = "8:{B3DDFF8E-DC31-483E-97BD-7B2566498B57}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -298,16 +298,30 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_64A4E54A00A146A6B71D9136E5C71867"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_743A0CDBBD814B648F35A8B6AA60D85F"
             {
-            "Name" = "8:Shortcut to Publish Items from USkummelB (Active)"
+            "Name" = "8:USkummelB"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_E589A373C98C4B6EA9B4A59A22AA225D"
+            "Target" = "8:_610D0C8AAE884E2A847590DF8E32A8F0"
             "Folder" = "8:_6F4948C50D0E4FA8B61FD7B32013DD0B"
+            "WorkingFolder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BE71796B7DD84BE28CB53CEBBCA8EFAC"
+            {
+            "Name" = "8:USkummelB"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_610D0C8AAE884E2A847590DF8E32A8F0"
+            "Folder" = "8:_03E3424414944EC0B0B19D1D157B0865"
             "WorkingFolder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
             "Icon" = "8:"
             "Feature" = "8:"
@@ -711,7 +725,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E589A373C98C4B6EA9B4A59A22AA225D"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_610D0C8AAE884E2A847590DF8E32A8F0"
             {
             "SourcePath" = "8:..\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
@@ -735,7 +749,6 @@
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{35711228-C07A-46FA-A318-4542C7D774AD}"
             "ShowKeyOutput" = "11:TRUE"
-            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }
