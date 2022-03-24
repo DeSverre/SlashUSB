@@ -36,7 +36,7 @@
             this.fat32Select = new System.Windows.Forms.RadioButton();
             this.merkelappCheckBox = new System.Windows.Forms.CheckBox();
             this.formatChecked = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.activatedCB = new System.Windows.Forms.CheckBox();
             this.cleanChecked = new System.Windows.Forms.CheckBox();
             this.usbListView = new System.Windows.Forms.ListView();
             this.Status = new System.Windows.Forms.ColumnHeader();
@@ -46,7 +46,7 @@
             this.DiskSize = new System.Windows.Forms.ColumnHeader();
             this.Lokasjon = new System.Windows.Forms.ColumnHeader();
             this.Hub = new System.Windows.Forms.ColumnHeader();
-            this.button1 = new System.Windows.Forms.Button();
+            this.activateHUBbt = new System.Windows.Forms.Button();
             this.testButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +58,7 @@
             this.groupBox1.Controls.Add(this.fat32Select);
             this.groupBox1.Controls.Add(this.merkelappCheckBox);
             this.groupBox1.Controls.Add(this.formatChecked);
-            this.groupBox1.Controls.Add(this.checkBox3);
+            this.groupBox1.Controls.Add(this.activatedCB);
             this.groupBox1.Controls.Add(this.cleanChecked);
             this.groupBox1.Location = new System.Drawing.Point(1181, 12);
             this.groupBox1.Name = "groupBox1";
@@ -121,17 +121,17 @@
             this.formatChecked.Text = "Formater";
             this.formatChecked.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // activatedCB
             // 
-            this.checkBox3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(23, 25);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(54, 25);
-            this.checkBox3.TabIndex = 1;
-            this.checkBox3.Text = "Aktiver";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.AktivertCheckBox_CheckedChanged);
+            this.activatedCB.Appearance = System.Windows.Forms.Appearance.Button;
+            this.activatedCB.AutoSize = true;
+            this.activatedCB.Location = new System.Drawing.Point(23, 25);
+            this.activatedCB.Name = "activatedCB";
+            this.activatedCB.Size = new System.Drawing.Size(54, 25);
+            this.activatedCB.TabIndex = 1;
+            this.activatedCB.Text = "Aktiver";
+            this.activatedCB.UseVisualStyleBackColor = true;
+            this.activatedCB.CheckedChanged += new System.EventHandler(this.AktivertCheckBox_CheckedChanged);
             // 
             // cleanChecked
             // 
@@ -169,6 +169,7 @@
             this.usbListView.TabIndex = 1;
             this.usbListView.UseCompatibleStateImageBehavior = false;
             this.usbListView.View = System.Windows.Forms.View.Details;
+            this.usbListView.SelectedIndexChanged += new System.EventHandler(this.listViewSelect_Changed);
             // 
             // Status
             // 
@@ -205,23 +206,25 @@
             this.Hub.Text = "Hub";
             this.Hub.Width = 550;
             // 
-            // button1
+            // activateHUBbt
             // 
-            this.button1.Location = new System.Drawing.Point(963, 61);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 35);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Aktiver hub";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.activateHUBbt.Enabled = false;
+            this.activateHUBbt.Location = new System.Drawing.Point(963, 61);
+            this.activateHUBbt.Name = "activateHUBbt";
+            this.activateHUBbt.Size = new System.Drawing.Size(120, 35);
+            this.activateHUBbt.TabIndex = 2;
+            this.activateHUBbt.Text = "Aktiver hub";
+            this.activateHUBbt.UseVisualStyleBackColor = true;
+            this.activateHUBbt.Click += new System.EventHandler(this.button1_Click);
             // 
             // testButton
             // 
-            this.testButton.Location = new System.Drawing.Point(976, 129);
+            this.testButton.Enabled = false;
+            this.testButton.Location = new System.Drawing.Point(963, 122);
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(95, 45);
+            this.testButton.Size = new System.Drawing.Size(120, 35);
             this.testButton.TabIndex = 3;
-            this.testButton.Text = "Test";
+            this.testButton.Text = "Utfør handling";
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
@@ -231,7 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1425, 641);
             this.Controls.Add(this.testButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.activateHUBbt);
             this.Controls.Add(this.usbListView);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -249,7 +252,7 @@
         private RadioButton fat32Select;
         private CheckBox formatChecked;
         private CheckBox cleanChecked;
-        private CheckBox checkBox3;
+        private CheckBox activatedCB;
         private ListView usbListView;
         private ColumnHeader Disk;
         private ColumnHeader Navn;
@@ -257,7 +260,7 @@
         private ColumnHeader Lokasjon;
         private ColumnHeader Hub;
         private CheckBox merkelappCheckBox;
-        private Button button1;
+        private Button activateHUBbt;
         private ColumnHeader DeviceNavn;
         private Button testButton;
         private ColumnHeader Status;

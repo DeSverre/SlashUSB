@@ -71,8 +71,8 @@ namespace USkummelB
             DetermineHubIndex(usbInfo);
             bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.Hub) != -1);
 
-            var usb = new USBdevice(usbListView, usbInfo, aktivert?"listViewGroupAktivert":"listViewGroupFunnet");
-            if(aktivert)
+            var usb = new USBdevice(usbListView, usbInfo, aktivert ? "listViewGroupAktivert" : "listViewGroupFunnet");
+            if (aktivert)
                 KjørJobb(usb);
         }
 
@@ -110,16 +110,24 @@ namespace USkummelB
             {
                 USBdevice usb = (USBdevice)s.Tag;
                 s.Selected = false;
-                KjørJobb(usb);
+                KjørJobb(usb, true);
             }
         }
 
-        private void KjørJobb(USBdevice usb)
+        bool CleanOn { get { return cleanChecked.Checked; } }
+        bool CleanEnabled { get { return CleanOn && activatedCB.Checked; } }
+        bool FormatOn { get { return formatChecked.Checked; } }
+        bool FormatEnabled { get { return FormatOn && activatedCB.Checked; } }
+
+        private void KjørJobb(USBdevice usb, bool force = false)
         {
             string fs = "FAT32";
             if (ntfsSelect.Checked) fs = "NTFS";
             if (ExFATselect.Checked) fs = "ExFAT";
-            usb.KjørJobb(cleanChecked.Checked, formatChecked.Checked, merkelappCheckBox.Checked, fs);
+            if (force)
+                new Thread(() => { usb.KjørJobb(CleanOn, FormatOn, merkelappCheckBox.Checked, fs); }).Start();
+            else
+                new Thread(() => { usb.KjørJobb(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs); }).Start();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -131,6 +139,13 @@ namespace USkummelB
                 AddHub2Aktivert(hub);
             }
             OppdaterOgKjørAktiverte();
+        }
+
+        private void listViewSelect_Changed(object sender, EventArgs e)
+        {
+            bool enabled = usbListView.SelectedItems.Count > 0;
+            activateHUBbt.Enabled = enabled;
+            testButton.Enabled = enabled;
         }
 
         private void OppdaterOgKjørAktiverte()
@@ -145,7 +160,7 @@ namespace USkummelB
 
         private void AddHub2Aktivert(string hub)
         {
-            if(aktivertHubList.FindIndex(x => x == hub) == -1)
+            if (aktivertHubList.FindIndex(x => x == hub) == -1)
                 aktivertHubList.Add(hub);
         }
     }
@@ -158,7 +173,7 @@ namespace USkummelB
         static public string SizeSuffix(UInt64 value, int decimalPlaces = 1)
         {
             int i = 0;
-            int divisor = 1024;
+            int divisor = 1000;
             decimal dValue = (decimal)value;
             while (Math.Round(dValue, decimalPlaces) >= divisor)
             {
