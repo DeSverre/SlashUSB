@@ -10,6 +10,8 @@ namespace USkummelB
         List<string> hubList = new();
         List<string> aktivertHubList = new();
 
+        bool mDeactivate = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -72,7 +74,7 @@ namespace USkummelB
             bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.Hub) != -1);
 
             var usb = new USBdevice(usbListView, usbInfo, aktivert ? "listViewGroupAktivert" : "listViewGroupFunnet");
-            if (aktivert)
+            if (aktivert && usb.InstanceAdded)
                 KjørJobb(usb);
         }
 
@@ -132,13 +134,28 @@ namespace USkummelB
 
         private void button1_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem s in usbListView.SelectedItems)
-            {
-                USBdevice usb = (USBdevice)s.Tag;
-                var hub = usb.Hub;
-                AddHub2Aktivert(hub);
-            }
+            if(mDeactivate)
+                foreach (ListViewItem s in usbListView.SelectedItems)
+                {
+                    USBdevice usb = (USBdevice)s.Tag;
+                    var hub = usb.Hub;
+                    RemoveHubFromAktivert(hub);
+                }
+            else
+                foreach (ListViewItem s in usbListView.SelectedItems)
+                {
+                    USBdevice usb = (USBdevice)s.Tag;
+                    var hub = usb.Hub;
+                    AddHub2Aktivert(hub);
+                }
             OppdaterOgKjørAktiverte();
+        }
+
+        private void RemoveHubFromAktivert(string hub)
+        {
+            var index = aktivertHubList.FindIndex(x => x == hub);
+            if (index != -1)
+                aktivertHubList.RemoveAt(index);
         }
 
         private void listViewSelect_Changed(object sender, EventArgs e)
@@ -146,6 +163,24 @@ namespace USkummelB
             bool enabled = usbListView.SelectedItems.Count > 0;
             activateHUBbt.Enabled = enabled;
             testButton.Enabled = enabled;
+
+            bool deactivated = false;
+            var funGrp = usbListView.Groups["listViewGroupFunnet"];
+            foreach (ListViewItem s in usbListView.SelectedItems)
+            {
+                var group = s.Group;
+                if (group == funGrp) deactivated = true;
+            }
+            if (!deactivated)
+            {
+                activateHUBbt.Text = "Deaktiver hub";
+                mDeactivate = true;
+            }
+            else
+            {
+                activateHUBbt.Text = "Aktiver hub";
+                mDeactivate = false;
+            }
         }
 
         private void OppdaterOgKjørAktiverte()
@@ -155,6 +190,8 @@ namespace USkummelB
                 USBdevice usb = (USBdevice)s.Tag;
                 if (aktivertHubList.FindIndex(x => usb.Hub == x) != -1)
                     usb.ByttGruppe("listViewGroupAktivert");
+                else
+                    usb.ByttGruppe("listViewGroupFunnet");
             }
         }
 

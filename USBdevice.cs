@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Shell32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +20,7 @@ namespace USkummelB
         string volumeName;
         Jobb? jobb = null;
         Status status = Status.Klar;
-        TaskCompletionSource<bool>? formatComplete = null;
+        SemaphoreSlim? formatComplete = null;
 
         readonly USBdeviceView? mDeviceView = null;
 
@@ -27,11 +29,11 @@ namespace USkummelB
             Klar,
             Rensing,
             Format,
-            Ferdig,
+            Eject,
             Feil
         };
 
-        private readonly string[] statusTekster = { "Klar", "Renser", "Formaterer", "Ferdig", "Feil!" };
+        private readonly string[] statusTekster = { "Klar", "Renser", "Formaterer", "OK - løser ut", "Feil!" };
 
         private char? driveLetter;
         char? DriveLetter
@@ -57,6 +59,8 @@ namespace USkummelB
                 UpdateDisk();
             }
         }
+
+        public bool InstanceAdded { get { return mDeviceView != null; } }
 
         private void UpdateDisk()
         {
@@ -89,7 +93,7 @@ namespace USkummelB
                     backColor = Color.Yellow;
                     foreColor = Color.Black;
                     break;
-                case Status.Ferdig:
+                case Status.Eject:
                     backColor = Color.Green;
                     foreColor = Color.White;
                     break;
@@ -186,7 +190,12 @@ namespace USkummelB
                         outParams = disk.InvokeMethod("CreatePartition", inParams, null);
                         returnValue = (UInt32)outParams["ReturnValue"];
                         ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
-                        char? nydrive = part != null ? (char)part["DriveLetter"] : null;
+                        char? nydrive = null;
+                        if (part != null)
+                        {
+                            nydrive = (char)part["DriveLetter"];
+                            if (nydrive == '\0') nydrive = null;
+                        }
                         driveLetter = nydrive;
                         diskName = "";
                         UpdateDisk();
@@ -211,7 +220,7 @@ namespace USkummelB
                 foreach (ManagementObject volume in volumeC)
                 {
                     ManagementBaseObject inParams = volume.GetMethodParameters("Format");
-                    newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "Ny disk");
+                    newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft(tm)");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;
@@ -244,13 +253,13 @@ namespace USkummelB
             {
                 DiskName = newLabel;
             }
-            formatComplete?.TrySetResult(true);
+            formatComplete?.Release();
         }
 
         public void KjørJobb(bool clean, bool format, bool sizeLabel, string fs)
         {
             jobb = new Jobb(clean, format, sizeLabel, fs);
-            while (status != Status.Ferdig && status != Status.Feil) NextState();
+            while (status != Status.Eject && status != Status.Feil) NextState();
         }
 
         static internal USBdevice? ExistingDevice(ListView view, string deviceName)
@@ -260,7 +269,7 @@ namespace USkummelB
             return found.Length > 0 ? (USBdevice)found[0].Tag : null;
         }
 
-        private async void NextState()
+        private void NextState()
         {
             switch (status)
             {
@@ -271,21 +280,80 @@ namespace USkummelB
                     break;
                 case Status.Rensing:
                     UpdateStatus(Status.Format);
-                    formatComplete = new();
                     if (jobb != null && jobb.Format)
                     {
+                        formatComplete = new(0,1);
                         Format(jobb.SizeLabel, jobb.FileSystem);
-                        await formatComplete.Task;
+                        formatComplete.Wait();
                     }
                     break;
                 case Status.Format:
-                    UpdateStatus(Status.Ferdig);
+                    UpdateStatus(Status.Eject);
+                    Eject();
                     jobb = null;
                     break;
-                case Status.Ferdig:
+                case Status.Eject:
                 case Status.Feil:
                     break;
             }
+        }
+
+        private void Eject()
+        {
+#if true
+            static void EjectDriveShell(object? param)
+            {
+                if (param == null) return;
+
+                var ssfDRIVES = 0x11;
+
+                var driveName = param.ToString();
+
+                var shell = new Shell();
+                shell.NameSpace(ssfDRIVES).ParseName(driveName).InvokeVerb("Eject");
+            }
+
+            if (driveLetter != null)
+            {
+                string drive = driveLetter + ":\\";
+                var staThread = new Thread(new ParameterizedThreadStart(EjectDriveShell));
+                staThread.SetApartmentState(ApartmentState.STA);
+                staThread.Start(drive);
+                staThread.Join();
+            }
+            else
+            {
+                var volumeC = WQL.QueryMi(@"SELECT * FROM Win32_Volume WHERE DeviceID = '" + volumeName.Replace(@"\", @"\\") + "'");
+                if (volumeC != null)
+                    foreach (ManagementObject volume in volumeC)
+                    {
+                        ManagementBaseObject inParams = volume.GetMethodParameters("Dismount");
+                        inParams["Force"] = true;
+                        inParams["Permanent"] = true;
+
+                        ManagementBaseObject outParams = volume.InvokeMethod("Dismount", inParams, null);
+                        UInt32 returnValue = (UInt32)outParams["ReturnValue"];
+                        // just fail silently
+                        break;
+                    }
+            }
+#elif false
+             if(driveLetter!=null)
+            {
+                string drive = driveLetter + ":\\";
+                var result = Pinvoke.DeleteVolumeMountPoint(drive);
+                if(result == false)
+                {
+                    var lastError = Marshal.GetHRForLastWin32Error();
+                }
+            }
+#else
+            using (var handle = Pinvoke.CreateFile(deviceName, FileAccess.Read, FileShare.Write | FileShare.Read | FileShare.Delete, IntPtr.Zero, FileMode.Open, Pinvoke.FILE_ATTRIBUTE_SYSTEM | Pinvoke.FILE_FLAG_SEQUENTIAL_SCAN, IntPtr.Zero))
+            {
+                uint bytesReturned;
+                Pinvoke.DeviceIoControl(handle, Pinvoke.IOCTL_STORAGE_EJECT_MEDIA, IntPtr.Zero, 0, IntPtr.Zero, 0, out bytesReturned, IntPtr.Zero);
+            }
+#endif
         }
 
         private class Jobb

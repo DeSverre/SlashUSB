@@ -174,7 +174,7 @@
             // Status
             // 
             this.Status.Text = "Status";
-            this.Status.Width = 70;
+            this.Status.Width = 150;
             // 
             // Disk
             // 
@@ -204,7 +204,7 @@
             // Hub
             // 
             this.Hub.Text = "Hub";
-            this.Hub.Width = 550;
+            this.Hub.Width = 50;
             // 
             // activateHUBbt
             // 

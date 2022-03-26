@@ -64,7 +64,14 @@ namespace USkummelB
         internal void ChangeGroup(string gruppe)
         {
             if (mItem != null)
+            {
                 mItem.Group = myView.Groups[gruppe];
+
+                if (gruppe == "listViewGroupAktivert")
+                    mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Red;
+                else
+                    mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Black;
+            }
         }
     }
 }

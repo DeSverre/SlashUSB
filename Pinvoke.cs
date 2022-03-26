@@ -12,6 +12,7 @@ namespace USkummelB
 {
     internal class Pinvoke
     {
+        public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
         public const uint IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS = 0x560000;
 
         public const uint ANYSIZE_ARRAY = 1;
@@ -127,5 +128,8 @@ namespace USkummelB
 
         [DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool DeleteVolumeMountPoint(string lpszVolumeMountPoint);
     }
 }
