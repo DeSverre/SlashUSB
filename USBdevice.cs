@@ -11,7 +11,6 @@ namespace USkummelB
 {
     internal class USBdevice
     {
-        private string? newLabel = null;
         UInt64 size;
         public readonly string Hub;
         readonly string? lok;
@@ -20,7 +19,6 @@ namespace USkummelB
         string volumeName;
         Jobb? jobb = null;
         Status status = Status.Klar;
-        SemaphoreSlim? formatComplete = null;
 
         readonly USBdeviceView? mDeviceView = null;
 
@@ -49,6 +47,8 @@ namespace USkummelB
             }
         }
         private string? diskName;
+        private TaskCompletionSource<ManagementStatus>? formatResult;
+
         string? DiskName
         {
             get { return diskName; }
@@ -168,7 +168,7 @@ namespace USkummelB
                 mDeviceView.Remove();
         }
 
-        public void CleanDisk()
+        public bool CleanDisk()
         {
             UInt32 returnValue = 1;
             var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
@@ -189,19 +189,26 @@ namespace USkummelB
                         inParams["UseMaximumSize"] = true;
                         outParams = disk.InvokeMethod("CreatePartition", inParams, null);
                         returnValue = (UInt32)outParams["ReturnValue"];
-                        ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
-                        char? nydrive = null;
-                        if (part != null)
+                        if (returnValue == 0)
                         {
-                            nydrive = (char)part["DriveLetter"];
-                            if (nydrive == '\0') nydrive = null;
+                            ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
+                            char? nydrive = null;
+                            if (part != null)
+                            {
+                                nydrive = (char)part["DriveLetter"];
+                                if (nydrive == '\0') nydrive = null;
+                            }
+                            driveLetter = nydrive;
+                            diskName = "";
+                            UpdateDisk();
                         }
-                        driveLetter = nydrive;
-                        diskName = "";
-                        UpdateDisk();
                     }
                     break;
                 }
+
+            if(returnValue != 0) UpdateStatus(Status.Feil, "Rens feilet");
+
+            return returnValue == 0;
         }
 
         internal void ByttGruppe(string gruppe)
@@ -213,14 +220,15 @@ namespace USkummelB
                 });
         }
 
-        public void Format(bool sizeLabel, string fs = "FAT32")
+        public bool Format(bool sizeLabel, string fs = "FAT32")
         {
+            bool result = false;
             var volumeC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Volume WHERE Path = '" + volumeName.Replace(@"\", @"\\") + "'");
             if (volumeC != null)
                 foreach (ManagementObject volume in volumeC)
                 {
                     ManagementBaseObject inParams = volume.GetMethodParameters("Format");
-                    newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft(tm)");
+                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft(tm)");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;
@@ -232,34 +240,68 @@ namespace USkummelB
 
                     if (returnValue == 0)
                     {
-                        DiskName = label;
-                        UpdateDisk();
+                        DiskName = newLabel;
                         result = true;
                     }
 #else
+                    // No need to do this async, but it works
                     ManagementOperationObserver results = new();
                     results.Completed += new CompletedEventHandler(this.FormatCompleted);
 
+                    formatResult = new TaskCompletionSource<ManagementStatus>();
                     /*ManagementBaseObject outParams = */
                     volume.InvokeMethod(results, "Format", inParams, null);
+
+                    var resultCode = formatResult.Task.Result;  // Wait for event
+                    if (resultCode == ManagementStatus.NoError)
+                    {
+                        DiskName = newLabel;
+                        result = true;
+                    }
+                    else
+                        UpdateStatus(Status.Feil, "Format feilet");
 #endif
                     break;
                 }
+
+            Task.Delay(1000).Wait();    // Disk still active if ejected immediately
+
+            return result;
         }
 
         private void FormatCompleted(object sender, CompletedEventArgs e)
         {
-            if (e.Status == ManagementStatus.NoError)
-            {
-                DiskName = newLabel;
-            }
-            formatComplete?.Release();
+            formatResult?.TrySetResult(e.Status);
         }
 
         public void KjørJobb(bool clean, bool format, bool sizeLabel, string fs)
         {
             jobb = new Jobb(clean, format, sizeLabel, fs);
-            while (status != Status.Eject && status != Status.Feil) NextState();
+            while (status != Status.Eject && status != Status.Feil)
+            {
+                NextState();
+                RunState();
+            }
+        }
+
+        private void RunState()
+        {
+            switch (status)
+            {
+                case Status.Klar: break;
+                case Status.Rensing:
+                    if (jobb != null && jobb.Clean) CleanDisk();
+                    break;
+                case Status.Format:
+                    if (jobb != null && jobb.Format) Format(jobb.SizeLabel, jobb.FileSystem);
+                    break;
+                case Status.Eject:
+                    Eject();
+                    jobb = null;
+                    break;
+                case Status.Feil:
+                    break;
+            }
         }
 
         static internal USBdevice? ExistingDevice(ListView view, string deviceName)
@@ -275,22 +317,12 @@ namespace USkummelB
             {
                 case Status.Klar:
                     UpdateStatus(Status.Rensing);
-                    if (jobb != null && jobb.Clean)
-                        CleanDisk();
                     break;
                 case Status.Rensing:
                     UpdateStatus(Status.Format);
-                    if (jobb != null && jobb.Format)
-                    {
-                        formatComplete = new(0,1);
-                        Format(jobb.SizeLabel, jobb.FileSystem);
-                        formatComplete.Wait();
-                    }
                     break;
                 case Status.Format:
                     UpdateStatus(Status.Eject);
-                    Eject();
-                    jobb = null;
                     break;
                 case Status.Eject:
                 case Status.Feil:
