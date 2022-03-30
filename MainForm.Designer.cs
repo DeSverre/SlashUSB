@@ -1,6 +1,6 @@
 ﻿namespace USkummelB
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -228,7 +228,7 @@
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -237,8 +237,9 @@
             this.Controls.Add(this.activateHUBbt);
             this.Controls.Add(this.usbListView);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "USkummelB";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -32,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <SplashScreen Include="Parrot.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </SplashScreen>
+    <Content Include="Parrot.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

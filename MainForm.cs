@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace USkummelB
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private UInt32 queryCancelAutoPlay = 0;
 
@@ -12,7 +12,7 @@ namespace USkummelB
 
         bool mDeactivate = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             usbdetector = new USBDetect();
@@ -199,6 +199,11 @@ namespace USkummelB
         {
             if (aktivertHubList.FindIndex(x => x == hub) == -1)
                 aktivertHubList.Add(hub);
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 

@@ -47,7 +47,9 @@ namespace USkummelB
             }
         }
         private string? diskName;
-        private TaskCompletionSource<ManagementStatus>? formatResult;
+        private TaskCompletionSource<UInt32>? formatResult;
+        private TaskCompletionSource<ManagementStatus>? formatCompletedStatus;
+        private ManagementObject? formatStorageJob = null;
 
         string? DiskName
         {
@@ -231,9 +233,7 @@ namespace USkummelB
                     string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft(tm)");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
-                    inParams["Full"] = false;
-                    //                    inParams["Force"] = true;
-                    inParams["RunAsJob"] = false;
+                    inParams["Full"] = true;
 #if false
                     ManagementBaseObject outParams = volume.InvokeMethod("Format", inParams, null);
                     UInt32 returnValue = (UInt32)outParams["ReturnValue"];
@@ -247,19 +247,27 @@ namespace USkummelB
                     // No need to do this async, but it works
                     ManagementOperationObserver results = new();
                     results.Completed += new CompletedEventHandler(this.FormatCompleted);
+                    results.ObjectReady += new ObjectReadyEventHandler(this.FormatObjectReady);
+                    results.Progress += new ProgressEventHandler(this.FormatProgress);
 
-                    formatResult = new TaskCompletionSource<ManagementStatus>();
+                    InvokeMethodOptions formatOptions = new InvokeMethodOptions();
+                    formatOptions.Timeout = TimeSpan.Zero;// new TimeSpan(0, 0, 5);
+
+                    formatResult = new();
+                    formatCompletedStatus = new();
                     /*ManagementBaseObject outParams = */
-                    volume.InvokeMethod(results, "Format", inParams, null);
+                    volume.InvokeMethod(results, "Format", inParams, formatOptions);
 
-                    var resultCode = formatResult.Task.Result;  // Wait for event
-                    if (resultCode == ManagementStatus.NoError)
+                    var resultValue = formatResult.Task.Result;  // Wait for event
+                    if (resultValue == 0)
                     {
                         DiskName = newLabel;
                         result = true;
                     }
                     else
                         UpdateStatus(Status.Feil, "Format feilet");
+
+                    var status = formatCompletedStatus.Task.Result;
 #endif
                     break;
                 }
@@ -269,9 +277,19 @@ namespace USkummelB
             return result;
         }
 
+        private void FormatProgress(object sender, ProgressEventArgs e)
+        {
+        }
+
+        private void FormatObjectReady(object sender, ObjectReadyEventArgs e)
+        {
+            formatStorageJob = e.NewObject["CreatedStorageJob"] as ManagementObject;
+            formatResult?.TrySetResult((UInt32)e.NewObject["ReturnValue"]);
+        }
+
         private void FormatCompleted(object sender, CompletedEventArgs e)
         {
-            formatResult?.TrySetResult(e.Status);
+            formatCompletedStatus?.TrySetResult(e.Status);
         }
 
         public void KjørJobb(bool clean, bool format, bool sizeLabel, string fs)
