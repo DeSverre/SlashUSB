@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <Content Include="Parrot.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

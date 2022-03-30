@@ -233,7 +233,7 @@ namespace USkummelB
                     string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft(tm)");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
-                    inParams["Full"] = true;
+                    inParams["Full"] = false;
 #if false
                     ManagementBaseObject outParams = volume.InvokeMethod("Format", inParams, null);
                     UInt32 returnValue = (UInt32)outParams["ReturnValue"];
@@ -248,7 +248,7 @@ namespace USkummelB
                     ManagementOperationObserver results = new();
                     results.Completed += new CompletedEventHandler(this.FormatCompleted);
                     results.ObjectReady += new ObjectReadyEventHandler(this.FormatObjectReady);
-                    results.Progress += new ProgressEventHandler(this.FormatProgress);
+                    // results.Progress += new ProgressEventHandler(this.FormatProgress); // I have not been able to get progressbar to work
 
                     InvokeMethodOptions formatOptions = new InvokeMethodOptions();
                     formatOptions.Timeout = TimeSpan.Zero;// new TimeSpan(0, 0, 5);

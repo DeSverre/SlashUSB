@@ -12,16 +12,17 @@ namespace USkummelB
 {
     public partial class SplashScreen : Form
     {
+        readonly System.Windows.Forms.Timer tmr;
+
         public SplashScreen()
         {
             InitializeComponent();
-        }
 
-        System.Windows.Forms.Timer tmr;
+            tmr = new();
+        }
 
         private void SplashScreen_Shown(object sender, EventArgs e)
         {
-            tmr = new();
             tmr.Interval = 3000;
             tmr.Start();
             tmr.Tick += Tmr_Tick;

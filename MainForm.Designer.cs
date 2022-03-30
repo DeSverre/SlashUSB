@@ -48,11 +48,13 @@
             this.Hub = new System.Windows.Forms.ColumnHeader();
             this.activateHUBbt = new System.Windows.Forms.Button();
             this.testButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.ExFATselect);
             this.groupBox1.Controls.Add(this.ntfsSelect);
             this.groupBox1.Controls.Add(this.fat32Select);
@@ -215,7 +217,7 @@
             this.activateHUBbt.TabIndex = 2;
             this.activateHUBbt.Text = "Aktiver hub";
             this.activateHUBbt.UseVisualStyleBackColor = true;
-            this.activateHUBbt.Click += new System.EventHandler(this.button1_Click);
+            this.activateHUBbt.Click += new System.EventHandler(this.actHubButClick);
             // 
             // testButton
             // 
@@ -227,6 +229,15 @@
             this.testButton.Text = "Utfør handling";
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 242);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(171, 15);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Only quick format is supported";
             // 
             // MainForm
             // 
@@ -266,5 +277,6 @@
         private Button testButton;
         private ColumnHeader Status;
         private RadioButton ExFATselect;
+        private Label label1;
     }
 }

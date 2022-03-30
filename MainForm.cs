@@ -48,7 +48,7 @@ namespace USkummelB
             }
         }
 
-        private void C_USBInserted(object sender, EventArgs e)
+        private void C_USBInserted(object? sender, EventArgs e)
         {
             USB_EventInfo? usbInfo = e as USB_EventInfo;
             if (usbInfo != null)
@@ -132,9 +132,9 @@ namespace USkummelB
                 new Thread(() => { usb.KjørJobb(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs); }).Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void actHubButClick(object sender, EventArgs e)
         {
-            if(mDeactivate)
+            if (mDeactivate)
                 foreach (ListViewItem s in usbListView.SelectedItems)
                 {
                     USBdevice usb = (USBdevice)s.Tag;
@@ -142,12 +142,17 @@ namespace USkummelB
                     RemoveHubFromAktivert(hub);
                 }
             else
+            {
                 foreach (ListViewItem s in usbListView.SelectedItems)
                 {
                     USBdevice usb = (USBdevice)s.Tag;
                     var hub = usb.Hub;
                     AddHub2Aktivert(hub);
+
+                    string message = String.Format("Alle minnepinner som settes inn i hub {0}, vil nå bli initialisert på spesifisert måte", hub);
+                    MessageBox.Show(this, message, "HUB aktivert");
                 }
+            }
             OppdaterOgKjørAktiverte();
         }
 
