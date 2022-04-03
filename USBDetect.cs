@@ -76,7 +76,6 @@ namespace USkummelB
         private void NewDiskEvent(object sender, EventArrivedEventArgs e)
         {
             string pnp_deviceID = "";
-            string? location = "";
             string deviceName = "";
             UInt64 size = 0;
             string serial = "";
@@ -95,14 +94,13 @@ namespace USkummelB
                     serial = (string)dd["SerialNumber"];
                 }
             }
-            CommonSendEvent("", pnp_deviceID, ref location, "", deviceName, size, serial);
+            CommonSendEvent("", pnp_deviceID, "", deviceName, size, serial);
         }
 
         private void VolumeChangedEvent(object sender, EventArrivedEventArgs e)
         {
             string drive = (string)e.NewEvent["DriveName"];
             string pnp_deviceID = "";
-            string? location = "";
             string diskName = "";
             string deviceName = "";
             uint diskIndex;
@@ -126,11 +124,12 @@ namespace USkummelB
                     }
                 }
             }
-            CommonSendEvent(drive, pnp_deviceID, ref location, diskName, deviceName, size, serial);
+            CommonSendEvent(drive, pnp_deviceID, diskName, deviceName, size, serial);
         }
 
-        private void CommonSendEvent(string drive, string pnp_deviceID, ref string? location, string diskName, string deviceName, ulong size, string serial)
+        private void CommonSendEvent(string drive, string pnp_deviceID, string diskName, string deviceName, ulong size, string serial)
         {
+            string? location = "";
             string? hubID = "";
             string PDOname = "";
             ManagementObjectCollection usbc = WQL.QueryMi(@"SELECT * FROM Win32_PnPEntity WHERE PnPDeviceID='" + pnp_deviceID.Replace(@"\", @"\\") + "'");
