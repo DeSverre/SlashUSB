@@ -230,7 +230,7 @@ namespace USkummelB
                 foreach (ManagementObject volume in volumeC)
                 {
                     ManagementBaseObject inParams = volume.GetMethodParameters("Format");
-                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft(tm)");
+                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;

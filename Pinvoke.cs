@@ -131,5 +131,74 @@ namespace USkummelB
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool DeleteVolumeMountPoint(string lpszVolumeMountPoint);
+
+        [DllImport("setupapi.dll")]
+        public static extern int CM_Get_Parent(out IntPtr pdnDevInst, IntPtr dnDevInst, int ulFlags);
+
+        public const uint CM_LOCATE_DEVNODE_NORMAL = 0;
+
+        [DllImport("setupapi.dll", CharSet = CharSet.Unicode, EntryPoint = "CM_Locate_DevNodeW")]
+        public static extern int CM_Locate_DevNode(out IntPtr pdnDevInst, string pDeviceID, uint ulFlags);
+
+        [DllImport("cfgmgr32.dll", CharSet = CharSet.Unicode, EntryPoint = "CM_Get_DevNode_Registry_PropertyW")]
+        public static extern int
+           CM_Get_DevNode_Registry_Property(
+               IntPtr deviceHandle,
+               uint property,
+               IntPtr regDataType,
+               IntPtr outBuffer,
+               ref uint size,
+               int flags);
+
+        public enum DevRegProperty : uint
+        {
+            DeviceDescription = 1,
+            HardwareId = 2,
+            CompatibleIds = 3,
+            Unused0 = 4,
+            Service = 5,
+            Unused1 = 6,
+            Unused2 = 7,
+            Class = 8,
+            ClassGuid = 9,
+            Driver = 0x0a,
+            ConfigFlags = 0x0b,
+            Mfg = 0x0c,
+            FriendlyName = 0x0d,
+            LocationInfo = 0x0e,
+            PhysicalDeviceObjectName = 0x0f,
+            Capabilities = 0x10,
+            UiNumber = 0x11,
+            UpperFilters = 0x12,
+            LowerFilters = 0x13,
+            BusTypeGuid = 0x014,
+            LegacyBusType = 0x15,
+            BusNumber = 0x16,
+            EnumeratorName = 0x17,
+        }
+
+        public static string? GetDeviceProperties(IntPtr devHandle, DevRegProperty propertyIndex)
+        {
+            uint bufsize = 2048;
+
+            IntPtr buffer =
+                Marshal.AllocHGlobal((int)bufsize);
+
+            var result = CM_Get_DevNode_Registry_Property(
+                    devHandle,
+                    (uint)propertyIndex,
+                    IntPtr.Zero,
+                    buffer,
+                    ref bufsize,
+                    0);
+
+            string? propertyString = result == 0
+                ? Marshal.PtrToStringUni(buffer)
+                : string.Empty;
+
+            Marshal.FreeHGlobal(buffer);
+
+            return propertyString;
+        }
     }
 }

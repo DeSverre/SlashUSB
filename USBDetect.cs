@@ -26,7 +26,7 @@ namespace USkummelB
         public char? DriveLetter { get; set; }
         public UInt64 Size { get; set; }
         public string? Lokasjon { get; set; }
-        public string Hub { get; set; }
+        public string? Hub { get; set; }
         public string VolumeName { get; set; }
         public string DeviceName { get; set; }
         public string Serial { get; set; }
@@ -77,7 +77,6 @@ namespace USkummelB
         {
             string pnp_deviceID = "";
             string? location = "";
-            string hubID = "";
             string deviceName = "";
             UInt64 size = 0;
             string serial = "";
@@ -96,7 +95,7 @@ namespace USkummelB
                     serial = (string)dd["SerialNumber"];
                 }
             }
-            CommonSendEvent("", pnp_deviceID, ref location, ref hubID, "", deviceName, size, serial);
+            CommonSendEvent("", pnp_deviceID, ref location, "", deviceName, size, serial);
         }
 
         private void VolumeChangedEvent(object sender, EventArrivedEventArgs e)
@@ -104,7 +103,6 @@ namespace USkummelB
             string drive = (string)e.NewEvent["DriveName"];
             string pnp_deviceID = "";
             string? location = "";
-            string hubID = "";
             string diskName = "";
             string deviceName = "";
             uint diskIndex;
@@ -128,25 +126,42 @@ namespace USkummelB
                     }
                 }
             }
-            CommonSendEvent(drive, pnp_deviceID, ref location, ref hubID, diskName, deviceName, size, serial);
+            CommonSendEvent(drive, pnp_deviceID, ref location, diskName, deviceName, size, serial);
         }
 
-        private void CommonSendEvent(string drive, string pnp_deviceID, ref string? location, ref string hubID, string diskName, string deviceName, ulong size, string serial)
+        private void CommonSendEvent(string drive, string pnp_deviceID, ref string? location, string diskName, string deviceName, ulong size, string serial)
         {
+            string? hubID = "";
+            string PDOname = "";
             ManagementObjectCollection usbc = WQL.QueryMi(@"SELECT * FROM Win32_PnPEntity WHERE PnPDeviceID='" + pnp_deviceID.Replace(@"\", @"\\") + "'");
             foreach (ManagementObject usb in usbc)
             {
                 var hubc = usb.GetRelated("Win32_USBController");
                 foreach (var hub in hubc)
                 {
-                    hubID = (string)hub.GetPropertyValue("PnPDeviceID");
+//                    hubID = (string)hub.GetPropertyValue("PnPDeviceID");
                 }
             }
 
-            usbc = WQL.QueryMi(@"SELECT * FROM Win32_PnPEntity WHERE PnPDeviceID LIKE 'USB\\%" + serial + "'");
-            foreach (ManagementObject usb in usbc)
+            var pdoc = WQL.QueryMi(@"SELECT * FROM Win32_PnPSignedDriver WHERE DeviceID='" + pnp_deviceID.Replace(@"\", @"\\") + "'");
+            foreach(ManagementObject pdo in pdoc)
             {
-                location = (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\" + usb["PNPDeviceID"], "LocationInformation", "");
+                PDOname = (string)pdo["PDO"];
+            }
+
+            IntPtr pdnDevInst;
+            if (Pinvoke.CM_Locate_DevNode(out pdnDevInst, pnp_deviceID, Pinvoke.CM_LOCATE_DEVNODE_NORMAL) == 0)
+            {
+                IntPtr classNode;
+                if (Pinvoke.CM_Get_Parent(out classNode, pdnDevInst, 0) == 0)
+                {
+                    location = Pinvoke.GetDeviceProperties(classNode, Pinvoke.DevRegProperty.LocationInfo);
+                    IntPtr hubNode;
+                    if (Pinvoke.CM_Get_Parent(out hubNode, classNode, 0) == 0)
+                    {
+                        hubID = Pinvoke.GetDeviceProperties(hubNode, Pinvoke.DevRegProperty.HardwareId);
+                    }
+                }
             }
 
             string volumeName = Pinvoke.GetVolumeName(drive + "\\");

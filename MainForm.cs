@@ -6,16 +6,15 @@ namespace USkummelB
     {
         private UInt32 queryCancelAutoPlay = 0;
 
-        USBDetect usbdetector;
-        List<string> hubList = new();
-        List<string> aktivertHubList = new();
+        readonly USBDetect usbdetector = new();
+        readonly List<string> hubList = new();
+        readonly List<string> aktivertHubList = new();
 
         bool mDeactivate = false;
 
         public MainForm()
         {
             InitializeComponent();
-            usbdetector = new USBDetect();
             usbdetector.USBinserted += C_USBInserted;
             usbdetector.USBremoved += C_USBRemoved;
         }
@@ -74,7 +73,7 @@ namespace USkummelB
             bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.Hub) != -1);
 
             var usb = new USBdevice(usbListView, usbInfo, aktivert ? "listViewGroupAktivert" : "listViewGroupFunnet");
-            if (aktivert && usb.InstanceAdded)
+            if (activatedCB.Checked && aktivert && usb.InstanceAdded)
                 KjørJobb(usb);
         }
 
