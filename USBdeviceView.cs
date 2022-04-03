@@ -50,6 +50,10 @@ namespace USkummelB
             ListViewGroup gruppe = myView.Groups[gruppeNavn];
             mItem.Group = gruppe;
             myView.Items.Add(mItem);
+            if (gruppe.Name == "listViewGroupAktivert")
+                mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Red;
+            else
+                mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Black;
         }
 
         internal void Remove()
