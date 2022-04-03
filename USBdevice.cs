@@ -12,7 +12,7 @@ namespace USkummelB
     internal class USBdevice
     {
         UInt64 size;
-        public readonly string Hub;
+        public readonly string? Hub;
         readonly string? lok;
         readonly string deviceName;
         string serial;

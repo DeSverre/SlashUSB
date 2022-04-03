@@ -79,6 +79,7 @@ namespace USkummelB
 
         private void DetermineHubIndex(USB_EventInfo usbInfo)
         {
+            if(usbInfo.Hub == null ) return;
             var index = hubList.FindIndex(x => x == usbInfo.Hub);
             if (index == -1)
             {
@@ -155,8 +156,10 @@ namespace USkummelB
             OppdaterOgKjørAktiverte();
         }
 
-        private void RemoveHubFromAktivert(string hub)
+        private void RemoveHubFromAktivert(string? hub)
         {
+            if (hub == null) return;
+
             var index = aktivertHubList.FindIndex(x => x == hub);
             if (index != -1)
                 aktivertHubList.RemoveAt(index);
@@ -199,8 +202,9 @@ namespace USkummelB
             }
         }
 
-        private void AddHub2Aktivert(string hub)
+        private void AddHub2Aktivert(string? hub)
         {
+            if (hub == null) return;
             if (aktivertHubList.FindIndex(x => x == hub) == -1)
                 aktivertHubList.Add(hub);
         }
