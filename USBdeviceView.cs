@@ -30,13 +30,13 @@ namespace USkummelB
             }
         }
 
-        internal void UpdateColorActionItem(Color backColor, Color foreColor, string nyText)
+        internal void UpdateColorActionItem(Color backColor, Color foreColor, string newText)
         {
             if (mItem != null)
             {
                 mItem.UseItemStyleForSubItems = false;
                 var subIt = mItem.SubItems[0];
-                subIt.Text = nyText;
+                subIt.Text = newText;
 
                 subIt.BackColor = backColor;
                 subIt.ForeColor = foreColor;
@@ -67,13 +67,13 @@ namespace USkummelB
             }
         }
 
-        internal void ChangeGroup(string gruppe)
+        internal void ChangeGroup(string group)
         {
             if (mItem != null)
             {
-                mItem.Group = myView.Groups[gruppe];
+                mItem.Group = myView.Groups[group];
 
-                if (gruppe == "listViewGroupAktivert")
+                if (group == "listViewGroupAktivert")
                     mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Red;
                 else
                     mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Black;
