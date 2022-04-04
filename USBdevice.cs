@@ -161,7 +161,7 @@ namespace USkummelB
             if (mDeviceView != null)
                 mDeviceView.View.Invoke((MethodInvoker)delegate
                 {
-                    mDeviceView.Add2View(listViewItem, gruppeNavn);
+                    mDeviceView.Add2View(listViewItem, gruppeNavn, HubID ?? "");
                 });
             UpdateStatus(Status.Klar);
         }

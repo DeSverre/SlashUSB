@@ -43,7 +43,7 @@ namespace USkummelB
             }
         }
 
-        internal void Add2View(ListViewItem listViewItem, string gruppeNavn)
+        internal void Add2View(ListViewItem listViewItem, string gruppeNavn, string toolTipText="")
         {
             mItem = listViewItem;
             mItem.Tag = mDevice;
@@ -54,6 +54,8 @@ namespace USkummelB
                 mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Red;
             else
                 mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Black;
+
+            mItem.ToolTipText = toolTipText;    // Doesn't seem to work
         }
 
         internal void Remove()

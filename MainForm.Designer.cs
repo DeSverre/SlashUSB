@@ -226,7 +226,7 @@
             // DeviceNavn
             // 
             this.DeviceNavn.Text = "DeviceNavn";
-            this.DeviceNavn.Width = 100;
+            this.DeviceNavn.Width = 150;
             // 
             // DiskSize
             // 
