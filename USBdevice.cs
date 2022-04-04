@@ -11,12 +11,13 @@ namespace USkummelB
 {
     internal class USBdevice
     {
-        UInt64 size;
-        public readonly string? Hub;
+        readonly UInt64 size;
+        public readonly string? HubFriendlyName;
+        readonly string? HubID;
         readonly string? lok;
         readonly string deviceName;
-        string serial;
-        string volumeName;
+        readonly string serial;
+        readonly string volumeName;
         Jobb? jobb = null;
         Status status = Status.Klar;
 
@@ -123,7 +124,8 @@ namespace USkummelB
             driveLetter = info.DriveLetter;
             diskName = info.DiskName;
             size = info.Size;
-            Hub = info.Hub;
+            HubID = info.HubID;
+            HubFriendlyName = info.HubFriendlyName;
             lok = info.Lokasjon;
             deviceName = info.DeviceName;
             serial = info.Serial;
@@ -146,7 +148,7 @@ namespace USkummelB
 
         private ListViewItem GetListViewItem()
         {
-            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, Hub })
+            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, HubFriendlyName })
             {
                 Name = deviceName,
                 UseItemStyleForSubItems = false

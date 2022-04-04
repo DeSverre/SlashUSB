@@ -16,7 +16,8 @@ namespace USkummelB
         {
             DriveLetter = null;
             Lokasjon = "";
-            Hub = "";
+            HubID = "";
+            HubFriendlyName = "";
             VolumeName = "";
             DeviceName = "";
             Serial = "";
@@ -26,7 +27,8 @@ namespace USkummelB
         public char? DriveLetter { get; set; }
         public UInt64 Size { get; set; }
         public string? Lokasjon { get; set; }
-        public string? Hub { get; set; }
+        public string? HubID { get; set; }
+        public string? HubFriendlyName { get; set; }
         public string VolumeName { get; set; }
         public string DeviceName { get; set; }
         public string Serial { get; set; }
@@ -168,7 +170,7 @@ namespace USkummelB
             var args = new USB_EventInfo();
             args.DriveLetter = drive.Length > 0 ? drive[0] : null;
             args.Size = size;
-            args.Hub = hubID;
+            args.HubID = hubID;
             args.Lokasjon = location;
             args.DiskName = diskName;
             args.VolumeName = volumeName;

@@ -70,7 +70,7 @@ namespace USkummelB
         private void InsertDevice(USB_EventInfo usbInfo)
         {
             DetermineHubIndex(usbInfo);
-            bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.Hub) != -1);
+            bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.HubFriendlyName) != -1);
 
             var usb = new USBdevice(usbListView, usbInfo, aktivert ? "listViewGroupAktivert" : "listViewGroupFunnet");
             if (activatedCB.Checked && aktivert && usb.InstanceAdded)
@@ -79,14 +79,14 @@ namespace USkummelB
 
         private void DetermineHubIndex(USB_EventInfo usbInfo)
         {
-            if(usbInfo.Hub == null ) return;
-            var index = hubList.FindIndex(x => x == usbInfo.Hub);
+            if(usbInfo.HubID == null ) return;
+            var index = hubList.FindIndex(x => x == usbInfo.HubID);
             if (index == -1)
             {
-                hubList.Add(usbInfo.Hub);
+                hubList.Add(usbInfo.HubID);
                 index = hubList.Count - 1;
             }
-            usbInfo.Hub = index.ToString();
+            usbInfo.HubFriendlyName = index.ToString();
         }
 
         private void RemoveDevice(string? deviceName)
@@ -138,7 +138,7 @@ namespace USkummelB
                 foreach (ListViewItem s in usbListView.SelectedItems)
                 {
                     USBdevice usb = (USBdevice)s.Tag;
-                    var hub = usb.Hub;
+                    var hub = usb.HubFriendlyName;
                     RemoveHubFromAktivert(hub);
                 }
             else
@@ -146,7 +146,7 @@ namespace USkummelB
                 foreach (ListViewItem s in usbListView.SelectedItems)
                 {
                     USBdevice usb = (USBdevice)s.Tag;
-                    var hub = usb.Hub;
+                    var hub = usb.HubFriendlyName;
                     AddHub2Aktivert(hub);
 
                     string message = String.Format("Alle minnepinner som settes inn i hub {0}, vil nå bli initialisert på spesifisert måte", hub);
@@ -195,7 +195,7 @@ namespace USkummelB
             foreach (ListViewItem s in usbListView.Items)
             {
                 USBdevice usb = (USBdevice)s.Tag;
-                if (aktivertHubList.FindIndex(x => usb.Hub == x) != -1)
+                if (aktivertHubList.FindIndex(x => usb.HubFriendlyName == x) != -1)
                     usb.ByttGruppe("listViewGroupAktivert");
                 else
                     usb.ByttGruppe("listViewGroupFunnet");
