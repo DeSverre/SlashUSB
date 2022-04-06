@@ -12,10 +12,10 @@ namespace USkummelB
 {
     internal class Pinvoke
     {
-        public const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
-        public const uint IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS = 0x560000;
+        internal const uint IOCTL_STORAGE_EJECT_MEDIA = 0x2D4808;
+        internal const uint IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS = 0x560000;
 
-        public const uint ANYSIZE_ARRAY = 1;
+        internal const uint ANYSIZE_ARRAY = 1;
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct DISK_EXTENT
@@ -33,10 +33,10 @@ namespace USkummelB
         }
 
             [DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool DeviceIoControl(SafeFileHandle hDevice, uint dwIoControlCode, IntPtr lpInBuffer,
+        internal static extern bool DeviceIoControl(SafeFileHandle hDevice, uint dwIoControlCode, IntPtr lpInBuffer,
             uint nInBufferSize, IntPtr lpOutBuffer, uint nOutBufferSize, out uint lpBytesReturned, IntPtr lpOverlapped);
 
-        public string[]? QueryDosDevice(string path)
+        internal string[]? QueryDosDevice(string path)
         {
             [DllImport("kernel32.dll", SetLastError = true)]
             static extern int QueryDosDevice([In] string lpDeviceName, IntPtr lpTargetPath, int ucchMax);
@@ -95,7 +95,7 @@ namespace USkummelB
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode, EntryPoint = "GetVolumeNameForVolumeMountPointW")]
         static extern bool GetVolumeNameForVolumeMountPoint(string lpszVolumeMountPoint, [Out] StringBuilder lpszVolumeName, uint cchBufferLength);
 
-        public static string GetVolumeName(string MountPoint)
+        internal static string GetVolumeName(string MountPoint)
         {
             const int MaxVolumeNameLength = 100;
             StringBuilder sb = new StringBuilder(MaxVolumeNameLength);
@@ -104,30 +104,36 @@ namespace USkummelB
             return sb.ToString();
         }
 
-        public const uint FILE_SHARE_READ = 0x00000001;
-        public const uint FILE_SHARE_WRITE = 0x00000002;
-        public const uint FILE_SHARE_DELETE = 0x00000004;
+        internal const uint FILE_SHARE_READ = 0x00000001;
+        internal const uint FILE_SHARE_WRITE = 0x00000002;
+        internal const uint FILE_SHARE_DELETE = 0x00000004;
 
-        public const uint OPEN_EXISTING = 3;
+        internal const uint OPEN_EXISTING = 3;
 
-        public const uint FILE_ATTRIBUTE_NORMAL = 0x00000080;
-        public const uint FILE_ATTRIBUTE_SYSTEM = 0x00000004;
+        internal const uint FILE_ATTRIBUTE_NORMAL = 0x00000080;
+        internal const uint FILE_ATTRIBUTE_SYSTEM = 0x00000004;
 
-        public const uint FILE_FLAG_SEQUENTIAL_SCAN = 0x08000000;
+        internal const uint FILE_FLAG_SEQUENTIAL_SCAN = 0x08000000;
 
 
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode, EntryPoint = "CreateFileW")]
-        public static extern SafeFileHandle CreateFile(string lpFileName,
+        internal static extern SafeFileHandle CreateFile(string lpFileName,
             [MarshalAs(UnmanagedType.U4)] FileAccess dwDesiredAccess,
             [MarshalAs(UnmanagedType.U4)] FileShare dwShareMode, IntPtr lpSecurityAttributes,
             [MarshalAs(UnmanagedType.U4)] FileMode dwCreationDisposition,
             uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 
         [DllImport("user32.dll")]
-        public static extern uint RegisterWindowMessage(String strMessage);
+        internal static extern UInt32 RegisterWindowMessage(String strMessage);
 
         [DllImport("user32.dll")]
-        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, uint dwNewLong);
+        internal static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        internal const UInt32 MSGFLT_ADD = 1;
+        internal const UInt32 MSGFLT_REMOVE = 2;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool ChangeWindowMessageFilter(uint message, UInt32 dwFlag);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool DeleteVolumeMountPoint(string lpszVolumeMountPoint);

@@ -23,16 +23,21 @@ namespace USkummelB
         {
             base.WndProc(ref m);
             if (queryCancelAutoPlay == 0)
+            {
                 queryCancelAutoPlay = Pinvoke.RegisterWindowMessage("QueryCancelAutoPlay");
 
+                // Open up filter for this message when in administrator mode (and we are)
+                Pinvoke.ChangeWindowMessageFilter(queryCancelAutoPlay,Pinvoke.MSGFLT_ADD);  
+            }
+
             //if the window message id equals the QueryCancelAutoPlay message id
-            if ((UInt32)m.Msg == queryCancelAutoPlay)
+            if (m.Msg == queryCancelAutoPlay)
             {
                 /* only needed if your application is using a dialog box and needs to
                 * respond to a "QueryCancelAutoPlay" message, it cannot simply return TRUE or FALSE.
                 SetWindowLong(this.Handle, 0, 1);
                 */
-                Pinvoke.SetWindowLong(this.Handle, 0, 1);
+                Pinvoke.SetWindowLongPtr(this.Handle, 0, new IntPtr(1));
                 m.Result = (IntPtr)1;
             }
         }

@@ -9,6 +9,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>USkummelB.Program</StartupObject>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <SignAssembly>False</SignAssembly>
+    <AssemblyOriginatorKeyFile>sgKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
