@@ -175,6 +175,7 @@ namespace USkummelB
         public bool CleanDisk()
         {
             UInt32 returnValue = 1;
+            string errorMessage = "Rens feilet";
             var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
             if (diskC != null)
                 foreach (ManagementObject disk in diskC)
@@ -191,26 +192,34 @@ namespace USkummelB
                         inParams = disk.GetMethodParameters("CreatePartition");
                         inParams["AssignDriveLetter"] = true;
                         inParams["UseMaximumSize"] = true;
-                        outParams = disk.InvokeMethod("CreatePartition", inParams, null);
-                        returnValue = (UInt32)outParams["ReturnValue"];
-                        if (returnValue == 0)
+
+                        try
                         {
-                            ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
-                            char? nydrive = null;
-                            if (part != null)
+                            outParams = disk.InvokeMethod("CreatePartition", inParams, null);
+                            returnValue = (UInt32)outParams["ReturnValue"];
+                            if (returnValue == 0)
                             {
-                                nydrive = (char)part["DriveLetter"];
-                                if (nydrive == '\0') nydrive = null;
+                                ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
+                                char? nydrive = null;
+                                if (part != null)
+                                {
+                                    nydrive = (char)part["DriveLetter"];
+                                    if (nydrive == '\0') nydrive = null;
+                                }
+                                driveLetter = nydrive;
+                                diskName = "";
+                                UpdateDisk();
                             }
-                            driveLetter = nydrive;
-                            diskName = "";
-                            UpdateDisk();
+                        }
+                        catch (Exception ex)
+                        {
+                            errorMessage = "Rens feil: "+ ex.Message;
                         }
                     }
                     break;
                 }
 
-            if(returnValue != 0) UpdateStatus(Status.Feil, "Rens feilet");
+            if(returnValue != 0) UpdateStatus(Status.Feil, errorMessage);
 
             return returnValue == 0;
         }
