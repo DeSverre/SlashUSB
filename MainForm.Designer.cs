@@ -49,11 +49,13 @@
             this.DiskSize = new System.Windows.Forms.ColumnHeader();
             this.Lokasjon = new System.Windows.Forms.ColumnHeader();
             this.Hub = new System.Windows.Forms.ColumnHeader();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.versionLabel);
             this.groupBox1.Controls.Add(this.testButton);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.activateHUBbt);
@@ -243,6 +245,14 @@
             this.Hub.Text = "Hub";
             this.Hub.Width = 50;
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Location = new System.Drawing.Point(12, 87);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(0, 15);
+            this.versionLabel.TabIndex = 4;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -280,5 +290,6 @@
         private ColumnHeader Status;
         private RadioButton ExFATselect;
         private Label label1;
+        private Label versionLabel;
     }
 }

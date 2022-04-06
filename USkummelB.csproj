@@ -11,6 +11,10 @@
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>sgKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <NeutralLanguage>nb-NO</NeutralLanguage>
+    <Copyright>(C) Sverre Langhus</Copyright>
+    <PackageReleaseNotes>Disable autorun fixed</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

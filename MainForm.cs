@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace USkummelB
@@ -17,6 +18,8 @@ namespace USkummelB
             InitializeComponent();
             usbdetector.USBinserted += C_USBInserted;
             usbdetector.USBremoved += C_USBRemoved;
+
+            versionLabel.Text = "Versjon: " + typeof(MainForm).Assembly.GetName().Version?.ToString() ?? "--";
         }
 
         protected override void WndProc(ref Message m)
