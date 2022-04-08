@@ -34,15 +34,15 @@ namespace USkummelB
 
         private readonly string[] statusTekster = { "Klar", "Renser", "Formaterer", "OK - løser ut", "Feil!" };
 
-        private char? driveLetter;
+        private char? driveLetterOrNull;
         char? DriveLetter
         {
-            get { return driveLetter; }
+            get { return driveLetterOrNull; }
             set
             {
                 if (value != null)
                 {
-                    driveLetter = value;
+                    driveLetterOrNull = value;
                     UpdateDisk();
                 }
             }
@@ -68,7 +68,7 @@ namespace USkummelB
         private void UpdateDisk()
         {
             string _drive = "";
-            if (driveLetter != null) _drive = driveLetter.ToString() + ":";
+            if (driveLetterOrNull != null) _drive = driveLetterOrNull.ToString() + ":";
             if (mDeviceView != null)
                 mDeviceView.View.Invoke((MethodInvoker)delegate
                 {
@@ -121,7 +121,7 @@ namespace USkummelB
 
         public USBdevice(ListView view, USB_EventInfo info, string gruppeNavn)
         {
-            driveLetter = info.DriveLetter;
+            driveLetterOrNull = info.DriveLetter;
             diskName = info.DiskName;
             size = info.Size;
             HubID = info.HubID;
@@ -168,7 +168,7 @@ namespace USkummelB
 
         public void Remove()
         {
-            if(mDeviceView!=null)
+            if (mDeviceView != null)
                 mDeviceView.Remove();
         }
 
@@ -176,7 +176,7 @@ namespace USkummelB
         {
             UInt32 returnValue = 1;
             string errorMessage = "Rens feilet";
-            var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
+            using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
             if (diskC != null)
                 foreach (ManagementObject disk in diskC)
                 {
@@ -185,41 +185,36 @@ namespace USkummelB
                     inParams["RemoveOEM"] = true;
                     inParams["ZeroOutEntireDisk"] = false;
 
-                    ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
-                    returnValue = (UInt32)outParams["ReturnValue"];
-                    if (returnValue == 0)
+                    try
                     {
-                        inParams = disk.GetMethodParameters("CreatePartition");
-                        inParams["AssignDriveLetter"] = true;
-                        inParams["UseMaximumSize"] = true;
-
-                        try
+                        ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
+                        returnValue = (UInt32)outParams["ReturnValue"];
+                        if (returnValue == 0)
                         {
+                            inParams = disk.GetMethodParameters("CreatePartition");
+                            inParams["AssignDriveLetter"] = false;
+                            inParams["UseMaximumSize"] = true;
+
                             outParams = disk.InvokeMethod("CreatePartition", inParams, null);
                             returnValue = (UInt32)outParams["ReturnValue"];
                             if (returnValue == 0)
                             {
-                                ManagementBaseObject? part = outParams["CreatedPartition"] as ManagementBaseObject;
-                                char? nydrive = null;
-                                if (part != null)
-                                {
-                                    nydrive = (char)part["DriveLetter"];
-                                    if (nydrive == '\0') nydrive = null;
-                                }
-                                driveLetter = nydrive;
+                                var partition = outParams["CreatedPartition"] as ManagementBaseObject;
+                                char? nydrive = (char?)partition?[nameof(DriveLetter)];
+                                driveLetterOrNull = nydrive == '\0' ? null : nydrive;
                                 diskName = "";
                                 UpdateDisk();
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            errorMessage = "Rens feil: "+ ex.Message;
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = "Rens feil: " + ex.Message;
                     }
                     break;
                 }
 
-            if(returnValue != 0) UpdateStatus(Status.Feil, errorMessage);
+            if (returnValue != 0) UpdateStatus(Status.Feil, errorMessage);
 
             return returnValue == 0;
         }
@@ -236,7 +231,7 @@ namespace USkummelB
         public bool Format(bool sizeLabel, string fs = "FAT32")
         {
             bool result = false;
-            var volumeC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Volume WHERE Path = '" + volumeName.Replace(@"\", @"\\") + "'");
+            using var volumeC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Volume WHERE Path = '" + volumeName.Replace(@"\", @"\\") + "'");
             if (volumeC != null)
                 foreach (ManagementObject volume in volumeC)
                 {
@@ -245,16 +240,7 @@ namespace USkummelB
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;
-#if false
-                    ManagementBaseObject outParams = volume.InvokeMethod("Format", inParams, null);
-                    UInt32 returnValue = (UInt32)outParams["ReturnValue"];
 
-                    if (returnValue == 0)
-                    {
-                        DiskName = newLabel;
-                        result = true;
-                    }
-#else
                     // No need to do this async, but it works
                     ManagementOperationObserver results = new();
                     results.Completed += new CompletedEventHandler(this.FormatCompleted);
@@ -279,7 +265,21 @@ namespace USkummelB
                         UpdateStatus(Status.Feil, "Format feilet");
 
                     var status = formatCompletedStatus.Task.Result;
-#endif
+
+                    if (driveLetterOrNull == null)
+                    {
+                        using var partC = volume.GetRelated("MSFT_Partition");
+                        foreach (ManagementObject part in partC)
+                        {
+                            inParams = part.GetMethodParameters("AddAccessPath");
+                            inParams["AssignDriveLetter"] = true;
+                            var outParams = part.InvokeMethod("AddAccessPath", inParams, null);
+                            var returnValue = (UInt32)outParams["ReturnValue"];
+                            part.Get(); // Update data
+                            char? nydrive = (char?)part[nameof(DriveLetter)];
+                            driveLetterOrNull = nydrive == '\0' ? null : nydrive;
+                        }
+                    }
                     break;
                 }
 
@@ -374,9 +374,9 @@ namespace USkummelB
                 shell.NameSpace(ssfDRIVES).ParseName(driveName).InvokeVerb("Eject");
             }
 
-            if (driveLetter != null)
+            if (driveLetterOrNull != null)
             {
-                string drive = driveLetter + ":\\";
+                string drive = driveLetterOrNull + ":\\";
                 var staThread = new Thread(new ParameterizedThreadStart(EjectDriveShell));
                 staThread.SetApartmentState(ApartmentState.STA);
                 staThread.Start(drive);
@@ -384,15 +384,15 @@ namespace USkummelB
             }
             else
             {
-                var volumeC = WQL.QueryMi(@"SELECT * FROM Win32_Volume WHERE DeviceID = '" + volumeName.Replace(@"\", @"\\") + "'");
+                using var volumeC = WQL.QueryMi(@"SELECT * FROM Win32_Volume WHERE DeviceID = '" + volumeName.Replace(@"\", @"\\") + "'");
                 if (volumeC != null)
                     foreach (ManagementObject volume in volumeC)
                     {
-                        ManagementBaseObject inParams = volume.GetMethodParameters("Dismount");
+                        using var inParams = volume.GetMethodParameters("Dismount");
                         inParams["Force"] = true;
                         inParams["Permanent"] = true;
 
-                        ManagementBaseObject outParams = volume.InvokeMethod("Dismount", inParams, null);
+                        using var outParams = volume.InvokeMethod("Dismount", inParams, null);
                         UInt32 returnValue = (UInt32)outParams["ReturnValue"];
                         // just fail silently
                         break;

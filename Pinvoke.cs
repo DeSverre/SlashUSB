@@ -136,18 +136,18 @@ namespace USkummelB
         internal static extern bool ChangeWindowMessageFilter(uint message, UInt32 dwFlag);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool DeleteVolumeMountPoint(string lpszVolumeMountPoint);
+        internal static extern bool DeleteVolumeMountPoint(string lpszVolumeMountPoint);
 
         [DllImport("setupapi.dll")]
-        public static extern int CM_Get_Parent(out IntPtr pdnDevInst, IntPtr dnDevInst, int ulFlags);
+        internal static extern int CM_Get_Parent(out IntPtr pdnDevInst, IntPtr dnDevInst, int ulFlags);
 
-        public const uint CM_LOCATE_DEVNODE_NORMAL = 0;
+        internal const uint CM_LOCATE_DEVNODE_NORMAL = 0;
 
         [DllImport("setupapi.dll", CharSet = CharSet.Unicode, EntryPoint = "CM_Locate_DevNodeW")]
-        public static extern int CM_Locate_DevNode(out IntPtr pdnDevInst, string pDeviceID, uint ulFlags);
+        internal static extern int CM_Locate_DevNode(out IntPtr pdnDevInst, string pDeviceID, uint ulFlags);
 
         [DllImport("cfgmgr32.dll", CharSet = CharSet.Unicode, EntryPoint = "CM_Get_DevNode_Registry_PropertyW")]
-        public static extern int
+        internal static extern int
            CM_Get_DevNode_Registry_Property(
                IntPtr deviceHandle,
                uint property,
@@ -156,7 +156,7 @@ namespace USkummelB
                ref uint size,
                int flags);
 
-        public enum DevRegProperty : uint
+        internal enum DevRegProperty : uint
         {
             DeviceDescription = 1,
             HardwareId = 2,
@@ -183,7 +183,7 @@ namespace USkummelB
             EnumeratorName = 0x17,
         }
 
-        public static string? GetDeviceProperties(IntPtr devHandle, DevRegProperty propertyIndex)
+        internal static string? GetDeviceProperties(IntPtr devHandle, DevRegProperty propertyIndex)
         {
             uint bufsize = 2048;
 

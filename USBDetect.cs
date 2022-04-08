@@ -87,7 +87,7 @@ namespace USkummelB
             {
                 uint diskIndex = (uint)instance["Number"];
 
-                ManagementObjectCollection ddc = WQL.QueryMi(@"SELECT * FROM Win32_DiskDrive WHERE Index=" + diskIndex);
+                using ManagementObjectCollection ddc = WQL.QueryMi(@"SELECT * FROM Win32_DiskDrive WHERE Index=" + diskIndex);
                 foreach (ManagementObject dd in ddc)
                 {
                     pnp_deviceID = (string)dd["PnPDeviceID"];
@@ -108,14 +108,14 @@ namespace USkummelB
             uint diskIndex;
             UInt64 size = 0;
             string serial = "";
-            ManagementObjectCollection ldc = WQL.QueryMi(@"SELECT * FROM Win32_LogicalDisk WHERE DeviceID='" + drive + "'");
+            using ManagementObjectCollection ldc = WQL.QueryMi(@"SELECT * FROM Win32_LogicalDisk WHERE DeviceID='" + drive + "'");
             foreach (ManagementObject ld in ldc)
             {
                 diskName = (string)ld["VolumeName"];
-                var dpc = ld.GetRelated("Win32_DiskPartition");
+                using var dpc = ld.GetRelated("Win32_DiskPartition");
                 foreach (ManagementObject dp in dpc)
                 {
-                    var ddc = dp.GetRelated("Win32_DiskDrive");
+                    using var ddc = dp.GetRelated("Win32_DiskDrive");
                     foreach (ManagementObject dd in ddc)
                     {
                         pnp_deviceID = (string)dd["PnPDeviceID"];
@@ -133,32 +133,22 @@ namespace USkummelB
         {
             string? location = "";
             string? hubID = "";
-            string PDOname = "";
-            ManagementObjectCollection usbc = WQL.QueryMi(@"SELECT * FROM Win32_PnPEntity WHERE PnPDeviceID='" + pnp_deviceID.Replace(@"\", @"\\") + "'");
-            foreach (ManagementObject usb in usbc)
-            {
-                var hubc = usb.GetRelated("Win32_USBController");
-                foreach (var hub in hubc)
-                {
-//                    hubID = (string)hub.GetPropertyValue("PnPDeviceID");
-                }
-            }
-
-            var pdoc = WQL.QueryMi(@"SELECT * FROM Win32_PnPSignedDriver WHERE DeviceID='" + pnp_deviceID.Replace(@"\", @"\\") + "'");
+            string PDOname;
+            using var pdoc = WQL.QueryMi(@"SELECT * FROM Win32_PnPSignedDriver WHERE DeviceID='" + pnp_deviceID.Replace(@"\", @"\\") + "'");
             foreach(ManagementObject pdo in pdoc)
             {
                 PDOname = (string)pdo["PDO"];
             }
 
-            IntPtr pdnDevInst;
-            if (Pinvoke.CM_Locate_DevNode(out pdnDevInst, pnp_deviceID, Pinvoke.CM_LOCATE_DEVNODE_NORMAL) == 0)
+            // This is the device with name
+            if (Pinvoke.CM_Locate_DevNode(out IntPtr pdnDevInst, pnp_deviceID, Pinvoke.CM_LOCATE_DEVNODE_NORMAL) == 0)
             {
-                IntPtr classNode;
-                if (Pinvoke.CM_Get_Parent(out classNode, pdnDevInst, 0) == 0)
+                // The generic device
+                if (Pinvoke.CM_Get_Parent(out IntPtr classNode, pdnDevInst, 0) == 0)
                 {
                     location = Pinvoke.GetDeviceProperties(classNode, Pinvoke.DevRegProperty.LocationInfo);
-                    IntPtr hubNode;
-                    if (Pinvoke.CM_Get_Parent(out hubNode, classNode, 0) == 0)
+                    // The connected hub
+                    if (Pinvoke.CM_Get_Parent(out IntPtr hubNode, classNode, 0) == 0)
                     {
                         hubID = Pinvoke.GetDeviceProperties(hubNode, Pinvoke.DevRegProperty.HardwareId);
                     }
