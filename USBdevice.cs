@@ -180,32 +180,17 @@ namespace USkummelB
             if (diskC != null)
                 foreach (ManagementObject disk in diskC)
                 {
-                    ManagementBaseObject inParams = disk.GetMethodParameters("Clear");
+                    using ManagementBaseObject inParams = disk.GetMethodParameters("Clear");
                     inParams["RemoveData"] = true;
                     inParams["RemoveOEM"] = true;
                     inParams["ZeroOutEntireDisk"] = false;
 
                     try
                     {
-                        ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
+                        using ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
                         returnValue = (UInt32)outParams["ReturnValue"];
                         if (returnValue == 0)
-                        {
-                            inParams = disk.GetMethodParameters("CreatePartition");
-                            inParams["AssignDriveLetter"] = false;
-                            inParams["UseMaximumSize"] = true;
-
-                            outParams = disk.InvokeMethod("CreatePartition", inParams, null);
-                            returnValue = (UInt32)outParams["ReturnValue"];
-                            if (returnValue == 0)
-                            {
-                                var partition = outParams["CreatedPartition"] as ManagementBaseObject;
-                                char? nydrive = (char?)partition?[nameof(DriveLetter)];
-                                driveLetterOrNull = nydrive == '\0' ? null : nydrive;
-                                diskName = "";
-                                UpdateDisk();
-                            }
-                        }
+                            returnValue = CreatePartition(disk);
                     }
                     catch (Exception ex)
                     {
@@ -217,6 +202,29 @@ namespace USkummelB
             if (returnValue != 0) UpdateStatus(Status.Feil, errorMessage);
 
             return returnValue == 0;
+        }
+
+        private uint CreatePartition(ManagementObject disk)
+        {
+            uint returnValue;
+            {
+                using var inParamsCP = disk.GetMethodParameters("CreatePartition");
+                inParamsCP["AssignDriveLetter"] = false;
+                inParamsCP["UseMaximumSize"] = true;
+
+                using var outParamsCP = disk.InvokeMethod("CreatePartition", inParamsCP, null);
+                returnValue = (UInt32)outParamsCP["ReturnValue"];
+                if (returnValue == 0)
+                {
+                    var partition = outParamsCP["CreatedPartition"] as ManagementBaseObject;
+                    char? nydrive = (char?)partition?[nameof(DriveLetter)];
+                    driveLetterOrNull = nydrive == '\0' ? null : nydrive;
+                    diskName = "";
+                    UpdateDisk();
+                }
+            }
+
+            return returnValue;
         }
 
         internal void ByttGruppe(string gruppe)
@@ -235,7 +243,7 @@ namespace USkummelB
             if (volumeC != null)
                 foreach (ManagementObject volume in volumeC)
                 {
-                    ManagementBaseObject inParams = volume.GetMethodParameters("Format");
+                    using ManagementBaseObject inParams = volume.GetMethodParameters("Format");
                     string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
@@ -247,12 +255,13 @@ namespace USkummelB
                     results.ObjectReady += new ObjectReadyEventHandler(this.FormatObjectReady);
                     // results.Progress += new ProgressEventHandler(this.FormatProgress); // I have not been able to get progressbar to work
 
-                    InvokeMethodOptions formatOptions = new InvokeMethodOptions();
-                    formatOptions.Timeout = TimeSpan.Zero;// new TimeSpan(0, 0, 5);
+                    InvokeMethodOptions formatOptions = new()
+                    {
+                        Timeout = TimeSpan.Zero// new TimeSpan(0, 0, 5);
+                    };
 
                     formatResult = new();
                     formatCompletedStatus = new();
-                    /*ManagementBaseObject outParams = */
                     volume.InvokeMethod(results, "Format", inParams, formatOptions);
 
                     var resultValue = formatResult.Task.Result;  // Wait for event
@@ -267,25 +276,29 @@ namespace USkummelB
                     var status = formatCompletedStatus.Task.Result;
 
                     if (driveLetterOrNull == null)
-                    {
-                        using var partC = volume.GetRelated("MSFT_Partition");
-                        foreach (ManagementObject part in partC)
-                        {
-                            inParams = part.GetMethodParameters("AddAccessPath");
-                            inParams["AssignDriveLetter"] = true;
-                            var outParams = part.InvokeMethod("AddAccessPath", inParams, null);
-                            var returnValue = (UInt32)outParams["ReturnValue"];
-                            part.Get(); // Update data
-                            char? nydrive = (char?)part[nameof(DriveLetter)];
-                            driveLetterOrNull = nydrive == '\0' ? null : nydrive;
-                        }
-                    }
+                        AssignDriveLetter(volume);
                     break;
                 }
 
             Task.Delay(1000).Wait();    // Disk still active if ejected immediately
 
             return result;
+        }
+
+        private void AssignDriveLetter(ManagementObject volume)
+        {
+            using var partC = volume.GetRelated("MSFT_Partition");
+            foreach (ManagementObject part in partC)
+            {
+                using var inParamsPart = part.GetMethodParameters("AddAccessPath");
+                inParamsPart["AssignDriveLetter"] = true;
+                using var outParams = part.InvokeMethod("AddAccessPath", inParamsPart, null);
+                var returnValue = (UInt32)outParams["ReturnValue"];
+                part.Get(); // Update data
+                char? nydrive = (char?)part[nameof(DriveLetter)];
+                driveLetterOrNull = nydrive == '\0' ? null : nydrive;
+                UpdateDisk();
+            }
         }
 
         private void FormatProgress(object sender, ProgressEventArgs e)
