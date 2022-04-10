@@ -14,25 +14,27 @@ namespace USkummelB
     {
         public USB_EventInfo()
         {
-            DriveLetter = null;
+            DriveLetter = '\0';
             Lokasjon = "";
             HubID = "";
             HubFriendlyName = "";
-            VolumeName = "";
+            VolumePath = "";
             DeviceName = "";
             Serial = "";
             DiskName = "";
         }
 
-        public char? DriveLetter { get; set; }
+        public char DriveLetter { get; set; }
         public UInt64 Size { get; set; }
         public string? Lokasjon { get; set; }
         public string? HubID { get; set; }
         public string? HubFriendlyName { get; set; }
-        public string VolumeName { get; set; }
+        public string VolumePath { get; set; }
         public string DeviceName { get; set; }
         public string Serial { get; set; }
         public string DiskName { get; set; }
+
+        public bool IsValid() { return VolumePath.Length > 0 && DeviceName.Length > 0; }
     }
 
     public class USB_RemovedEvent : EventArgs
@@ -44,12 +46,6 @@ namespace USkummelB
     {
         public USBDetect()
         {
-            WqlEventQuery vcQuery = new WqlEventQuery("SELECT * FROM Win32_VolumeChangeEvent WHERE EventType = 2");
-
-            ManagementEventWatcher vcWatcher = new ManagementEventWatcher(vcQuery);
-            vcWatcher.EventArrived += new EventArrivedEventHandler(VolumeChangedEvent);
-            vcWatcher.Start();
-
             WqlEventQuery diskQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'MSFT_Disk' AND TargetInstance.BusType = 7");
             ManagementEventWatcher insertWatcher = new ManagementEventWatcher(new ManagementScope(@"\root\Microsoft\Windows\Storage"),diskQuery);
             insertWatcher.EventArrived += new EventArrivedEventHandler(NewDiskEvent);
@@ -80,58 +76,24 @@ namespace USkummelB
             string pnp_deviceID = "";
             string deviceName = "";
             UInt64 size = 0;
-            string serial = "";
+            string pnp_serial = "";
 
-            ManagementBaseObject? instance = e.NewEvent["TargetInstance"] as ManagementBaseObject;
-            if (instance != null)
+            if (e.NewEvent["TargetInstance"] is not ManagementBaseObject instance)
+                return;
+
+            uint diskIndex = (uint)instance["Number"];  // Index like in \\.\PHYSICALDRIVE{Index}
+
+            using ManagementObjectCollection ddc = WQL.QueryMi(@"SELECT * FROM Win32_DiskDrive WHERE Index=" + diskIndex);
+            foreach (ManagementObject dd in ddc)
             {
-                uint diskIndex = (uint)instance["Number"];
-
-                using ManagementObjectCollection ddc = WQL.QueryMi(@"SELECT * FROM Win32_DiskDrive WHERE Index=" + diskIndex);
-                foreach (ManagementObject dd in ddc)
-                {
-                    pnp_deviceID = (string)dd["PnPDeviceID"];
-                    size = (UInt64)dd.GetPropertyValue("Size");
-                    deviceName = (string)dd["DeviceID"];
-                    serial = (string)dd["SerialNumber"];
-                    break;  // Only one
-                }
+                pnp_deviceID = (string)dd["PnPDeviceID"];
+                size = (UInt64)dd.GetPropertyValue("Size");
+                deviceName = (string)dd["DeviceID"];
+                pnp_serial = (string)dd["SerialNumber"];
+                break;  // Only one
             }
-            CommonSendEvent("", pnp_deviceID, "", deviceName, size, serial);
-        }
 
-        private void VolumeChangedEvent(object sender, EventArrivedEventArgs e)
-        {
-            string drive = (string)e.NewEvent["DriveName"];
-            string pnp_deviceID = "";
             string diskName = "";
-            string deviceName = "";
-            uint diskIndex;
-            UInt64 size = 0;
-            string serial = "";
-            using ManagementObjectCollection ldc = WQL.QueryMi(@"SELECT * FROM Win32_LogicalDisk WHERE DeviceID='" + drive + "'");
-            foreach (ManagementObject ld in ldc)
-            {
-                diskName = (string)ld["VolumeName"];
-                using var dpc = ld.GetRelated("Win32_DiskPartition");
-                foreach (ManagementObject dp in dpc)
-                {
-                    using var ddc = dp.GetRelated("Win32_DiskDrive");
-                    foreach (ManagementObject dd in ddc)
-                    {
-                        pnp_deviceID = (string)dd["PnPDeviceID"];
-                        diskIndex = (uint)dd.GetPropertyValue("Index");
-                        size = (UInt64)dd.GetPropertyValue("Size");
-                        deviceName = (string)dd["DeviceID"];
-                        serial = (string)dd["SerialNumber"];
-                    }
-                }
-            }
-            CommonSendEvent(drive, pnp_deviceID, diskName, deviceName, size, serial);
-        }
-
-        private void CommonSendEvent(string drive, string pnp_deviceID, string diskName, string deviceName, ulong size, string serial)
-        {
             string? location = "";
             string? hubID = "";
             string PDOname;
@@ -157,36 +119,32 @@ namespace USkummelB
             }
 
             string volumeName = "";
-            if (drive.Length > 0)
-                volumeName = Pinvoke.GetVolumeName(drive + "\\");
-            else
+            char driveLetter = '\0';
+            using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + pnp_serial + "'");
+            foreach (ManagementObject disk in diskC)
             {
-                using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
-                foreach (ManagementObject disk in diskC)
+                using var partC = disk.GetRelated("MSFT_Partition");
+                foreach (ManagementObject part in partC)
                 {
-                    using var partC = disk.GetRelated("MSFT_Partition");
-                    foreach (ManagementObject part in partC)
-                    {
-                        char driveLetter = (char)part["DriveLetter"];
-                        if(driveLetter != '\0')
-                            drive = driveLetter.ToString();
-                        using var volC = part.GetRelated("MSFT_Volume");
-                        foreach (var vol in volC)
-                            volumeName = (string)vol["Path"];
-                    }
+                    driveLetter = (char)part["DriveLetter"];
+                    using var volC = part.GetRelated("MSFT_Volume");
+                    foreach (var vol in volC)
+                        volumeName = (string)vol["Path"];
                 }
             }
 
             var args = new USB_EventInfo();
-            args.DriveLetter = drive.Length > 0 ? drive[0] : null;
+            args.DriveLetter = driveLetter;
             args.Size = size;
             args.HubID = hubID;
             args.Lokasjon = location;
             args.DiskName = diskName;
-            args.VolumeName = volumeName;
+            args.VolumePath = volumeName;
             args.DeviceName = deviceName;
-            args.Serial = serial;
-            OnUSBFound(args);
+            args.Serial = pnp_serial;
+            
+            if(args.IsValid())
+                OnUSBFound(args);
         }
 
         private static void FindDeviceNameFromVolume(string cfVolName)

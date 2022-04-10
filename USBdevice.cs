@@ -118,8 +118,6 @@ namespace USkummelB
                 });
         }
 
-        bool Valid() { return true; }
-
         public USBdevice(ListView view, USB_EventInfo info, string gruppeNavn)
         {
             driveLetterOrNull = info.DriveLetter;
@@ -130,14 +128,12 @@ namespace USkummelB
             lok = info.Lokasjon;
             deviceName = info.DeviceName;
             serial = info.Serial;
-            volumeName = info.VolumeName;
+            volumeName = info.VolumePath;
 
 
             var existing = ExistingDevice(view, deviceName);
             if (existing != null)
             {
-                existing.DriveLetter = info.DriveLetter;
-                existing.DiskName = info.DiskName;
                 status = Status.Feil;
             }
             else
