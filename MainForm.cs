@@ -135,9 +135,9 @@ namespace USkummelB
             if (ntfsSelect.Checked) fs = "NTFS";
             if (ExFATselect.Checked) fs = "ExFAT";
             if (force)
-                new Thread(() => { usb.KjørJobb(CleanOn, FormatOn, merkelappCheckBox.Checked, fs); }).Start();
+                new Thread(() => { usb.RunJob(CleanOn, FormatOn, merkelappCheckBox.Checked, fs); }).Start();
             else
-                new Thread(() => { usb.KjørJobb(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs); }).Start();
+                new Thread(() => { usb.RunJob(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs); }).Start();
         }
 
         private void actHubButClick(object sender, EventArgs e)

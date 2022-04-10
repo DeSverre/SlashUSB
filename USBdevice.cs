@@ -11,6 +11,7 @@ namespace USkummelB
 {
     internal class USBdevice
     {
+        private static Mutex mutex = new();
         readonly UInt64 size;
         public readonly string? HubFriendlyName;
         readonly string? HubID;
@@ -316,14 +317,19 @@ namespace USkummelB
             formatCompletedStatus?.TrySetResult(e.Status);
         }
 
-        public void KjørJobb(bool clean, bool format, bool sizeLabel, string fs)
+        public void RunJob(bool clean, bool format, bool sizeLabel, string fs)
         {
+            if (mutex.WaitOne(0) == false) 
+                return;
+
             jobb = new Jobb(clean, format, sizeLabel, fs);
             while (status != Status.Eject && status != Status.Feil)
             {
                 NextState();
                 RunState();
             }
+
+            mutex.ReleaseMutex();
         }
 
         private void RunState()

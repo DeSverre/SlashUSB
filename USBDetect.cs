@@ -155,7 +155,23 @@ namespace USkummelB
                 }
             }
 
-            string volumeName = Pinvoke.GetVolumeName(drive + "\\");
+            string volumeName = "";
+            if (drive.Length > 0)
+                volumeName = Pinvoke.GetVolumeName(drive + "\\");
+            else
+            {
+                using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
+                foreach (ManagementObject disk in diskC)
+                {
+                    using var partC = disk.GetRelated("MSFT_Partition");
+                    foreach (ManagementObject part in partC)
+                    {
+                        using var volC = part.GetRelated("MSFT_Volume");
+                        foreach (var vol in volC)
+                            volumeName = (string)vol["Path"];
+                    }
+                }
+            }
 
             var args = new USB_EventInfo();
             args.DriveLetter = drive.Length > 0 ? drive[0] : null;
