@@ -179,19 +179,19 @@ namespace USkummelB
             string errorMessage = "Rens feilet";
             using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
             if (diskC != null)
-                foreach (ManagementObject disk in diskC)
+                foreach (ManagementObject msft_disk in diskC)
                 {
-                    using ManagementBaseObject inParams = disk.GetMethodParameters("Clear");
+                    using ManagementBaseObject inParams = msft_disk.GetMethodParameters("Clear");
                     inParams["RemoveData"] = true;
                     inParams["RemoveOEM"] = true;
                     inParams["ZeroOutEntireDisk"] = false;
 
                     try
                     {
-                        using ManagementBaseObject outParams = disk.InvokeMethod("Clear", inParams, null);
+                        using ManagementBaseObject outParams = msft_disk.InvokeMethod("Clear", inParams, null);
                         returnValue = (UInt32)outParams["ReturnValue"];
                         if (returnValue == 0)
-                            returnValue = CreatePartition(disk);
+                            returnValue = CreatePartition(msft_disk);
                     }
                     catch (Exception ex)
                     {
@@ -205,15 +205,15 @@ namespace USkummelB
             return returnValue == 0;
         }
 
-        private uint CreatePartition(ManagementObject disk)
+        private uint CreatePartition(ManagementObject msft_disk)
         {
             uint returnValue;
             {
-                using var inParamsCP = disk.GetMethodParameters("CreatePartition");
+                using var inParamsCP = msft_disk.GetMethodParameters("CreatePartition");
                 inParamsCP["AssignDriveLetter"] = false;
                 inParamsCP["UseMaximumSize"] = true;
 
-                using var outParamsCP = disk.InvokeMethod("CreatePartition", inParamsCP, null);
+                using var outParamsCP = msft_disk.InvokeMethod("CreatePartition", inParamsCP, null);
                 returnValue = (UInt32)outParamsCP["ReturnValue"];
                 if (returnValue == 0)
                 {
@@ -245,7 +245,7 @@ namespace USkummelB
                 foreach (ManagementObject volume in volumeC)
                 {
                     using ManagementBaseObject inParams = volume.GetMethodParameters("Format");
-                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName != null ? DiskName : "PiratSoft");
+                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName ?? "PiratSoft");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;
@@ -320,7 +320,7 @@ namespace USkummelB
         public void RunJob(bool clean, bool format, bool sizeLabel, string fs)
         {
             if (mutex.WaitOne(0) == false) 
-                return;
+                return; // If job already running
 
             jobb = new Jobb(clean, format, sizeLabel, fs);
             while (status != Status.Eject && status != Status.Feil)
