@@ -57,11 +57,11 @@ namespace USkummelB
 
             WqlEventQuery removeQuery = new WqlEventQuery("SELECT * FROM __InstanceDeletionEvent WITHIN 2 WHERE TargetInstance ISA 'MSFT_Disk' AND TargetInstance.BusType = 7");
             ManagementEventWatcher removeWatcher = new ManagementEventWatcher(new ManagementScope(@"\root\Microsoft\Windows\Storage"), removeQuery);
-            removeWatcher.EventArrived += new EventArrivedEventHandler(DeviceRemovedEvent);
+            removeWatcher.EventArrived += new EventArrivedEventHandler(DiskRemovedEvent);
             removeWatcher.Start();
         }
 
-        private void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
+        private void DiskRemovedEvent(object sender, EventArrivedEventArgs e)
         {
             ManagementBaseObject? instance = e.NewEvent["TargetInstance"] as ManagementBaseObject;
             if (instance != null)
@@ -94,6 +94,7 @@ namespace USkummelB
                     size = (UInt64)dd.GetPropertyValue("Size");
                     deviceName = (string)dd["DeviceID"];
                     serial = (string)dd["SerialNumber"];
+                    break;  // Only one
                 }
             }
             CommonSendEvent("", pnp_deviceID, "", deviceName, size, serial);
@@ -166,6 +167,9 @@ namespace USkummelB
                     using var partC = disk.GetRelated("MSFT_Partition");
                     foreach (ManagementObject part in partC)
                     {
+                        char driveLetter = (char)part["DriveLetter"];
+                        if(driveLetter != '\0')
+                            drive = driveLetter.ToString();
                         using var volC = part.GetRelated("MSFT_Volume");
                         foreach (var vol in volC)
                             volumeName = (string)vol["Path"];
