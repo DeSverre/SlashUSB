@@ -7,11 +7,10 @@ namespace USkummelB
     {
         private const string ActivatedGroupName = "listViewGroupAktivert";
         private const string FoundGroupName = "listViewGroupFunnet";
-        private UInt32 queryCancelAutoPlay = 0;
 
         readonly USBDetect usbdetector = new();
         readonly List<string> hubList = new();
-        readonly List<string> aktivertHubList = new();
+        readonly List<string> activatedHubList = new();
 
         bool mDeactivate = false;
 
@@ -23,6 +22,8 @@ namespace USkummelB
 
             versionLabel.Text = "Versjon: " + typeof(MainForm).Assembly.GetName().Version?.ToString() ?? "--";
         }
+
+        private UInt32 queryCancelAutoPlay = 0;
 
         protected override void WndProc(ref Message m)
         {
@@ -49,10 +50,10 @@ namespace USkummelB
 
         private void AktivertCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox? aktivert = sender as CheckBox;
-            if (aktivert != null)
+            CheckBox? activated = sender as CheckBox;
+            if (activated != null)
             {
-                aktivert.Text = aktivert.Checked ? "Deaktiver" : "Aktiver";
+                activated.Text = activated.Checked ? "Deaktiver" : "Aktiver";
                 UpdateEmergencyLight();
             }
         }
@@ -86,11 +87,11 @@ namespace USkummelB
         private void InsertDevice(USB_EventInfo usbInfo)
         {
             DetermineHubIndex(usbInfo);
-            bool aktivert = (aktivertHubList.FindIndex(x => x == usbInfo.HubFriendlyName) != -1);
+            bool aktivert = (activatedHubList.FindIndex(x => x == usbInfo.HubFriendlyName) != -1);
 
             var usb = new USBmemoryDevice(usbListView, usbInfo, aktivert ? ActivatedGroupName : FoundGroupName);
             if (activatedCB.Checked && aktivert && usb.InstanceAdded)
-                KjørJobb(usb);
+                RunJob(usb);
         }
 
         private void DetermineHubIndex(USB_EventInfo usbInfo)
@@ -128,7 +129,7 @@ namespace USkummelB
             {
                 USBmemoryDevice usb = (USBmemoryDevice)s.Tag;
                 s.Selected = false;
-                KjørJobb(usb, true);
+                RunJob(usb, true);
             }
         }
 
@@ -137,14 +138,14 @@ namespace USkummelB
         bool FormatOn { get { return formatChecked.Checked; } }
         bool FormatEnabled { get { return FormatOn && activatedCB.Checked; } }
 
-        private void KjørJobb(USBmemoryDevice usb, bool force = false)
+        private void RunJob(USBmemoryDevice usb, bool force = false)
         {
             string fs = "FAT32";
             if (ntfsSelect.Checked) fs = "NTFS";
             if (ExFATselect.Checked) fs = "ExFAT";
             if (force)
                 new Thread(() => { usb.RunJob(CleanOn, FormatOn, merkelappCheckBox.Checked, fs); }).Start();
-            else
+            else if(activatedCB.Checked)
                 new Thread(() => { usb.RunJob(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs); }).Start();
         }
 
@@ -177,9 +178,9 @@ namespace USkummelB
         {
             if (hub == null) return;
 
-            var index = aktivertHubList.FindIndex(x => x == hub);
+            var index = activatedHubList.FindIndex(x => x == hub);
             if (index != -1)
-                aktivertHubList.RemoveAt(index);
+                activatedHubList.RemoveAt(index);
         }
 
         private void listViewSelect_Changed(object sender, EventArgs e)
@@ -212,10 +213,10 @@ namespace USkummelB
             foreach (ListViewItem s in usbListView.Items)
             {
                 USBmemoryDevice usb = (USBmemoryDevice)s.Tag;
-                if (aktivertHubList.FindIndex(x => usb.HubFriendlyName == x) != -1)
+                if (activatedHubList.FindIndex(x => usb.HubFriendlyName == x) != -1)
                 {
                     usb.ChangeGroup(ActivatedGroupName);
-                    KjørJobb(usb);
+                    RunJob(usb);
                 }
                 else
                     usb.ChangeGroup(FoundGroupName);
@@ -225,8 +226,8 @@ namespace USkummelB
         private void AddHub2Activated(string? hub)
         {
             if (hub == null) return;
-            if (aktivertHubList.FindIndex(x => x == hub) == -1)
-                aktivertHubList.Add(hub);
+            if (activatedHubList.FindIndex(x => x == hub) == -1)
+                activatedHubList.Add(hub);
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

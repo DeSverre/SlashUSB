@@ -20,7 +20,7 @@ namespace USkummelB
             HubFriendlyName = "";
             VolumePath = "";
             DeviceName = "";
-            Serial = "";
+            PNPserial = "";
             DiskName = "";
         }
 
@@ -31,7 +31,7 @@ namespace USkummelB
         public string? HubFriendlyName { get; set; }
         public string VolumePath { get; set; }
         public string DeviceName { get; set; }
-        public string Serial { get; set; }
+        public string PNPserial { get; set; }
         public string DiskName { get; set; }
 
         public bool IsValid() { return VolumePath.Length > 0 && DeviceName.Length > 0; }
@@ -142,14 +142,14 @@ namespace USkummelB
                 DiskName = diskName,
                 VolumePath = volumeName,
                 DeviceName = deviceName,
-                Serial = pnp_serial
+                PNPserial = pnp_serial
             };
 
             if (args.IsValid())
                 OnUSBFound(args);
         }
 
-        protected virtual void OnUSBFound(USB_EventInfo e)
+        private void OnUSBFound(USB_EventInfo e)
         {
             USBinserted?.Invoke(this, e);
         }

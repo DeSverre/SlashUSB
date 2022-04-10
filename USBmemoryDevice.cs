@@ -15,22 +15,22 @@ namespace USkummelB
         readonly UInt64 size;
         public readonly string? HubFriendlyName;
         readonly string? HubID;
-        readonly string? lok;
+        readonly string? location;
         readonly string deviceName;
-        readonly string serial;
+        readonly string pnp_serial;
         readonly string volumeName;
-        Jobb? jobb = null;
-        Status status = Status.Klar;
+        Job? job = null;
+        Status status = Status.Ready;
 
         readonly USBdeviceView? mDeviceView = null;
 
         private enum Status
         {
-            Klar,
-            Rensing,
+            Ready,
+            Cleaning,
             Format,
             Eject,
-            Feil
+            Error
         };
 
         private readonly string[] statusTekster = { "Klar", "Renser", "Formaterer", "OK - løser ut", "Feil!" };
@@ -88,11 +88,11 @@ namespace USkummelB
 
             switch (nyStatus)
             {
-                case Status.Klar:
+                case Status.Ready:
                     backColor = Color.Blue;
                     foreColor = Color.White;
                     break;
-                case Status.Rensing:
+                case Status.Cleaning:
                 case Status.Format:
                     backColor = Color.Yellow;
                     foreColor = Color.Black;
@@ -101,7 +101,7 @@ namespace USkummelB
                     backColor = Color.Green;
                     foreColor = Color.White;
                     break;
-                case Status.Feil:
+                case Status.Error:
                     backColor = Color.Red;
                     foreColor = Color.Black;
                     break;
@@ -125,16 +125,16 @@ namespace USkummelB
             size = info.Size;
             HubID = info.HubID;
             HubFriendlyName = info.HubFriendlyName;
-            lok = info.Location;
+            location = info.Location;
             deviceName = info.DeviceName;
-            serial = info.Serial;
+            pnp_serial = info.PNPserial;
             volumeName = info.VolumePath;
 
 
             var existing = ExistingDevice(view, deviceName);
             if (existing != null)
             {
-                status = Status.Feil;
+                status = Status.Error;
             }
             else
             {
@@ -145,7 +145,7 @@ namespace USkummelB
 
         private ListViewItem GetListViewItem()
         {
-            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), lok, HubFriendlyName })
+            var result = new ListViewItem(new[] { "", DriveLetter != null && DriveLetter != null ? DriveLetter + ":" : "", DiskName, deviceName, Utils.SizeSuffix(size), location, HubFriendlyName })
             {
                 Name = deviceName,
                 UseItemStyleForSubItems = false
@@ -160,7 +160,7 @@ namespace USkummelB
                 {
                     mDeviceView.Add2View(listViewItem, gruppeNavn, HubID ?? "");
                 });
-            UpdateStatus(Status.Klar);
+            UpdateStatus(Status.Ready);
         }
 
         public void Remove()
@@ -173,7 +173,7 @@ namespace USkummelB
         {
             UInt32 returnValue = 1;
             string errorMessage = "Rens feilet";
-            using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + serial + "'");
+            using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + pnp_serial + "'");
             if (diskC != null)
                 foreach (ManagementObject msft_disk in diskC)
                 {
@@ -196,7 +196,7 @@ namespace USkummelB
                     break;
                 }
 
-            if (returnValue != 0) UpdateStatus(Status.Feil, errorMessage);
+            if (returnValue != 0) UpdateStatus(Status.Error, errorMessage);
 
             return returnValue == 0;
         }
@@ -268,7 +268,7 @@ namespace USkummelB
                         result = true;
                     }
                     else
-                        UpdateStatus(Status.Feil, "Format feilet");
+                        UpdateStatus(Status.Error, "Format feilet");
 
                     var status = formatCompletedStatus.Task.Result;
 
@@ -315,11 +315,11 @@ namespace USkummelB
 
         public void RunJob(bool clean, bool format, bool sizeLabel, string fs)
         {
-            if (mutex.WaitOne(0) == false) 
+            if (mutex.WaitOne(0) == false)
                 return; // If job already running
 
-            jobb = new Jobb(clean, format, sizeLabel, fs);
-            while (status != Status.Eject && status != Status.Feil)
+            job = new Job(clean, format, sizeLabel, fs);
+            while (status != Status.Eject && status != Status.Error)
             {
                 NextState();
                 RunState();
@@ -332,18 +332,37 @@ namespace USkummelB
         {
             switch (status)
             {
-                case Status.Klar: break;
-                case Status.Rensing:
-                    if (jobb != null && jobb.Clean) CleanDisk();
+                case Status.Ready: break;
+                case Status.Cleaning:
+                    if (job != null && job.Clean) CleanDisk();
                     break;
                 case Status.Format:
-                    if (jobb != null && jobb.Format) Format(jobb.SizeLabel, jobb.FileSystem);
+                    if (job != null && job.Format) Format(job.SizeLabel, job.FileSystem);
                     break;
                 case Status.Eject:
                     Eject();
-                    jobb = null;
+                    job = null;
                     break;
-                case Status.Feil:
+                case Status.Error:
+                    break;
+            }
+        }
+
+        private void NextState()
+        {
+            switch (status)
+            {
+                case Status.Ready:
+                    UpdateStatus(Status.Cleaning);
+                    break;
+                case Status.Cleaning:
+                    UpdateStatus(Status.Format);
+                    break;
+                case Status.Format:
+                    UpdateStatus(Status.Eject);
+                    break;
+                case Status.Eject:
+                case Status.Error:
                     break;
             }
         }
@@ -355,39 +374,20 @@ namespace USkummelB
             return found.Length > 0 ? (USBmemoryDevice)found[0].Tag : null;
         }
 
-        private void NextState()
-        {
-            switch (status)
-            {
-                case Status.Klar:
-                    UpdateStatus(Status.Rensing);
-                    break;
-                case Status.Rensing:
-                    UpdateStatus(Status.Format);
-                    break;
-                case Status.Format:
-                    UpdateStatus(Status.Eject);
-                    break;
-                case Status.Eject:
-                case Status.Feil:
-                    break;
-            }
-        }
-
         private void Eject()
         {
-#if true
             static void EjectDriveShell(object? param)
             {
                 if (param == null) return;
 
                 var ssfDRIVES = 0x11;
-
                 var driveName = param.ToString();
 
                 var shell = new Shell();
                 shell.NameSpace(ssfDRIVES).ParseName(driveName).InvokeVerb("Eject");
             }
+
+            Thread.Sleep(2000);
 
             if (driveLetterOrNull != null)
             {
@@ -413,33 +413,16 @@ namespace USkummelB
                         break;
                     }
             }
-#elif false
-             if(driveLetter!=null)
-            {
-                string drive = driveLetter + ":\\";
-                var result = Pinvoke.DeleteVolumeMountPoint(drive);
-                if(result == false)
-                {
-                    var lastError = Marshal.GetHRForLastWin32Error();
-                }
-            }
-#else
-            using (var handle = Pinvoke.CreateFile(deviceName, FileAccess.Read, FileShare.Write | FileShare.Read | FileShare.Delete, IntPtr.Zero, FileMode.Open, Pinvoke.FILE_ATTRIBUTE_SYSTEM | Pinvoke.FILE_FLAG_SEQUENTIAL_SCAN, IntPtr.Zero))
-            {
-                uint bytesReturned;
-                Pinvoke.DeviceIoControl(handle, Pinvoke.IOCTL_STORAGE_EJECT_MEDIA, IntPtr.Zero, 0, IntPtr.Zero, 0, out bytesReturned, IntPtr.Zero);
-            }
-#endif
         }
 
-        private class Jobb
+        private class Job
         {
             public readonly bool Clean;
             public readonly bool Format;
             public readonly bool SizeLabel;
             public readonly string FileSystem;
 
-            public Jobb(bool clean, bool format, bool sizeLabel, string fs)
+            public Job(bool clean, bool format, bool sizeLabel, string fs)
             {
                 this.Clean = clean;
                 this.Format = format;
