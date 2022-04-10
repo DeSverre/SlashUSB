@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.emergencyLight = new System.Windows.Forms.PictureBox();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -217,15 +217,15 @@
             this.Hub});
             this.usbListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usbListView.FullRowSelect = true;
-            listViewGroup1.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup1.Header = "Funnet";
-            listViewGroup1.Name = "listViewGroupFunnet";
-            listViewGroup2.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup2.Header = "Aktivert";
-            listViewGroup2.Name = "listViewGroupAktivert";
+            listViewGroup3.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup3.Header = "Funnet";
+            listViewGroup3.Name = "listViewGroupFunnet";
+            listViewGroup4.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup4.Header = "Aktivert";
+            listViewGroup4.Name = "listViewGroupAktivert";
             this.usbListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2});
+            listViewGroup3,
+            listViewGroup4});
             this.usbListView.Location = new System.Drawing.Point(0, 0);
             this.usbListView.Name = "usbListView";
             this.usbListView.Size = new System.Drawing.Size(736, 435);

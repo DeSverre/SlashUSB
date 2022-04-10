@@ -15,6 +15,7 @@
     <NeutralLanguage>nb-NO</NeutralLanguage>
     <Copyright>(C) Sverre Langhus</Copyright>
     <PackageReleaseNotes>Disable autorun fixed</PackageReleaseNotes>
+    <ApplicationIcon>swordUSB.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,6 +42,7 @@
     <Content Include="Parrot.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Content Include="swordUSB.ico" />
   </ItemGroup>
 
   <ItemGroup>
