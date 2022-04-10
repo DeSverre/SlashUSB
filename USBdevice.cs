@@ -125,7 +125,7 @@ namespace USkummelB
             size = info.Size;
             HubID = info.HubID;
             HubFriendlyName = info.HubFriendlyName;
-            lok = info.Lokasjon;
+            lok = info.Location;
             deviceName = info.DeviceName;
             serial = info.Serial;
             volumeName = info.VolumePath;

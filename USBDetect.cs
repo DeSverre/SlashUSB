@@ -15,7 +15,7 @@ namespace USkummelB
         public USB_EventInfo()
         {
             DriveLetter = '\0';
-            Lokasjon = "";
+            Location = "";
             HubID = "";
             HubFriendlyName = "";
             VolumePath = "";
@@ -26,7 +26,7 @@ namespace USkummelB
 
         public char DriveLetter { get; set; }
         public UInt64 Size { get; set; }
-        public string? Lokasjon { get; set; }
+        public string? Location { get; set; }
         public string? HubID { get; set; }
         public string? HubFriendlyName { get; set; }
         public string VolumePath { get; set; }
@@ -133,44 +133,20 @@ namespace USkummelB
                 }
             }
 
-            var args = new USB_EventInfo();
-            args.DriveLetter = driveLetter;
-            args.Size = size;
-            args.HubID = hubID;
-            args.Lokasjon = location;
-            args.DiskName = diskName;
-            args.VolumePath = volumeName;
-            args.DeviceName = deviceName;
-            args.Serial = pnp_serial;
-            
-            if(args.IsValid())
-                OnUSBFound(args);
-        }
-
-        private static void FindDeviceNameFromVolume(string cfVolName)
-        {
-            using (SafeFileHandle? handle = Pinvoke.CreateFile(cfVolName, FileAccess.Read, FileShare.Write | FileShare.Read | FileShare.Delete, IntPtr.Zero, FileMode.Open, Pinvoke.FILE_ATTRIBUTE_SYSTEM | Pinvoke.FILE_FLAG_SEQUENTIAL_SCAN, IntPtr.Zero))
+            var args = new USB_EventInfo
             {
-                if (!handle.IsInvalid)
-                {
-                    int bsize = 0x400;//some big size
-                    IntPtr buffer = Marshal.AllocHGlobal(bsize);
-                    uint bytesReturned = 0;
+                DriveLetter = driveLetter,
+                Size = size,
+                HubID = hubID,
+                Location = location,
+                DiskName = diskName,
+                VolumePath = volumeName,
+                DeviceName = deviceName,
+                Serial = pnp_serial
+            };
 
-                    Pinvoke.DeviceIoControl(handle, Pinvoke.IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS, IntPtr.Zero, 0, buffer, (uint)bsize, out bytesReturned, IntPtr.Zero);
-                    if (bytesReturned > 0)
-                    {
-                        Pinvoke._VOLUME_DISK_EXTENTS extents = Marshal.PtrToStructure<Pinvoke._VOLUME_DISK_EXTENTS>(buffer);
-                        var numberOfDiskExtents = extents.NumberOfDiskExtents;
-                        if (numberOfDiskExtents == 1)
-                        {
-                            string result = string.Format("\\\\.\\PHYSICALDRIVE{0}", extents.Extents.DiskNumber);
-                            Console.WriteLine(result);
-                        }
-                    }
-                    Marshal.FreeHGlobal(buffer);
-                }
-            }
+            if (args.IsValid())
+                OnUSBFound(args);
         }
 
         protected virtual void OnUSBFound(USB_EventInfo e)
