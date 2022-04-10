@@ -276,6 +276,7 @@
             this.ClientSize = new System.Drawing.Size(736, 565);
             this.Controls.Add(this.usbListView);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "USkummelB";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
