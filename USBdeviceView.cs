@@ -8,14 +8,14 @@ namespace USkummelB
 {
     internal class USBdeviceView
     {
-        readonly USBdevice mDevice;
+        readonly USBmemoryDevice mDevice;
         readonly ListView myView;
         ListViewItem? mItem = null;
 
         public ListView.ListViewItemCollection Items { get { return myView.Items; } }
         public ListView View { get { return myView; } }
 
-        public USBdeviceView(USBdevice device, ListView view)
+        public USBdeviceView(USBmemoryDevice device, ListView view)
         {
             mDevice = device;
             myView = view;

@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.emergencyLight = new System.Windows.Forms.PictureBox();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.testButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.activateHUBbt = new System.Windows.Forms.Button();
@@ -49,12 +52,13 @@
             this.DiskSize = new System.Windows.Forms.ColumnHeader();
             this.Lokasjon = new System.Windows.Forms.ColumnHeader();
             this.Hub = new System.Windows.Forms.ColumnHeader();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.emergencyLight)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.emergencyLight);
             this.groupBox1.Controls.Add(this.versionLabel);
             this.groupBox1.Controls.Add(this.testButton);
             this.groupBox1.Controls.Add(this.label1);
@@ -73,6 +77,26 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Standard handling";
+            // 
+            // emergencyLight
+            // 
+            this.emergencyLight.Image = ((System.Drawing.Image)(resources.GetObject("emergencyLight.Image")));
+            this.emergencyLight.Location = new System.Drawing.Point(15, 75);
+            this.emergencyLight.Name = "emergencyLight";
+            this.emergencyLight.Size = new System.Drawing.Size(51, 46);
+            this.emergencyLight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.emergencyLight.TabIndex = 5;
+            this.emergencyLight.TabStop = false;
+            this.emergencyLight.Visible = false;
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Location = new System.Drawing.Point(99, 106);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(45, 15);
+            this.versionLabel.TabIndex = 4;
+            this.versionLabel.Text = "versjon";
             // 
             // testButton
             // 
@@ -103,7 +127,7 @@
             this.activateHUBbt.TabIndex = 2;
             this.activateHUBbt.Text = "Aktiver hub";
             this.activateHUBbt.UseVisualStyleBackColor = true;
-            this.activateHUBbt.Click += new System.EventHandler(this.actHubButClick);
+            this.activateHUBbt.Click += new System.EventHandler(this.ActHubButClick);
             // 
             // ExFATselect
             // 
@@ -245,14 +269,6 @@
             this.Hub.Text = "Hub";
             this.Hub.Width = 50;
             // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.Location = new System.Drawing.Point(12, 87);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(0, 15);
-            this.versionLabel.TabIndex = 4;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -265,6 +281,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.emergencyLight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -291,5 +308,6 @@
         private RadioButton ExFATselect;
         private Label label1;
         private Label versionLabel;
+        private PictureBox emergencyLight;
     }
 }

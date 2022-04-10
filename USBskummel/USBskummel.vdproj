@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:USBskummel"
+"ProjectName" = "8:USkummelB Installer"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -727,7 +727,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_610D0C8AAE884E2A847590DF8E32A8F0"
             {
-            "SourcePath" = "8:..\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
