@@ -285,8 +285,6 @@ namespace USkummelB
                     break;
                 }
 
-            Task.Delay(1000).Wait();    // Disk still active if ejected immediately
-
             return result;
         }
 
@@ -311,10 +309,6 @@ namespace USkummelB
                 driveLetterOrNull = nydrive == '\0' ? null : nydrive;
                 UpdateDisk();
             }
-        }
-
-        private void FormatProgress(object sender, ProgressEventArgs e)
-        {
         }
 
         private void FormatObjectReady(object sender, ObjectReadyEventArgs e)
