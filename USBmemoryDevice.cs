@@ -177,6 +177,7 @@ namespace USkummelB
             if (diskC != null)
                 foreach (ManagementObject msft_disk in diskC)
                 {
+                    SanityCheckDisk(msft_disk);
                     using ManagementBaseObject inParams = msft_disk.GetMethodParameters("Clear");
                     inParams["RemoveData"] = true;
                     inParams["RemoveOEM"] = true;
@@ -199,6 +200,13 @@ namespace USkummelB
             if (returnValue != 0) UpdateStatus(Status.Error, errorMessage);
 
             return returnValue == 0;
+        }
+
+        static private void SanityCheckDisk(ManagementObject msft_disk)
+        {
+            var busType = (UInt16)msft_disk["BusType"];
+            if (busType != 7) // removable
+                throw new Exception("Unexpected bus type");
         }
 
         private uint CreatePartition(ManagementObject msft_disk)
@@ -240,6 +248,8 @@ namespace USkummelB
             if (volumeC != null)
                 foreach (ManagementObject volume in volumeC)
                 {
+                    SanityCheckVolume(volume);
+
                     using ManagementBaseObject inParams = volume.GetMethodParameters("Format");
                     string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName ?? "PiratSoft");
                     inParams["FileSystem"] = fs;
@@ -250,8 +260,6 @@ namespace USkummelB
                     ManagementOperationObserver results = new();
                     results.Completed += new CompletedEventHandler(this.FormatCompleted);
                     results.ObjectReady += new ObjectReadyEventHandler(this.FormatObjectReady);
-                    // results.Progress += new ProgressEventHandler(this.FormatProgress); // I have not been able to get progressbar to work
-
                     InvokeMethodOptions formatOptions = new()
                     {
                         Timeout = TimeSpan.Zero// new TimeSpan(0, 0, 5);
@@ -280,6 +288,13 @@ namespace USkummelB
             Task.Delay(1000).Wait();    // Disk still active if ejected immediately
 
             return result;
+        }
+
+        static private void SanityCheckVolume(ManagementObject msft_volume)
+        {
+            var DriveType = (UInt32)msft_volume["DriveType"];
+            if (DriveType != 2) // removable
+                throw new Exception("Unexpected drive type");
         }
 
         private void AssignDriveLetter(ManagementObject volume)
