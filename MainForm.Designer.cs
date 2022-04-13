@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.emergencyLight = new System.Windows.Forms.PictureBox();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -40,6 +40,7 @@
             this.ExFATselect = new System.Windows.Forms.RadioButton();
             this.ntfsSelect = new System.Windows.Forms.RadioButton();
             this.fat32Select = new System.Windows.Forms.RadioButton();
+            this.roundUpSizeCB = new System.Windows.Forms.CheckBox();
             this.merkelappCheckBox = new System.Windows.Forms.CheckBox();
             this.formatChecked = new System.Windows.Forms.CheckBox();
             this.activatedCB = new System.Windows.Forms.CheckBox();
@@ -66,6 +67,7 @@
             this.groupBox1.Controls.Add(this.ExFATselect);
             this.groupBox1.Controls.Add(this.ntfsSelect);
             this.groupBox1.Controls.Add(this.fat32Select);
+            this.groupBox1.Controls.Add(this.roundUpSizeCB);
             this.groupBox1.Controls.Add(this.merkelappCheckBox);
             this.groupBox1.Controls.Add(this.formatChecked);
             this.groupBox1.Controls.Add(this.activatedCB);
@@ -112,7 +114,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(309, 77);
+            this.label1.Location = new System.Drawing.Point(309, 87);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(176, 15);
             this.label1.TabIndex = 3;
@@ -161,6 +163,18 @@
             this.fat32Select.Text = "FAT32";
             this.fat32Select.UseVisualStyleBackColor = true;
             // 
+            // roundUpSizeCB
+            // 
+            this.roundUpSizeCB.AutoSize = true;
+            this.roundUpSizeCB.Checked = true;
+            this.roundUpSizeCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.roundUpSizeCB.Location = new System.Drawing.Point(309, 50);
+            this.roundUpSizeCB.Name = "roundUpSizeCB";
+            this.roundUpSizeCB.Size = new System.Drawing.Size(149, 19);
+            this.roundUpSizeCB.TabIndex = 1;
+            this.roundUpSizeCB.Text = "Størrelse multippel av 2";
+            this.roundUpSizeCB.UseVisualStyleBackColor = true;
+            // 
             // merkelappCheckBox
             // 
             this.merkelappCheckBox.AutoSize = true;
@@ -168,9 +182,9 @@
             this.merkelappCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.merkelappCheckBox.Location = new System.Drawing.Point(309, 25);
             this.merkelappCheckBox.Name = "merkelappCheckBox";
-            this.merkelappCheckBox.Size = new System.Drawing.Size(202, 19);
+            this.merkelappCheckBox.Size = new System.Drawing.Size(214, 19);
             this.merkelappCheckBox.TabIndex = 1;
-            this.merkelappCheckBox.Text = "Lag merkelapp basert på størrelse";
+            this.merkelappCheckBox.Text = "Lag stasjonsnavn basert på størrelse";
             this.merkelappCheckBox.UseVisualStyleBackColor = true;
             // 
             // formatChecked
@@ -217,22 +231,22 @@
             this.Hub});
             this.usbListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.usbListView.FullRowSelect = true;
-            listViewGroup3.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup3.Header = "Funnet";
-            listViewGroup3.Name = "listViewGroupFunnet";
-            listViewGroup4.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup4.Header = "Aktivert";
-            listViewGroup4.Name = "listViewGroupAktivert";
+            listViewGroup1.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup1.Header = "Funnet";
+            listViewGroup1.Name = "listViewGroupFunnet";
+            listViewGroup2.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
+            listViewGroup2.Header = "Aktivert";
+            listViewGroup2.Name = "listViewGroupAktivert";
             this.usbListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup3,
-            listViewGroup4});
+            listViewGroup1,
+            listViewGroup2});
             this.usbListView.Location = new System.Drawing.Point(0, 0);
             this.usbListView.Name = "usbListView";
             this.usbListView.Size = new System.Drawing.Size(736, 435);
             this.usbListView.TabIndex = 1;
             this.usbListView.UseCompatibleStateImageBehavior = false;
             this.usbListView.View = System.Windows.Forms.View.Details;
-            this.usbListView.SelectedIndexChanged += new System.EventHandler(this.listViewSelect_Changed);
+            this.usbListView.SelectedIndexChanged += new System.EventHandler(this.ListViewSelect_Changed);
             // 
             // Status
             // 
@@ -310,5 +324,6 @@
         private Label label1;
         private Label versionLabel;
         private PictureBox emergencyLight;
+        private CheckBox roundUpSizeCB;
     }
 }

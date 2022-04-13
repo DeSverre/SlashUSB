@@ -129,7 +129,10 @@ namespace USkummelB
                     driveLetter = (char)part["DriveLetter"];
                     using var volC = part.GetRelated("MSFT_Volume");
                     foreach (var vol in volC)
+                    {
                         volumeName = (string)vol["Path"];
+                        diskName = (string)vol["FileSystemLabel"];
+                    }
                 }
             }
 

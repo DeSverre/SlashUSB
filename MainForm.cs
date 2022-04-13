@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -144,9 +145,9 @@ namespace USkummelB
             if (ntfsSelect.Checked) fs = "NTFS";
             if (ExFATselect.Checked) fs = "ExFAT";
             if (force)
-                new Thread(() => { usb.RunJob(CleanOn, FormatOn, merkelappCheckBox.Checked, fs); }).Start();
+                new Thread(() => { usb.RunJob(CleanOn, FormatOn, merkelappCheckBox.Checked, fs, roundUpSizeCB.Checked); }).Start();
             else if(activatedCB.Checked)
-                new Thread(() => { usb.RunJob(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs); }).Start();
+                new Thread(() => { usb.RunJob(CleanEnabled, FormatEnabled, merkelappCheckBox.Checked, fs, roundUpSizeCB.Checked); }).Start();
         }
 
         private void ActHubButClick(object sender, EventArgs e)
@@ -154,6 +155,7 @@ namespace USkummelB
             if (mDeactivate)
                 foreach (ListViewItem s in usbListView.SelectedItems)
                 {
+                    s.Selected = false;
                     USBmemoryDevice usb = (USBmemoryDevice)s.Tag;
                     var hub = usb.HubFriendlyName;
                     RemoveHubFromActivated(hub);
@@ -162,6 +164,7 @@ namespace USkummelB
             {
                 foreach (ListViewItem s in usbListView.SelectedItems)
                 {
+                    s.Selected = false;
                     USBmemoryDevice usb = (USBmemoryDevice)s.Tag;
                     var hub = usb.HubFriendlyName;
                     AddHub2Activated(hub);
@@ -183,7 +186,7 @@ namespace USkummelB
                 activatedHubList.RemoveAt(index);
         }
 
-        private void listViewSelect_Changed(object sender, EventArgs e)
+        private void ListViewSelect_Changed(object sender, EventArgs e)
         {
             bool enabled = usbListView.SelectedItems.Count > 0;
             activateHUBbt.Enabled = enabled;
@@ -241,10 +244,19 @@ namespace USkummelB
         static readonly string[] SizeSuffixes =
                           { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
-        static public string SizeSuffix(UInt64 value, int decimalPlaces = 1)
+        static public string SizeSuffix(UInt64 value, int decimalPlaces = 1, bool roundUpToLog2 = false)
         {
-            int i = 0;
             int divisor = 1000;
+            if (roundUpToLog2)
+            {
+                var log2 = BitOperations.Log2(value);
+                var temp = (UInt64)1 << (log2 - 1);
+                log2 = BitOperations.Log2(temp+value);
+                value = (UInt64)1 << log2;
+                divisor = 1024;
+                decimalPlaces = 0;
+            }
+            int i = 0;
             decimal dValue = (decimal)value;
             while (Math.Round(dValue, decimalPlaces) >= divisor)
             {

@@ -19,6 +19,12 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_A6C911283EDF4B3A8B3B0E061974C198"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -121,6 +127,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A6C911283EDF4B3A8B3B0E061974C198"
+            {
+            "SourcePath" = "8:..\\swordUSB.ico"
+            "TargetName" = "8:swordUSB.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -178,7 +204,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:USBskummel"
         "ProductCode" = "8:{C4E3E26F-8F7D-43E2-9585-5D77DEB5AC68}"
-        "PackageCode" = "8:{F764A3D6-A6E6-49FE-B836-4B3FC5AA6037}"
+        "PackageCode" = "8:{F7ACDEA3-31CD-41C7-8150-8D3E8AC332CB}"
         "UpgradeCode" = "8:{B3DDFF8E-DC31-483E-97BD-7B2566498B57}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -309,7 +335,7 @@
             "Target" = "8:_610D0C8AAE884E2A847590DF8E32A8F0"
             "Folder" = "8:_6F4948C50D0E4FA8B61FD7B32013DD0B"
             "WorkingFolder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
-            "Icon" = "8:"
+            "Icon" = "8:_A6C911283EDF4B3A8B3B0E061974C198"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BE71796B7DD84BE28CB53CEBBCA8EFAC"
@@ -323,7 +349,7 @@
             "Target" = "8:_610D0C8AAE884E2A847590DF8E32A8F0"
             "Folder" = "8:_03E3424414944EC0B0B19D1D157B0865"
             "WorkingFolder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
-            "Icon" = "8:"
+            "Icon" = "8:_A6C911283EDF4B3A8B3B0E061974C198"
             "Feature" = "8:"
             }
         }
@@ -727,7 +753,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_610D0C8AAE884E2A847590DF8E32A8F0"
             {
-            "SourcePath" = "8:..\\obj\\Debug\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"
