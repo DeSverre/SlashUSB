@@ -8,6 +8,7 @@ namespace USkummelB
 {
     internal class USBdeviceView
     {
+        private const string activatedGroupName = "listViewGroupAktivert";
         readonly USBmemoryDevice mDevice;
         readonly ListView myView;
         ListViewItem? mItem = null;
@@ -43,19 +44,21 @@ namespace USkummelB
             }
         }
 
-        internal void Add2View(ListViewItem listViewItem, string gruppeNavn, string toolTipText="")
+        internal void Add2View(ListViewItem listViewItem, string groupNavn, string toolTipText="")
         {
             mItem = listViewItem;
             mItem.Tag = mDevice;
-            ListViewGroup gruppe = myView.Groups[gruppeNavn];
-            mItem.Group = gruppe;
+            ListViewGroup group = myView.Groups[groupNavn];
+            mItem.Group = group;
             myView.Items.Add(mItem);
-            if (gruppe.Name == "listViewGroupAktivert")
-                mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Red;
-            else
-                mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Black;
+            SetHubColor(mItem.SubItems[^1], group.Name == activatedGroupName);
 
             mItem.ToolTipText = toolTipText;    // Doesn't seem to work
+        }
+
+        private static void SetHubColor(ListViewItem.ListViewSubItem hubItem, bool activated)
+        {
+            hubItem.BackColor = activated ? Color.Red : Color.White;
         }
 
         internal void Remove()
@@ -73,10 +76,7 @@ namespace USkummelB
             {
                 mItem.Group = myView.Groups[group];
 
-                if (group == "listViewGroupAktivert")
-                    mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Red;
-                else
-                    mItem.SubItems[mItem.SubItems.Count - 1].ForeColor = Color.Black;
+                SetHubColor(mItem.SubItems[^1], group == activatedGroupName);
             }
         }
     }

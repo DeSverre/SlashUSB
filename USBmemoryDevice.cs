@@ -241,7 +241,7 @@ namespace USkummelB
                 });
         }
 
-        private bool Format(bool sizeLabel, string fs = "FAT32")
+        private bool Format(bool sizeLabel, string fs = "FAT32", bool round2MultipleOf2 = false)
         {
             bool result = false;
             using var volumeC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Volume WHERE Path = '" + volumeName.Replace(@"\", @"\\") + "'");
@@ -251,7 +251,7 @@ namespace USkummelB
                     SanityCheckVolume(volume);
 
                     using ManagementBaseObject inParams = volume.GetMethodParameters("Format");
-                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0) : (DiskName ?? "PiratSoft");
+                    string newLabel = sizeLabel ? Utils.SizeSuffix(size, 0, round2MultipleOf2) : (DiskName ?? "PiratSoft");
                     inParams["FileSystem"] = fs;
                     inParams["FileSystemLabel"] = newLabel;
                     inParams["Full"] = false;
@@ -260,7 +260,7 @@ namespace USkummelB
                     ManagementOperationObserver results = new();
                     results.Completed += new CompletedEventHandler(this.FormatCompleted);
                     results.ObjectReady += new ObjectReadyEventHandler(this.FormatObjectReady);
-                    InvokeMethodOptions formatOptions = new()
+                    InvokeMethodOptions formatOptions = new()   // Not really doing anything atm...
                     {
                         Timeout = TimeSpan.Zero// new TimeSpan(0, 0, 5);
                     };
@@ -322,12 +322,12 @@ namespace USkummelB
             formatCompletedStatus?.TrySetResult(e.Status);
         }
 
-        public void RunJob(bool clean, bool format, bool sizeLabel, string fs)
+        public void RunJob(bool clean, bool format, bool sizeLabel, string fs, bool round2multipleOf2)
         {
             if (mutex.WaitOne(0) == false)
                 return; // If job already running
 
-            job = new Job(clean, format, sizeLabel, fs);
+            job = new Job(clean, format, sizeLabel, fs, round2multipleOf2);
             while (status != Status.Eject && status != Status.Error)
             {
                 NextState();
@@ -346,7 +346,7 @@ namespace USkummelB
                     if (job != null && job.Clean) CleanDisk();
                     break;
                 case Status.Format:
-                    if (job != null && job.Format) Format(job.SizeLabel, job.FileSystem);
+                    if (job != null && job.Format) Format(job.SizeLabel, job.FileSystem, job.Round2MultipleOf2);
                     break;
                 case Status.Eject:
                     Eject();
@@ -396,7 +396,7 @@ namespace USkummelB
                 shell.NameSpace(ssfDRIVES).ParseName(driveName).InvokeVerb("Eject");
             }
 
-            Thread.Sleep(2000);
+            Thread.Sleep(2500); // Try to avoid device busy message
 
             if (driveLetterOrNull != null)
             {
@@ -430,13 +430,15 @@ namespace USkummelB
             public readonly bool Format;
             public readonly bool SizeLabel;
             public readonly string FileSystem;
+            public readonly bool Round2MultipleOf2;
 
-            public Job(bool clean, bool format, bool sizeLabel, string fs)
+            public Job(bool clean, bool format, bool sizeLabel, string fs, bool round2multipleOf2)
             {
-                this.Clean = clean;
-                this.Format = format;
-                this.SizeLabel = sizeLabel;
-                this.FileSystem = fs;
+                Clean = clean;
+                Format = format;
+                SizeLabel = sizeLabel;
+                FileSystem = fs;
+                Round2MultipleOf2 = round2multipleOf2;
             }
         }
     }
