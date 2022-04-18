@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Globalization;
 
-namespace USkummelB
+namespace SlashUSB
 {
     public partial class MainForm : Form
     {

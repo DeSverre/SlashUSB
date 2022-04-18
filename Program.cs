@@ -1,4 +1,4 @@
-namespace USkummelB
+namespace SlashUSB
 {
     internal static class Program
     {

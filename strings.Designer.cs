@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace USkummelB {
+namespace SlashUSB {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace USkummelB {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("USkummelB.strings", typeof(strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SlashUSB.strings", typeof(strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

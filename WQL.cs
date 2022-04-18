@@ -1,6 +1,6 @@
 ﻿using System.Management;
 
-namespace USkummelB
+namespace SlashUSB
 {
     internal static class WQL
     {
