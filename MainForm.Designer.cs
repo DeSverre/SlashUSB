@@ -57,6 +57,7 @@
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.emergencyLight);
             this.groupBox1.Controls.Add(this.versionLabel);
             this.groupBox1.Controls.Add(this.testButton);
@@ -70,7 +71,6 @@
             this.groupBox1.Controls.Add(this.formatChecked);
             this.groupBox1.Controls.Add(this.activatedCB);
             this.groupBox1.Controls.Add(this.cleanChecked);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -161,6 +161,7 @@
             // 
             // usbListView
             // 
+            resources.ApplyResources(this.usbListView, "usbListView");
             this.usbListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this._Status,
             this.Disk,
@@ -169,7 +170,6 @@
             this.DiskSize,
             this.Lokasjon,
             this.Hub});
-            resources.ApplyResources(this.usbListView, "usbListView");
             this.usbListView.FullRowSelect = true;
             this.usbListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             ((System.Windows.Forms.ListViewGroup)(resources.GetObject("usbListView.Groups"))),
