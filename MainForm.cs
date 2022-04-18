@@ -1,6 +1,8 @@
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Globalization;
 
 namespace USkummelB
 {
@@ -54,7 +56,7 @@ namespace USkummelB
             CheckBox? activated = sender as CheckBox;
             if (activated != null)
             {
-                activated.Text = activated.Checked ? "Deaktiver" : "Aktiver";
+                activated.Text = activated.Checked ? strings.Deaktiver : strings.Aktiver;
                 UpdateEmergencyLight();
             }
         }
