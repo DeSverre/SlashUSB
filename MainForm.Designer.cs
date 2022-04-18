@@ -46,7 +46,7 @@
             this.activatedCB = new System.Windows.Forms.CheckBox();
             this.cleanChecked = new System.Windows.Forms.CheckBox();
             this.usbListView = new System.Windows.Forms.ListView();
-            this.Status = new System.Windows.Forms.ColumnHeader();
+            this._Status = new System.Windows.Forms.ColumnHeader();
             this.Disk = new System.Windows.Forms.ColumnHeader();
             this.Navn = new System.Windows.Forms.ColumnHeader();
             this.DeviceNavn = new System.Windows.Forms.ColumnHeader();
@@ -222,7 +222,7 @@
             // usbListView
             // 
             this.usbListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Status,
+            this._Status,
             this.Disk,
             this.Navn,
             this.DeviceNavn,
@@ -248,10 +248,10 @@
             this.usbListView.View = System.Windows.Forms.View.Details;
             this.usbListView.SelectedIndexChanged += new System.EventHandler(this.ListViewSelect_Changed);
             // 
-            // Status
+            // _Status
             // 
-            this.Status.Text = "Status";
-            this.Status.Width = 150;
+            this._Status.Text = "Status";
+            this._Status.Width = 150;
             // 
             // Disk
             // 
@@ -319,7 +319,7 @@
         private Button activateHUBbt;
         private ColumnHeader DeviceNavn;
         private Button testButton;
-        private ColumnHeader Status;
+        private ColumnHeader _Status;
         private RadioButton ExFATselect;
         private Label label1;
         private Label versionLabel;
