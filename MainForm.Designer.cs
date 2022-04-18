@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Funnet", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Aktivert", System.Windows.Forms.HorizontalAlignment.Left);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.emergencyLight = new System.Windows.Forms.PictureBox();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -72,151 +70,93 @@
             this.groupBox1.Controls.Add(this.formatChecked);
             this.groupBox1.Controls.Add(this.activatedCB);
             this.groupBox1.Controls.Add(this.cleanChecked);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 435);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(736, 130);
-            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Standard handling";
             // 
             // emergencyLight
             // 
-            this.emergencyLight.Image = ((System.Drawing.Image)(resources.GetObject("emergencyLight.Image")));
-            this.emergencyLight.Location = new System.Drawing.Point(15, 75);
+            resources.ApplyResources(this.emergencyLight, "emergencyLight");
             this.emergencyLight.Name = "emergencyLight";
-            this.emergencyLight.Size = new System.Drawing.Size(51, 46);
-            this.emergencyLight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.emergencyLight.TabIndex = 5;
             this.emergencyLight.TabStop = false;
-            this.emergencyLight.Visible = false;
             // 
             // versionLabel
             // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.Location = new System.Drawing.Point(99, 106);
+            resources.ApplyResources(this.versionLabel, "versionLabel");
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(45, 15);
-            this.versionLabel.TabIndex = 4;
-            this.versionLabel.Text = "versjon";
             // 
             // testButton
             // 
-            this.testButton.Enabled = false;
-            this.testButton.Location = new System.Drawing.Point(554, 67);
+            resources.ApplyResources(this.testButton, "testButton");
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(120, 35);
-            this.testButton.TabIndex = 3;
-            this.testButton.Text = "Utfør handling";
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(309, 87);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Kun hurtigformatering er støttet";
             // 
             // activateHUBbt
             // 
-            this.activateHUBbt.Enabled = false;
-            this.activateHUBbt.Location = new System.Drawing.Point(554, 20);
+            resources.ApplyResources(this.activateHUBbt, "activateHUBbt");
             this.activateHUBbt.Name = "activateHUBbt";
-            this.activateHUBbt.Size = new System.Drawing.Size(120, 35);
-            this.activateHUBbt.TabIndex = 2;
-            this.activateHUBbt.Text = "Aktiver hub";
             this.activateHUBbt.UseVisualStyleBackColor = true;
             this.activateHUBbt.Click += new System.EventHandler(this.ActHubButClick);
             // 
             // ExFATselect
             // 
-            this.ExFATselect.AutoSize = true;
+            resources.ApplyResources(this.ExFATselect, "ExFATselect");
             this.ExFATselect.Checked = true;
-            this.ExFATselect.Location = new System.Drawing.Point(237, 50);
             this.ExFATselect.Name = "ExFATselect";
-            this.ExFATselect.Size = new System.Drawing.Size(55, 19);
-            this.ExFATselect.TabIndex = 2;
             this.ExFATselect.TabStop = true;
-            this.ExFATselect.Text = "ExFAT";
             this.ExFATselect.UseVisualStyleBackColor = true;
             // 
             // ntfsSelect
             // 
-            this.ntfsSelect.AutoSize = true;
-            this.ntfsSelect.Location = new System.Drawing.Point(237, 75);
+            resources.ApplyResources(this.ntfsSelect, "ntfsSelect");
             this.ntfsSelect.Name = "ntfsSelect";
-            this.ntfsSelect.Size = new System.Drawing.Size(52, 19);
-            this.ntfsSelect.TabIndex = 2;
-            this.ntfsSelect.Text = "NTFS";
             this.ntfsSelect.UseVisualStyleBackColor = true;
             // 
             // fat32Select
             // 
-            this.fat32Select.AutoSize = true;
-            this.fat32Select.Location = new System.Drawing.Point(237, 25);
+            resources.ApplyResources(this.fat32Select, "fat32Select");
             this.fat32Select.Name = "fat32Select";
-            this.fat32Select.Size = new System.Drawing.Size(55, 19);
-            this.fat32Select.TabIndex = 2;
-            this.fat32Select.Text = "FAT32";
             this.fat32Select.UseVisualStyleBackColor = true;
             // 
             // roundUpSizeCB
             // 
-            this.roundUpSizeCB.AutoSize = true;
+            resources.ApplyResources(this.roundUpSizeCB, "roundUpSizeCB");
             this.roundUpSizeCB.Checked = true;
             this.roundUpSizeCB.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.roundUpSizeCB.Location = new System.Drawing.Point(309, 50);
             this.roundUpSizeCB.Name = "roundUpSizeCB";
-            this.roundUpSizeCB.Size = new System.Drawing.Size(149, 19);
-            this.roundUpSizeCB.TabIndex = 1;
-            this.roundUpSizeCB.Text = "Størrelse multippel av 2";
             this.roundUpSizeCB.UseVisualStyleBackColor = true;
             // 
             // merkelappCheckBox
             // 
-            this.merkelappCheckBox.AutoSize = true;
+            resources.ApplyResources(this.merkelappCheckBox, "merkelappCheckBox");
             this.merkelappCheckBox.Checked = true;
             this.merkelappCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.merkelappCheckBox.Location = new System.Drawing.Point(309, 25);
             this.merkelappCheckBox.Name = "merkelappCheckBox";
-            this.merkelappCheckBox.Size = new System.Drawing.Size(214, 19);
-            this.merkelappCheckBox.TabIndex = 1;
-            this.merkelappCheckBox.Text = "Lag stasjonsnavn basert på størrelse";
             this.merkelappCheckBox.UseVisualStyleBackColor = true;
             // 
             // formatChecked
             // 
-            this.formatChecked.AutoSize = true;
-            this.formatChecked.Location = new System.Drawing.Point(99, 50);
+            resources.ApplyResources(this.formatChecked, "formatChecked");
             this.formatChecked.Name = "formatChecked";
-            this.formatChecked.Size = new System.Drawing.Size(74, 19);
-            this.formatChecked.TabIndex = 1;
-            this.formatChecked.Text = "Formater";
             this.formatChecked.UseVisualStyleBackColor = true;
             // 
             // activatedCB
             // 
-            this.activatedCB.Appearance = System.Windows.Forms.Appearance.Button;
-            this.activatedCB.AutoSize = true;
-            this.activatedCB.Location = new System.Drawing.Point(12, 25);
+            resources.ApplyResources(this.activatedCB, "activatedCB");
             this.activatedCB.Name = "activatedCB";
-            this.activatedCB.Size = new System.Drawing.Size(54, 25);
-            this.activatedCB.TabIndex = 1;
-            this.activatedCB.Text = "Aktiver";
             this.activatedCB.UseVisualStyleBackColor = true;
             this.activatedCB.CheckedChanged += new System.EventHandler(this.AktivertCheckBox_CheckedChanged);
             // 
             // cleanChecked
             // 
-            this.cleanChecked.AutoSize = true;
-            this.cleanChecked.Location = new System.Drawing.Point(99, 25);
+            resources.ApplyResources(this.cleanChecked, "cleanChecked");
             this.cleanChecked.Name = "cleanChecked";
-            this.cleanChecked.Size = new System.Drawing.Size(119, 19);
-            this.cleanChecked.TabIndex = 1;
-            this.cleanChecked.Text = "Fjern partisjon(er)";
             this.cleanChecked.UseVisualStyleBackColor = true;
             // 
             // usbListView
@@ -229,70 +169,51 @@
             this.DiskSize,
             this.Lokasjon,
             this.Hub});
-            this.usbListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.usbListView, "usbListView");
             this.usbListView.FullRowSelect = true;
-            listViewGroup1.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup1.Header = "Funnet";
-            listViewGroup1.Name = "listViewGroupFunnet";
-            listViewGroup2.CollapsedState = System.Windows.Forms.ListViewGroupCollapsedState.Expanded;
-            listViewGroup2.Header = "Aktivert";
-            listViewGroup2.Name = "listViewGroupAktivert";
             this.usbListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2});
-            this.usbListView.Location = new System.Drawing.Point(0, 0);
+            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("usbListView.Groups"))),
+            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("usbListView.Groups1")))});
             this.usbListView.Name = "usbListView";
-            this.usbListView.Size = new System.Drawing.Size(736, 435);
-            this.usbListView.TabIndex = 1;
             this.usbListView.UseCompatibleStateImageBehavior = false;
             this.usbListView.View = System.Windows.Forms.View.Details;
             this.usbListView.SelectedIndexChanged += new System.EventHandler(this.ListViewSelect_Changed);
             // 
             // _Status
             // 
-            this._Status.Text = "Status";
-            this._Status.Width = 150;
+            resources.ApplyResources(this._Status, "_Status");
             // 
             // Disk
             // 
-            this.Disk.Text = "Disk";
-            this.Disk.Width = 40;
+            resources.ApplyResources(this.Disk, "Disk");
             // 
             // Navn
             // 
-            this.Navn.Text = "Navn";
-            this.Navn.Width = 100;
+            resources.ApplyResources(this.Navn, "Navn");
             // 
             // DeviceNavn
             // 
-            this.DeviceNavn.Text = "DeviceNavn";
-            this.DeviceNavn.Width = 150;
+            resources.ApplyResources(this.DeviceNavn, "DeviceNavn");
             // 
             // DiskSize
             // 
-            this.DiskSize.Text = "Størrelse";
-            this.DiskSize.Width = 100;
+            resources.ApplyResources(this.DiskSize, "DiskSize");
             // 
             // Lokasjon
             // 
-            this.Lokasjon.Text = "Lokasjon";
-            this.Lokasjon.Width = 150;
+            resources.ApplyResources(this.Lokasjon, "Lokasjon");
             // 
             // Hub
             // 
-            this.Hub.Text = "Hub";
-            this.Hub.Width = 50;
+            resources.ApplyResources(this.Hub, "Hub");
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 565);
             this.Controls.Add(this.usbListView);
             this.Controls.Add(this.groupBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "USkummelB";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
