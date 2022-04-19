@@ -23,7 +23,7 @@ namespace SlashUSB
             usbdetector.USBinserted += C_USBInserted;
             usbdetector.USBremoved += C_USBRemoved;
 
-            versionLabel.Text = "Versjon: " + typeof(MainForm).Assembly.GetName().Version?.ToString() ?? "--";
+            versionLabel.Text = strings.PreVersion + " " + typeof(MainForm).Assembly.GetName().Version?.ToString() ?? "--";
         }
 
         private UInt32 queryCancelAutoPlay = 0;
@@ -171,8 +171,8 @@ namespace SlashUSB
                     var hub = usb.HubFriendlyName;
                     AddHub2Activated(hub);
 
-                    string message = String.Format("Alle minnepinner som settes inn i hub {0}, vil nå bli initialisert på spesifisert måte", hub);
-                    MessageBox.Show(this, message, "HUB aktivert");
+                    string message = String.Format(strings.MsgBoxOnActivateText, hub);
+                    MessageBox.Show(this, message, strings.MsgBoxOnActivateTextCaption);
                 }
             }
             UpdateAndRunActivated();
@@ -203,12 +203,12 @@ namespace SlashUSB
             }
             if (!deactivated)
             {
-                activateHUBbt.Text = "Deaktiver hub";
+                activateHUBbt.Text = strings.ButtonTextDeactivate;
                 mDeactivate = true;
             }
             else
             {
-                activateHUBbt.Text = "Aktiver hub";
+                activateHUBbt.Text = strings.ButtonTextActivate;
                 mDeactivate = false;
             }
         }
@@ -244,7 +244,7 @@ namespace SlashUSB
     internal class Utils
     {
         static readonly string[] SizeSuffixes =
-                          { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+                          { strings.Bytes, strings.KB, strings.MB, strings.GB, strings.TB, strings.PB, strings.EB, strings.ZB, strings.YB };
 
         static public string SizeSuffix(UInt64 value, int decimalPlaces = 1, bool roundUpToLog2 = false)
         {

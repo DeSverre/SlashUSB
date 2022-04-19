@@ -104,8 +104,4 @@
     <Folder Include="packages\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="SlashUSB Installer.vdproj" />
-  </ItemGroup>
-
 </Project>

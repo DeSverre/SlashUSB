@@ -33,7 +33,7 @@ namespace SlashUSB
             Error
         };
 
-        private readonly string[] statusTekster = { "Klar", "Renser", "Formaterer", "OK - løser ut", "Feil!" };
+        private readonly string[] statusTekster = { strings.Ready, strings.Cleaning, strings.Formatting, strings.OK_Eject, strings.Error };
 
         private char? driveLetterOrNull;
         char? DriveLetter
@@ -172,7 +172,7 @@ namespace SlashUSB
         private bool CleanDisk()
         {
             UInt32 returnValue = 1;
-            string errorMessage = "Rens feilet";
+            string errorMessage = strings.CleanFailed;
             using var diskC = WQL.QueryMi("root\\Microsoft\\Windows\\Storage", @"SELECT * FROM MSFT_Disk WHERE SerialNumber = '" + pnp_serial + "'");
             if (diskC != null)
                 foreach (ManagementObject msft_disk in diskC)
@@ -192,7 +192,7 @@ namespace SlashUSB
                     }
                     catch (Exception ex)
                     {
-                        errorMessage = "Rens feil: " + ex.Message;
+                        errorMessage = strings.CleanFailedColon + " " + ex.Message;
                     }
                     break;
                 }
@@ -206,7 +206,7 @@ namespace SlashUSB
         {
             var busType = (UInt16)msft_disk["BusType"];
             if (busType != 7) // removable
-                throw new Exception("Unexpected bus type");
+                throw new Exception(strings.BusTypeNotUSB_Exception);
         }
 
         private uint CreatePartition(ManagementObject msft_disk)
@@ -276,7 +276,7 @@ namespace SlashUSB
                         result = true;
                     }
                     else
-                        UpdateStatus(Status.Error, "Format feilet");
+                        UpdateStatus(Status.Error, strings.FormatFailed);
 
                     var status = formatCompletedStatus.Task.Result;
 
@@ -292,7 +292,7 @@ namespace SlashUSB
         {
             var DriveType = (UInt32)msft_volume["DriveType"];
             if (DriveType != 2) // removable
-                throw new Exception("Unexpected drive type");
+                throw new Exception(strings.DriveNotRemovableException);
         }
 
         private void AssignDriveLetter(ManagementObject volume)

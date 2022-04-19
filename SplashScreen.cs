@@ -21,7 +21,7 @@ namespace SlashUSB
 
         private void SplashScreen_Shown(object sender, EventArgs e)
         {
-            tmr.Interval = 3000;
+            tmr.Interval = 2500;
             tmr.Start();
             tmr.Tick += Tmr_Tick;
         }
