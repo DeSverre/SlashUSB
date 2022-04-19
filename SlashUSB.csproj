@@ -54,9 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Parrot.gif">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Include="swordUSB.ico" />
   </ItemGroup>
 
