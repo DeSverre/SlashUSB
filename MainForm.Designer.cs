@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.emergencyLight = new System.Windows.Forms.PictureBox();
             this.versionLabel = new System.Windows.Forms.Label();
             this.testButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,10 +52,12 @@
             this.Lokasjon = new System.Windows.Forms.ColumnHeader();
             this.Hub = new System.Windows.Forms.ColumnHeader();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.emergencyLight)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.emergencyLight);
             this.groupBox1.Controls.Add(this.versionLabel);
             this.groupBox1.Controls.Add(this.testButton);
             this.groupBox1.Controls.Add(this.label1);
@@ -70,6 +73,13 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // emergencyLight
+            // 
+            this.emergencyLight.Image = global::SlashUSB.Res.rotating_light;
+            resources.ApplyResources(this.emergencyLight, "emergencyLight");
+            this.emergencyLight.Name = "emergencyLight";
+            this.emergencyLight.TabStop = false;
             // 
             // versionLabel
             // 
@@ -208,6 +218,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.emergencyLight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -235,5 +246,6 @@
         private Label label1;
         private Label versionLabel;
         private CheckBox roundUpSizeCB;
+        private PictureBox emergencyLight;
     }
 }

@@ -60,11 +60,54 @@
   <metadata name="groupBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 435</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>736, 130</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Standard handling</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="emergencyLight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 68</value>
+  </data>
+  <data name="emergencyLight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 46</value>
+  </data>
+  <data name="emergencyLight.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="emergencyLight.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="emergencyLight.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="versionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="versionLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 106</value>
   </data>
@@ -76,18 +119,6 @@
   </data>
   <data name="versionLabel.Text" xml:space="preserve">
     <value>versjon</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
-    <value>versionLabel</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="testButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -114,7 +145,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;testButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -141,7 +172,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="activateHUBbt.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -168,7 +199,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;activateHUBbt.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="ExFATselect.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -195,7 +226,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;ExFATselect.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="ntfsSelect.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -222,7 +253,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;ntfsSelect.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="fat32Select.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -249,7 +280,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;fat32Select.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="roundUpSizeCB.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -276,7 +307,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;roundUpSizeCB.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="merkelappCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -303,7 +334,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;merkelappCheckBox.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="formatChecked.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -330,9 +361,8 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;formatChecked.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="activatedCB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
     <value>Button</value>
   </data>
@@ -361,7 +391,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;activatedCB.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="cleanChecked.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -388,76 +418,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;cleanChecked.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 435</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>736, 130</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Standard handling</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="_Status.Text" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="_Status.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="Disk.Text" xml:space="preserve">
-    <value>Disk</value>
-  </data>
-  <data name="Disk.Width" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="Navn.Text" xml:space="preserve">
-    <value>Navn</value>
-  </data>
-  <data name="Navn.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="DeviceNavn.Text" xml:space="preserve">
-    <value>DeviceNavn</value>
-  </data>
-  <data name="DeviceNavn.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="DiskSize.Text" xml:space="preserve">
-    <value>Størrelse</value>
-  </data>
-  <data name="DiskSize.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="Lokasjon.Text" xml:space="preserve">
-    <value>Lokasjon</value>
-  </data>
-  <data name="Lokasjon.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="Hub.Text" xml:space="preserve">
-    <value>Hub</value>
-  </data>
-  <data name="Hub.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>12</value>
   </data>
   <data name="usbListView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -505,6 +466,48 @@
   </data>
   <data name="&gt;&gt;usbListView.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="_Status.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="_Status.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="Disk.Text" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="Disk.Width" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="Navn.Text" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="Navn.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="DeviceNavn.Text" xml:space="preserve">
+    <value>DeviceNavn</value>
+  </data>
+  <data name="DeviceNavn.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="DiskSize.Text" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="DiskSize.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="Lokasjon.Text" xml:space="preserve">
+    <value>Lokasjon</value>
+  </data>
+  <data name="Lokasjon.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="Hub.Text" xml:space="preserve">
+    <value>Hub</value>
+  </data>
+  <data name="Hub.Width" type="System.Int32, mscorlib">
+    <value>50</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
