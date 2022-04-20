@@ -44,12 +44,12 @@
             this.activatedCB = new System.Windows.Forms.CheckBox();
             this.cleanChecked = new System.Windows.Forms.CheckBox();
             this.usbListView = new System.Windows.Forms.ListView();
-            this._Status = new System.Windows.Forms.ColumnHeader();
-            this.Disk = new System.Windows.Forms.ColumnHeader();
-            this.Navn = new System.Windows.Forms.ColumnHeader();
-            this.DeviceNavn = new System.Windows.Forms.ColumnHeader();
+            this.JobStatus = new System.Windows.Forms.ColumnHeader();
+            this.DriveLetter = new System.Windows.Forms.ColumnHeader();
+            this.DiskName = new System.Windows.Forms.ColumnHeader();
+            this.DeviceName = new System.Windows.Forms.ColumnHeader();
             this.DiskSize = new System.Windows.Forms.ColumnHeader();
-            this.Lokasjon = new System.Windows.Forms.ColumnHeader();
+            this.DeviceLocation = new System.Windows.Forms.ColumnHeader();
             this.Hub = new System.Windows.Forms.ColumnHeader();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.emergencyLight)).BeginInit();
@@ -163,12 +163,12 @@
             // usbListView
             // 
             this.usbListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this._Status,
-            this.Disk,
-            this.Navn,
-            this.DeviceNavn,
+            this.JobStatus,
+            this.DriveLetter,
+            this.DiskName,
+            this.DeviceName,
             this.DiskSize,
-            this.Lokasjon,
+            this.DeviceLocation,
             this.Hub});
             resources.ApplyResources(this.usbListView, "usbListView");
             this.usbListView.FullRowSelect = true;
@@ -180,29 +180,29 @@
             this.usbListView.View = System.Windows.Forms.View.Details;
             this.usbListView.SelectedIndexChanged += new System.EventHandler(this.ListViewSelect_Changed);
             // 
-            // _Status
+            // JobStatus
             // 
-            resources.ApplyResources(this._Status, "_Status");
+            resources.ApplyResources(this.JobStatus, "JobStatus");
             // 
-            // Disk
+            // DriveLetter
             // 
-            resources.ApplyResources(this.Disk, "Disk");
+            resources.ApplyResources(this.DriveLetter, "DriveLetter");
             // 
-            // Navn
+            // DiskName
             // 
-            resources.ApplyResources(this.Navn, "Navn");
+            resources.ApplyResources(this.DiskName, "DiskName");
             // 
-            // DeviceNavn
+            // DeviceName
             // 
-            resources.ApplyResources(this.DeviceNavn, "DeviceNavn");
+            resources.ApplyResources(this.DeviceName, "DeviceName");
             // 
             // DiskSize
             // 
             resources.ApplyResources(this.DiskSize, "DiskSize");
             // 
-            // Lokasjon
+            // DeviceLocation
             // 
-            resources.ApplyResources(this.Lokasjon, "Lokasjon");
+            resources.ApplyResources(this.DeviceLocation, "DeviceLocation");
             // 
             // Hub
             // 
@@ -232,16 +232,16 @@
         private CheckBox cleanChecked;
         private CheckBox activatedCB;
         private ListView usbListView;
-        private ColumnHeader Disk;
-        private ColumnHeader Navn;
+        private ColumnHeader DriveLetter;
+        private ColumnHeader DiskName;
         private ColumnHeader DiskSize;
-        private ColumnHeader Lokasjon;
+        private ColumnHeader DeviceLocation;
         private ColumnHeader Hub;
         private CheckBox merkelappCheckBox;
         private Button activateHUBbt;
-        private ColumnHeader DeviceNavn;
+        private ColumnHeader DeviceName;
         private Button testButton;
-        private ColumnHeader _Status;
+        private ColumnHeader JobStatus;
         private RadioButton ExFATselect;
         private Label label1;
         private Label versionLabel;

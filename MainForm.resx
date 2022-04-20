@@ -105,6 +105,18 @@
   <data name="emergencyLight.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="&gt;&gt;emergencyLight.Name" xml:space="preserve">
+    <value>emergencyLight</value>
+  </data>
+  <data name="&gt;&gt;emergencyLight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;emergencyLight.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;emergencyLight.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="versionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -119,6 +131,18 @@
   </data>
   <data name="versionLabel.Text" xml:space="preserve">
     <value>versjon</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
+    <value>versionLabel</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="testButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -420,6 +444,48 @@
   <data name="&gt;&gt;cleanChecked.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <data name="JobStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="JobStatus.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="DriveLetter.Text" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="DriveLetter.Width" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="DiskName.Text" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="DiskName.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="DeviceName.Text" xml:space="preserve">
+    <value>Device navn</value>
+  </data>
+  <data name="DeviceName.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="DiskSize.Text" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="DiskSize.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="DeviceLocation.Text" xml:space="preserve">
+    <value>Lokasjon</value>
+  </data>
+  <data name="DeviceLocation.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="Hub.Text" xml:space="preserve">
+    <value>Hub</value>
+  </data>
+  <data name="Hub.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
   <data name="usbListView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -466,48 +532,6 @@
   </data>
   <data name="&gt;&gt;usbListView.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="_Status.Text" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="_Status.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="Disk.Text" xml:space="preserve">
-    <value>Disk</value>
-  </data>
-  <data name="Disk.Width" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="Navn.Text" xml:space="preserve">
-    <value>Navn</value>
-  </data>
-  <data name="Navn.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="DeviceNavn.Text" xml:space="preserve">
-    <value>DeviceNavn</value>
-  </data>
-  <data name="DeviceNavn.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="DiskSize.Text" xml:space="preserve">
-    <value>Størrelse</value>
-  </data>
-  <data name="DiskSize.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="Lokasjon.Text" xml:space="preserve">
-    <value>Lokasjon</value>
-  </data>
-  <data name="Lokasjon.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="Hub.Text" xml:space="preserve">
-    <value>Hub</value>
-  </data>
-  <data name="Hub.Width" type="System.Int32, mscorlib">
-    <value>50</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1477,28 +1501,28 @@
   <data name="$this.Text" xml:space="preserve">
     <value>SlashUSB</value>
   </data>
-  <data name="&gt;&gt;_Status.Name" xml:space="preserve">
-    <value>_Status</value>
+  <data name="&gt;&gt;JobStatus.Name" xml:space="preserve">
+    <value>JobStatus</value>
   </data>
-  <data name="&gt;&gt;_Status.Type" xml:space="preserve">
+  <data name="&gt;&gt;JobStatus.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Disk.Name" xml:space="preserve">
-    <value>Disk</value>
+  <data name="&gt;&gt;DriveLetter.Name" xml:space="preserve">
+    <value>DriveLetter</value>
   </data>
-  <data name="&gt;&gt;Disk.Type" xml:space="preserve">
+  <data name="&gt;&gt;DriveLetter.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Navn.Name" xml:space="preserve">
-    <value>Navn</value>
+  <data name="&gt;&gt;DiskName.Name" xml:space="preserve">
+    <value>DiskName</value>
   </data>
-  <data name="&gt;&gt;Navn.Type" xml:space="preserve">
+  <data name="&gt;&gt;DiskName.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DeviceNavn.Name" xml:space="preserve">
-    <value>DeviceNavn</value>
+  <data name="&gt;&gt;DeviceName.Name" xml:space="preserve">
+    <value>DeviceName</value>
   </data>
-  <data name="&gt;&gt;DeviceNavn.Type" xml:space="preserve">
+  <data name="&gt;&gt;DeviceName.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;DiskSize.Name" xml:space="preserve">
@@ -1507,10 +1531,10 @@
   <data name="&gt;&gt;DiskSize.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Lokasjon.Name" xml:space="preserve">
-    <value>Lokasjon</value>
+  <data name="&gt;&gt;DeviceLocation.Name" xml:space="preserve">
+    <value>DeviceLocation</value>
   </data>
-  <data name="&gt;&gt;Lokasjon.Type" xml:space="preserve">
+  <data name="&gt;&gt;DeviceLocation.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Hub.Name" xml:space="preserve">
