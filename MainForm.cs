@@ -64,7 +64,7 @@ namespace SlashUSB
         private void UpdateEmergencyLight()
         {
             var actGrp = usbListView.Groups[ActivatedGroupName];
-            emergencyLight.Visible = activatedCB.Checked && actGrp.Items.Count>0;
+            //emergencyLight.Visible = activatedCB.Checked && actGrp.Items.Count>0;
         }
 
         private void C_USBInserted(object? sender, EventArgs e)
