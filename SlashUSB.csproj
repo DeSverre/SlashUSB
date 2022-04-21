@@ -12,9 +12,9 @@
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>sgKey.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <NeutralLanguage>nb</NeutralLanguage>
+    <NeutralLanguage>en</NeutralLanguage>
     <Copyright>(C) Sverre Langhus</Copyright>
-    <PackageReleaseNotes>Disable autorun fixed</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <ApplicationIcon>swordUSB.ico</ApplicationIcon>
     <PackageIcon>swordUSB.png</PackageIcon>
   </PropertyGroup>
