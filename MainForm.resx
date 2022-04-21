@@ -57,448 +57,100 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="groupBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="emergencyLight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 75</value>
-  </data>
-  <data name="emergencyLight.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 46</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="emergencyLight.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="emergencyLight.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="emergencyLight.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;emergencyLight.Name" xml:space="preserve">
-    <value>emergencyLight</value>
-  </data>
-  <data name="&gt;&gt;emergencyLight.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;emergencyLight.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;emergencyLight.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="versionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="versionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 106</value>
-  </data>
-  <data name="versionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 15</value>
-  </data>
-  <data name="versionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="versionLabel.Text" xml:space="preserve">
-    <value>version</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
-    <value>versionLabel</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="testButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="testButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>554, 67</value>
-  </data>
-  <data name="testButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 35</value>
-  </data>
-  <data name="testButton.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="testButton.Text" xml:space="preserve">
-    <value>Do action</value>
-  </data>
-  <data name="&gt;&gt;testButton.Name" xml:space="preserve">
-    <value>testButton</value>
-  </data>
-  <data name="&gt;&gt;testButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testButton.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;testButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 87</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 15</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Only quick format supported</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="activateHUBbt.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="activateHUBbt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>554, 20</value>
-  </data>
-  <data name="activateHUBbt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 35</value>
-  </data>
-  <data name="activateHUBbt.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="activateHUBbt.Text" xml:space="preserve">
-    <value>Activate hub</value>
-  </data>
-  <data name="&gt;&gt;activateHUBbt.Name" xml:space="preserve">
-    <value>activateHUBbt</value>
-  </data>
-  <data name="&gt;&gt;activateHUBbt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;activateHUBbt.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;activateHUBbt.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="ExFATselect.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ExFATselect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 50</value>
-  </data>
-  <data name="ExFATselect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 19</value>
-  </data>
-  <data name="ExFATselect.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="ExFATselect.Text" xml:space="preserve">
-    <value>ExFAT</value>
-  </data>
-  <data name="&gt;&gt;ExFATselect.Name" xml:space="preserve">
-    <value>ExFATselect</value>
-  </data>
-  <data name="&gt;&gt;ExFATselect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ExFATselect.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;ExFATselect.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="ntfsSelect.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ntfsSelect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 75</value>
-  </data>
-  <data name="ntfsSelect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 19</value>
-  </data>
-  <data name="ntfsSelect.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="ntfsSelect.Text" xml:space="preserve">
-    <value>NTFS</value>
-  </data>
-  <data name="&gt;&gt;ntfsSelect.Name" xml:space="preserve">
-    <value>ntfsSelect</value>
-  </data>
-  <data name="&gt;&gt;ntfsSelect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ntfsSelect.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;ntfsSelect.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="fat32Select.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fat32Select.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 25</value>
-  </data>
-  <data name="fat32Select.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 19</value>
-  </data>
-  <data name="fat32Select.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="fat32Select.Text" xml:space="preserve">
-    <value>FAT32</value>
-  </data>
-  <data name="&gt;&gt;fat32Select.Name" xml:space="preserve">
-    <value>fat32Select</value>
-  </data>
-  <data name="&gt;&gt;fat32Select.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fat32Select.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;fat32Select.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="roundUpSizeCB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="roundUpSizeCB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 50</value>
-  </data>
-  <data name="roundUpSizeCB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 19</value>
-  </data>
-  <data name="roundUpSizeCB.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="roundUpSizeCB.Text" xml:space="preserve">
-    <value>Size in power of 2</value>
-  </data>
-  <data name="&gt;&gt;roundUpSizeCB.Name" xml:space="preserve">
-    <value>roundUpSizeCB</value>
-  </data>
-  <data name="&gt;&gt;roundUpSizeCB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;roundUpSizeCB.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;roundUpSizeCB.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="merkelappCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="merkelappCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 25</value>
-  </data>
-  <data name="merkelappCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 19</value>
-  </data>
-  <data name="merkelappCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="merkelappCheckBox.Text" xml:space="preserve">
-    <value>Size as disk name</value>
-  </data>
-  <data name="&gt;&gt;merkelappCheckBox.Name" xml:space="preserve">
-    <value>merkelappCheckBox</value>
   </data>
   <data name="&gt;&gt;merkelappCheckBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;merkelappCheckBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="&gt;&gt;usbListView.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;merkelappCheckBox.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;versionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="formatChecked.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;DeviceLocation.Name" xml:space="preserve">
+    <value>DeviceLocation</value>
+  </data>
+  <data name="&gt;&gt;roundUpSizeCB.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 435</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="fat32Select.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="formatChecked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 50</value>
-  </data>
-  <data name="formatChecked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 19</value>
   </data>
   <data name="formatChecked.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="formatChecked.Text" xml:space="preserve">
-    <value>Format</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;formatChecked.Name" xml:space="preserve">
-    <value>formatChecked</value>
+  <data name="&gt;&gt;emergencyLight.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;formatChecked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="roundUpSizeCB.Text" xml:space="preserve">
+    <value>Size in power of 2</value>
   </data>
   <data name="&gt;&gt;formatChecked.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;formatChecked.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="&gt;&gt;ExFATselect.Name" xml:space="preserve">
+    <value>ExFATselect</value>
   </data>
-  <data name="activatedCB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
-    <value>Button</value>
+  <data name="&gt;&gt;fat32Select.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="activatedCB.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;ntfsSelect.Name" xml:space="preserve">
+    <value>ntfsSelect</value>
   </data>
-  <data name="activatedCB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 25</value>
+  <data name="&gt;&gt;roundUpSizeCB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="activatedCB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 25</value>
+  <data name="merkelappCheckBox.Text" xml:space="preserve">
+    <value>Size as disk name</value>
   </data>
-  <data name="activatedCB.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>736, 565</value>
+  </data>
+  <data name="&gt;&gt;DeviceName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="activatedCB.Text" xml:space="preserve">
     <value>Activate</value>
   </data>
-  <data name="&gt;&gt;activatedCB.Name" xml:space="preserve">
-    <value>activatedCB</value>
-  </data>
-  <data name="&gt;&gt;activatedCB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;activatedCB.Parent" xml:space="preserve">
+  <data name="&gt;&gt;fat32Select.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;activatedCB.ZOrder" xml:space="preserve">
-    <value>11</value>
+  <data name="&gt;&gt;emergencyLight.Name" xml:space="preserve">
+    <value>emergencyLight</value>
   </data>
-  <data name="cleanChecked.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cleanChecked.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 25</value>
-  </data>
-  <data name="cleanChecked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>130, 19</value>
-  </data>
-  <data name="cleanChecked.TabIndex" type="System.Int32, mscorlib">
+  <data name="roundUpSizeCB.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="cleanChecked.Text" xml:space="preserve">
-    <value>Remove partition(s)</value>
+  <data name="usbListView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>736, 435</value>
   </data>
-  <data name="&gt;&gt;cleanChecked.Name" xml:space="preserve">
-    <value>cleanChecked</value>
+  <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
+    <value>versionLabel</value>
   </data>
-  <data name="&gt;&gt;cleanChecked.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>SlashUSB</value>
   </data>
-  <data name="&gt;&gt;cleanChecked.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="&gt;&gt;merkelappCheckBox.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;DiskName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cleanChecked.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 435</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>736, 130</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Define action</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="JobStatus.Text" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="JobStatus.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="DriveLetter.Text" xml:space="preserve">
-    <value>Disk</value>
-  </data>
-  <data name="DriveLetter.Width" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="DiskName.Text" xml:space="preserve">
-    <value>Disk name</value>
-  </data>
-  <data name="DiskName.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="DeviceName.Text" xml:space="preserve">
-    <value>Device name</value>
-  </data>
-  <data name="DeviceName.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="DiskSize.Text" xml:space="preserve">
-    <value>Disk size</value>
-  </data>
-  <data name="DiskSize.Width" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="DeviceLocation.Text" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="DeviceLocation.Width" type="System.Int32, mscorlib">
-    <value>150</value>
-  </data>
-  <data name="Hub.Text" xml:space="preserve">
-    <value>Hub</value>
-  </data>
-  <data name="Hub.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="usbListView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="usbListView.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
-        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAiU3lzdGVtLldpbmRvd3MuRm9ybXMu
-        TGlzdFZpZXdHcm91cAYAAAAGSGVhZGVyD0hlYWRlckFsaWdubWVudAZGb290ZXIPRm9vdGVyQWxpZ25t
-        ZW50A1RhZwROYW1lAQQBBAIBKFN5c3RlbS5XaW5kb3dzLkZvcm1zLkhvcml6b250YWxBbGlnbm1lbnQC
-        AAAAKFN5c3RlbS5XaW5kb3dzLkZvcm1zLkhvcml6b250YWxBbGlnbm1lbnQCAAAAAgAAAAYDAAAABkZ1
-        bm5ldAX8////KFN5c3RlbS5XaW5kb3dzLkZvcm1zLkhvcml6b250YWxBbGlnbm1lbnQBAAAAB3ZhbHVl
-        X18ACAIAAAAAAAAABgUAAAAAAfr////8////AAAAAAoGBwAAABNsaXN0Vmlld0dyb3VwRnVubmV0Cw==
-</value>
+  <data name="usbListView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="usbListView.Groups1" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -512,38 +164,14 @@
         dAs=
 </value>
   </data>
-  <data name="usbListView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="usbListView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>736, 435</value>
-  </data>
-  <data name="usbListView.TabIndex" type="System.Int32, mscorlib">
+  <data name="activatedCB.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;usbListView.Name" xml:space="preserve">
-    <value>usbListView</value>
+  <data name="cleanChecked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 19</value>
   </data>
-  <data name="&gt;&gt;usbListView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;usbListView.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;usbListView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>nb</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>736, 565</value>
+  <data name="roundUpSizeCB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 50</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1501,55 +1129,427 @@
         AAABAAAAAAAAgEAAAMDgAADh8AAA
 </value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>SlashUSB</value>
+  <data name="emergencyLight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 46</value>
   </data>
-  <data name="&gt;&gt;JobStatus.Name" xml:space="preserve">
-    <value>JobStatus</value>
+  <data name="testButton.Text" xml:space="preserve">
+    <value>Do action</value>
   </data>
-  <data name="&gt;&gt;JobStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 15</value>
+  </data>
+  <data name="activateHUBbt.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="roundUpSizeCB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>118, 19</value>
+  </data>
+  <data name="versionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 106</value>
+  </data>
+  <data name="&gt;&gt;activatedCB.Name" xml:space="preserve">
+    <value>activatedCB</value>
+  </data>
+  <data name="&gt;&gt;cleanChecked.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="merkelappCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 19</value>
+  </data>
+  <data name="&gt;&gt;merkelappCheckBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="usbListView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 87</value>
+  </data>
+  <data name="emergencyLight.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>736, 130</value>
+  </data>
+  <data name="&gt;&gt;versionLabel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;DriveLetter.Name" xml:space="preserve">
     <value>DriveLetter</value>
   </data>
+  <data name="ntfsSelect.Text" xml:space="preserve">
+    <value>NTFS</value>
+  </data>
+  <data name="testButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 35</value>
+  </data>
+  <data name="&gt;&gt;usbListView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ExFATselect.Text" xml:space="preserve">
+    <value>ExFAT</value>
+  </data>
+  <data name="Hub.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="cleanChecked.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 25</value>
+  </data>
+  <data name="JobStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="versionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="testButton.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="fat32Select.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 19</value>
+  </data>
+  <data name="versionLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;testButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DiskName.Text" xml:space="preserve">
+    <value>Disk name</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="emergencyLight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 75</value>
+  </data>
+  <data name="activateHUBbt.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;formatChecked.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="formatChecked.Text" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="&gt;&gt;testButton.Name" xml:space="preserve">
+    <value>testButton</value>
+  </data>
+  <data name="&gt;&gt;activatedCB.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="usbListView.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ExFATselect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="formatChecked.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 19</value>
+  </data>
+  <data name="&gt;&gt;JobStatus.Name" xml:space="preserve">
+    <value>JobStatus</value>
+  </data>
   <data name="&gt;&gt;DriveLetter.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DiskName.Name" xml:space="preserve">
-    <value>DiskName</value>
+  <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;DiskName.Type" xml:space="preserve">
+  <data name="usbListView.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
+        LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAiU3lzdGVtLldpbmRvd3MuRm9ybXMu
+        TGlzdFZpZXdHcm91cAYAAAAGSGVhZGVyD0hlYWRlckFsaWdubWVudAZGb290ZXIPRm9vdGVyQWxpZ25t
+        ZW50A1RhZwROYW1lAQQBBAIBKFN5c3RlbS5XaW5kb3dzLkZvcm1zLkhvcml6b250YWxBbGlnbm1lbnQC
+        AAAAKFN5c3RlbS5XaW5kb3dzLkZvcm1zLkhvcml6b250YWxBbGlnbm1lbnQCAAAAAgAAAAYDAAAABkZ1
+        bm5ldAX8////KFN5c3RlbS5XaW5kb3dzLkZvcm1zLkhvcml6b250YWxBbGlnbm1lbnQBAAAAB3ZhbHVl
+        X18ACAIAAAAAAAAABgUAAAAAAfr////8////AAAAAAoGBwAAABNsaXN0Vmlld0dyb3VwRnVubmV0Cw==
+</value>
+  </data>
+  <data name="ntfsSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 19</value>
+  </data>
+  <data name="&gt;&gt;DeviceLocation.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DeviceName.Name" xml:space="preserve">
-    <value>DeviceName</value>
-  </data>
-  <data name="&gt;&gt;DeviceName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DiskSize.Name" xml:space="preserve">
-    <value>DiskSize</value>
   </data>
   <data name="&gt;&gt;DiskSize.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DeviceLocation.Name" xml:space="preserve">
-    <value>DeviceLocation</value>
+  <data name="emergencyLight.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
   </data>
-  <data name="&gt;&gt;DeviceLocation.Type" xml:space="preserve">
+  <data name="DeviceName.Text" xml:space="preserve">
+    <value>Device name</value>
+  </data>
+  <data name="&gt;&gt;DiskSize.Name" xml:space="preserve">
+    <value>DiskSize</value>
+  </data>
+  <data name="fat32Select.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="activatedCB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DeviceName.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="&gt;&gt;ExFATselect.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;usbListView.Name" xml:space="preserve">
+    <value>usbListView</value>
+  </data>
+  <data name="testButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>554, 67</value>
+  </data>
+  <data name="roundUpSizeCB.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DeviceLocation.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="&gt;&gt;activateHUBbt.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;fat32Select.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="activateHUBbt.Text" xml:space="preserve">
+    <value>Activate hub</value>
+  </data>
+  <data name="activateHUBbt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>554, 20</value>
+  </data>
+  <data name="DiskSize.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="&gt;&gt;Hub.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;roundUpSizeCB.Name" xml:space="preserve">
+    <value>roundUpSizeCB</value>
+  </data>
+  <data name="&gt;&gt;DiskName.Name" xml:space="preserve">
+    <value>DiskName</value>
+  </data>
+  <data name="fat32Select.Text" xml:space="preserve">
+    <value>FAT32</value>
+  </data>
+  <data name="&gt;&gt;ntfsSelect.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;ntfsSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;testButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="activatedCB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 25</value>
+  </data>
+  <data name="Hub.Text" xml:space="preserve">
+    <value>Hub</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;emergencyLight.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;activatedCB.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="formatChecked.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 50</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Define action</value>
+  </data>
+  <data name="ExFATselect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 19</value>
+  </data>
+  <data name="versionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 15</value>
+  </data>
+  <data name="ExFATselect.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;DeviceName.Name" xml:space="preserve">
+    <value>DeviceName</value>
+  </data>
+  <data name="formatChecked.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="versionLabel.Text" xml:space="preserve">
+    <value>version</value>
+  </data>
+  <data name="testButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="DeviceLocation.Text" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="ExFATselect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 50</value>
+  </data>
+  <data name="activatedCB.Appearance" type="System.Windows.Forms.Appearance, System.Windows.Forms">
+    <value>Button</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;activateHUBbt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ExFATselect.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;cleanChecked.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testButton.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;ExFATselect.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="activateHUBbt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 35</value>
+  </data>
+  <data name="&gt;&gt;emergencyLight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;merkelappCheckBox.Name" xml:space="preserve">
+    <value>merkelappCheckBox</value>
+  </data>
+  <data name="merkelappCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 25</value>
+  </data>
+  <data name="ntfsSelect.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;ntfsSelect.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="&gt;&gt;formatChecked.Name" xml:space="preserve">
+    <value>formatChecked</value>
+  </data>
+  <data name="cleanChecked.Text" xml:space="preserve">
+    <value>Remove partition(s)</value>
+  </data>
+  <data name="&gt;&gt;activateHUBbt.Name" xml:space="preserve">
+    <value>activateHUBbt</value>
+  </data>
+  <data name="&gt;&gt;usbListView.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="merkelappCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="activatedCB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 25</value>
+  </data>
+  <data name="&gt;&gt;JobStatus.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Hub.Name" xml:space="preserve">
     <value>Hub</value>
   </data>
-  <data name="&gt;&gt;Hub.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="JobStatus.Width" type="System.Int32, mscorlib">
+    <value>150</value>
+  </data>
+  <data name="&gt;&gt;formatChecked.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Only quick format supported</value>
+  </data>
+  <data name="fat32Select.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 25</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;activatedCB.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="cleanChecked.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="&gt;&gt;cleanChecked.Name" xml:space="preserve">
+    <value>cleanChecked</value>
+  </data>
+  <data name="DriveLetter.Text" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="merkelappCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DiskSize.Text" xml:space="preserve">
+    <value>Disk size</value>
+  </data>
+  <data name="ntfsSelect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 75</value>
+  </data>
+  <data name="DriveLetter.Width" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;activateHUBbt.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="emergencyLight.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ntfsSelect.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;fat32Select.Name" xml:space="preserve">
+    <value>fat32Select</value>
+  </data>
+  <data name="&gt;&gt;roundUpSizeCB.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="cleanChecked.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DiskName.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="groupBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>nb</value>
+  </metadata>
 </root>
