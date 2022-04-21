@@ -62,7 +62,7 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="emergencyLight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 68</value>
+    <value>12, 75</value>
   </data>
   <data name="emergencyLight.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 46</value>
@@ -103,7 +103,7 @@
     <value>4</value>
   </data>
   <data name="versionLabel.Text" xml:space="preserve">
-    <value>versjon</value>
+    <value>version</value>
   </data>
   <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
     <value>versionLabel</value>
@@ -130,7 +130,7 @@
     <value>3</value>
   </data>
   <data name="testButton.Text" xml:space="preserve">
-    <value>Utfør handling</value>
+    <value>Do action</value>
   </data>
   <data name="&gt;&gt;testButton.Name" xml:space="preserve">
     <value>testButton</value>
@@ -151,13 +151,13 @@
     <value>309, 87</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 15</value>
+    <value>160, 15</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Kun hurtigformatering er støttet</value>
+    <value>Only quick format supported</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -184,7 +184,7 @@
     <value>2</value>
   </data>
   <data name="activateHUBbt.Text" xml:space="preserve">
-    <value>Aktiver hub</value>
+    <value>Activate hub</value>
   </data>
   <data name="&gt;&gt;activateHUBbt.Name" xml:space="preserve">
     <value>activateHUBbt</value>
@@ -286,13 +286,13 @@
     <value>309, 50</value>
   </data>
   <data name="roundUpSizeCB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 19</value>
+    <value>118, 19</value>
   </data>
   <data name="roundUpSizeCB.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="roundUpSizeCB.Text" xml:space="preserve">
-    <value>Størrelse potens av 2</value>
+    <value>Size in power of 2</value>
   </data>
   <data name="&gt;&gt;roundUpSizeCB.Name" xml:space="preserve">
     <value>roundUpSizeCB</value>
@@ -313,13 +313,13 @@
     <value>309, 25</value>
   </data>
   <data name="merkelappCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 19</value>
+    <value>117, 19</value>
   </data>
   <data name="merkelappCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="merkelappCheckBox.Text" xml:space="preserve">
-    <value>Lag stasjonsnavn basert på størrelse</value>
+    <value>Size as disk name</value>
   </data>
   <data name="&gt;&gt;merkelappCheckBox.Name" xml:space="preserve">
     <value>merkelappCheckBox</value>
@@ -340,13 +340,13 @@
     <value>99, 50</value>
   </data>
   <data name="formatChecked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 19</value>
+    <value>64, 19</value>
   </data>
   <data name="formatChecked.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="formatChecked.Text" xml:space="preserve">
-    <value>Formater</value>
+    <value>Format</value>
   </data>
   <data name="&gt;&gt;formatChecked.Name" xml:space="preserve">
     <value>formatChecked</value>
@@ -370,13 +370,13 @@
     <value>12, 25</value>
   </data>
   <data name="activatedCB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 25</value>
+    <value>60, 25</value>
   </data>
   <data name="activatedCB.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="activatedCB.Text" xml:space="preserve">
-    <value>Aktiver</value>
+    <value>Activate</value>
   </data>
   <data name="&gt;&gt;activatedCB.Name" xml:space="preserve">
     <value>activatedCB</value>
@@ -397,13 +397,13 @@
     <value>99, 25</value>
   </data>
   <data name="cleanChecked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 19</value>
+    <value>130, 19</value>
   </data>
   <data name="cleanChecked.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="cleanChecked.Text" xml:space="preserve">
-    <value>Fjern partisjon(er)</value>
+    <value>Remove partition(s)</value>
   </data>
   <data name="&gt;&gt;cleanChecked.Name" xml:space="preserve">
     <value>cleanChecked</value>
@@ -430,7 +430,7 @@
     <value>0</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Standard handling</value>
+    <value>Define action</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -457,25 +457,25 @@
     <value>40</value>
   </data>
   <data name="DiskName.Text" xml:space="preserve">
-    <value>Navn</value>
+    <value>Disk name</value>
   </data>
   <data name="DiskName.Width" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
   <data name="DeviceName.Text" xml:space="preserve">
-    <value>Device navn</value>
+    <value>Device name</value>
   </data>
   <data name="DeviceName.Width" type="System.Int32, mscorlib">
     <value>150</value>
   </data>
   <data name="DiskSize.Text" xml:space="preserve">
-    <value>Størrelse</value>
+    <value>Disk size</value>
   </data>
   <data name="DiskSize.Width" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
   <data name="DeviceLocation.Text" xml:space="preserve">
-    <value>Lokasjon</value>
+    <value>Location</value>
   </data>
   <data name="DeviceLocation.Width" type="System.Int32, mscorlib">
     <value>150</value>
