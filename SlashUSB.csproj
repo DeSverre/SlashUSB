@@ -17,6 +17,7 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <ApplicationIcon>swordUSB.ico</ApplicationIcon>
     <PackageIcon>swordUSB.png</PackageIcon>
+    <RepositoryUrl>https://github.com/DeSverre/SlashUSB</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
