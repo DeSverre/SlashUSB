@@ -61,7 +61,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktiver.
+        ///   Looks up a localized string similar to Activate.
         /// </summary>
         internal static string Aktiver {
             get {
@@ -70,7 +70,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bus type feil. Forventet USB.
+        ///   Looks up a localized string similar to Bus type error. Expected USB.
         /// </summary>
         internal static string BusTypeNotUSB_Exception {
             get {
@@ -79,7 +79,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aktiver hub.
+        ///   Looks up a localized string similar to Activate hub.
         /// </summary>
         internal static string ButtonTextActivate {
             get {
@@ -88,7 +88,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deaktiver hub.
+        ///   Looks up a localized string similar to Deactivate hub.
         /// </summary>
         internal static string ButtonTextDeactivate {
             get {
@@ -106,7 +106,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rens feilet.
+        ///   Looks up a localized string similar to Clean failed.
         /// </summary>
         internal static string CleanFailed {
             get {
@@ -115,7 +115,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rens feil:.
+        ///   Looks up a localized string similar to Clean error:.
         /// </summary>
         internal static string CleanFailedColon {
             get {
@@ -124,7 +124,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Renser.
+        ///   Looks up a localized string similar to Cleaning.
         /// </summary>
         internal static string Cleaning {
             get {
@@ -133,7 +133,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deaktiver.
+        ///   Looks up a localized string similar to Deactivate.
         /// </summary>
         internal static string Deaktiver {
             get {
@@ -142,7 +142,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feil disk type. Forventet flyttbar.
+        ///   Looks up a localized string similar to Disk type error. Expected removable.
         /// </summary>
         internal static string DriveNotRemovableException {
             get {
@@ -160,7 +160,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feil!.
+        ///   Looks up a localized string similar to Error!.
         /// </summary>
         internal static string Error {
             get {
@@ -169,7 +169,16 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Format feilet.
+        ///   Looks up a localized string similar to Error:.
+        /// </summary>
+        internal static string ErrorColon {
+            get {
+                return ResourceManager.GetString("ErrorColon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format failed.
         /// </summary>
         internal static string FormatFailed {
             get {
@@ -178,7 +187,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Formaterer.
+        ///   Looks up a localized string similar to Formatting.
         /// </summary>
         internal static string Formatting {
             get {
@@ -214,7 +223,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle minnepinner som settes inn i hub {0}, vil nå bli initialisert på spesifisert måte.
+        ///   Looks up a localized string similar to All memory sticks inserted in hub {0}, will be initialized as specified.
         /// </summary>
         internal static string MsgBoxOnActivateText {
             get {
@@ -223,7 +232,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HUB aktivert.
+        ///   Looks up a localized string similar to HUB activated.
         /// </summary>
         internal static string MsgBoxOnActivateTextCaption {
             get {
@@ -232,7 +241,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK - løser ut.
+        ///   Looks up a localized string similar to OK - ejecting.
         /// </summary>
         internal static string OK_Eject {
             get {
@@ -250,7 +259,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versjon:.
+        ///   Looks up a localized string similar to Version:.
         /// </summary>
         internal static string PreVersion {
             get {
@@ -259,7 +268,7 @@ namespace SlashUSB {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Klar.
+        ///   Looks up a localized string similar to Ready.
         /// </summary>
         internal static string Ready {
             get {

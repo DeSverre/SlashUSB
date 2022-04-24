@@ -328,10 +328,18 @@ namespace SlashUSB
                 return; // If job already running
 
             job = new Job(clean, format, sizeLabel, fs, round2multipleOf2);
-            while (status != Status.Eject && status != Status.Error)
+
+            try
             {
-                NextState();
-                RunState();
+                while (status != Status.Eject && status != Status.Error)
+                {
+                    NextState();
+                    RunState();
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateStatus(Status.Error, strings.ErrorColon + " " + ex.Message);
             }
 
             mutex.ReleaseMutex();

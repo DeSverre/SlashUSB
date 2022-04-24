@@ -202,9 +202,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:USBskummel"
+        "ProductName" = "8:SlashUSB"
         "ProductCode" = "8:{C4E3E26F-8F7D-43E2-9585-5D77DEB5AC68}"
-        "PackageCode" = "8:{F5D90F51-0B4A-4FF4-90FE-9742DD7E7E5A}"
+        "PackageCode" = "8:{E4751566-0FD3-445E-93A3-15E9D9DD1448}"
         "UpgradeCode" = "8:{B3DDFF8E-DC31-483E-97BD-7B2566498B57}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -215,7 +215,7 @@
         "Manufacturer" = "8:PiratSoft"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:USBskummel"
+        "Title" = "8:SlashUSB"
         "Subject" = "8:"
         "ARPCONTACT" = "8:PiratSoft"
         "Keywords" = "8:"
@@ -753,7 +753,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_610D0C8AAE884E2A847590DF8E32A8F0"
             {
-            "SourcePath" = "8:..\\obj\\Debug\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0BFF692F48BD4E89A4637D067BBB3D6C"

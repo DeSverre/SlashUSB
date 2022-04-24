@@ -118,9 +118,62 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Aktiver" xml:space="preserve">
-    <value>Activate</value>
+    <value>Aktiver</value>
+  </data>
+  <data name="BusTypeNotUSB_Exception" xml:space="preserve">
+    <value>Bus type feil. Forventet USB</value>
+  </data>
+  <data name="ButtonTextActivate" xml:space="preserve">
+    <value>Aktiver hub</value>
+  </data>
+  <data name="ButtonTextDeactivate" xml:space="preserve">
+    <value>Deaktiver hub</value>
+  </data>
+  <data name="CleanFailed" xml:space="preserve">
+    <value>Rens feilet</value>
+  </data>
+  <data name="CleanFailedColon" xml:space="preserve">
+    <value>Rens feil:</value>
+  </data>
+  <data name="Cleaning" xml:space="preserve">
+    <value>Renser</value>
+    <comment>Job status</comment>
   </data>
   <data name="Deaktiver" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>Deaktiver</value>
+  </data>
+  <data name="DriveNotRemovableException" xml:space="preserve">
+    <value>Feil disk type. Forventet flyttbar</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Feil!</value>
+    <comment>Job status</comment>
+  </data>
+  <data name="ErrorColon" xml:space="preserve">
+    <value>Feil:</value>
+  </data>
+  <data name="FormatFailed" xml:space="preserve">
+    <value>Format feilet</value>
+  </data>
+  <data name="Formatting" xml:space="preserve">
+    <value>Formaterer</value>
+    <comment>Job status</comment>
+  </data>
+  <data name="MsgBoxOnActivateText" xml:space="preserve">
+    <value>Alle minnepinner som settes inn i hub {0}, vil nå bli initialisert på spesifisert måte</value>
+  </data>
+  <data name="MsgBoxOnActivateTextCaption" xml:space="preserve">
+    <value>HUB aktivert</value>
+  </data>
+  <data name="OK_Eject" xml:space="preserve">
+    <value>OK - løser ut</value>
+    <comment>Job status</comment>
+  </data>
+  <data name="PreVersion" xml:space="preserve">
+    <value>Versjon:</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Klar</value>
+    <comment>Job status</comment>
   </data>
 </root>
